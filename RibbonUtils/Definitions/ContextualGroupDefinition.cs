@@ -5,10 +5,19 @@ using System.Text;
 
 namespace RibbonUtils.Definitions
 {
+    /// <summary>
+    /// Contextual tab group
+    /// </summary>
     public class ContextualGroupDefinition : RibbonDefinition
     {
+        /// <summary>
+        /// Title. Will be shown above inner tabs
+        /// </summary>
         public string Title;
-        public string Command;
+        
+        /// <summary>
+        /// Inner tab
+        /// </summary>
         public TabDefinition Tab;
     }
 }

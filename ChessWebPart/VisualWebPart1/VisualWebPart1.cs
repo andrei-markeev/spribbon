@@ -32,7 +32,6 @@ namespace ChessWebPart.VisualWebPart1
             {
                 Id = "GamesContextualGroup",
                 Title = "Games",
-                Command = "GamesContextualTab.EnableContextualGroup",
                 Tab = new TabDefinition()
                 {
                     Id = "GamesTab",

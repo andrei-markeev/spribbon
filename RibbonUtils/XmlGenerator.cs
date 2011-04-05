@@ -109,7 +109,7 @@ namespace RibbonUtils
 
             return new XElement("ContextualGroup",
                     new XAttribute("Color", "Yellow"),
-                    new XAttribute("Command", definition.Command),
+                    new XAttribute("Command", definition.Id + ".EnableContextualGroup"),
                     new XAttribute("Id", RibbonHelper.RibbonId(definition.Id)),
                     new XAttribute("Title", definition.Title),
                     new XAttribute("Sequence", "502"),

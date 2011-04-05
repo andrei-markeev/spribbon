@@ -45,7 +45,7 @@ namespace RibbonUtils
 
                 //Create the contextual group object and initialize its values.
                 contextualGroup.Id = RibbonHelper.RibbonId(contextualGroupDefinition.Id);
-                contextualGroup.Command = contextualGroupDefinition.Command;
+                contextualGroup.Command = contextualGroupDefinition.Id + ".EnableContextualGroup";
                 contextualGroup.VisibilityContext = contextualGroupDefinition.Id + ".CustomVisibilityContext";
 
                 //Create the tab object and initialize its values.

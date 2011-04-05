@@ -10,6 +10,9 @@ namespace RibbonUtils.Definitions
     /// </summary>
     public abstract class RibbonDefinition
     {
+        /// <summary>
+        /// Element unique identifier. It is required for every Ribbon element. Can contain dots ('.').
+        /// </summary>
         public string Id;
     }
 }
