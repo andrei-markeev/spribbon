@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RibbonUtils
+namespace RibbonUtils.Definitions
 {
-    public class TemplateDefinition
+    public class TemplateDefinition : RibbonDefinition
     {
-        public string Id;
         public string SizeId;
         public IEnumerable<string> SectionIds;
         internal Func<TemplateDefinition, string> GetXMLFunc;

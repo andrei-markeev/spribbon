@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RibbonUtils
+namespace RibbonUtils.Definitions
 {
-    public class GroupDefinition
+    public class GroupDefinition : RibbonDefinition
     {
-        public string Id;
         public string Title;
         public string Description = string.Empty;
         public object Size;

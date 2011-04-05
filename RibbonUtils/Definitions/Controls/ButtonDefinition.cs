@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RibbonUtils.ControlDefinitions
+namespace RibbonUtils.Definitions.Controls
 {
-    public class FlyoutAnchorDefinition : ControlDefinition
+    public class ButtonDefinition : ControlDefinition
     {
         internal override string Type
         {
-            get { return "FlyoutAnchor"; }
+            get { return "Button"; }
         }
     }
 }

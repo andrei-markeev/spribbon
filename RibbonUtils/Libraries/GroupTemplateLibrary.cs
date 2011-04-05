@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using RibbonUtils.Definitions;
 
-namespace RibbonUtils
+namespace RibbonUtils.Libraries
 {
     public class GroupTemplateLibrary
     {

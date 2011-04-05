@@ -8,7 +8,9 @@ using System.Web.UI.WebControls.WebParts;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
 using RibbonUtils;
-using RibbonUtils.ControlDefinitions;
+using RibbonUtils.Definitions;
+using RibbonUtils.Definitions.Controls;
+using RibbonUtils.Libraries;
 
 namespace ChessWebPart.VisualWebPart1
 {
@@ -24,29 +26,29 @@ namespace ChessWebPart.VisualWebPart1
             Controls.Add(control);
         }
 
-public override ContextualGroupDefinition GetContextualGroupDefinition()
-{
-    return new ContextualGroupDefinition()
-    {
-        Id = "GamesContextualGroup",
-        Title = "Games",
-        Command = "GamesContextualTab.EnableContextualGroup",
-        GroupTemplates = new TemplateDefinition[] { GroupTemplateLibrary.SimpleTemplate },
-        Tab = new TabDefinition()
+        public override ContextualGroupDefinition GetContextualGroupDefinition()
         {
-            Id = "GamesTab",
-            Title = "Chess",
-            Groups = new GroupDefinition[]
+            return new ContextualGroupDefinition()
             {
-                new GroupDefinition()
+                Id = "GamesContextualGroup",
+                Title = "Games",
+                Command = "GamesContextualTab.EnableContextualGroup",
+                Tab = new TabDefinition()
                 {
-                    Id="Game",
-                    Title="Game",
-                    Description="",
-                    Template=GroupTemplateLibrary.SimpleTemplate.Id,
-                    Size=GroupTemplateLibrary.SimpleTemplate.SizeId,
-                    Controls= new ControlDefinition[]
+                    Id = "GamesTab",
+                    Title = "Chess",
+                    GroupTemplates = new TemplateDefinition[] { GroupTemplateLibrary.SimpleTemplate },
+                    Groups = new GroupDefinition[]
                     {
+                        new GroupDefinition()
+                        {
+                            Id="Game",
+                            Title="Game",
+                            Description="",
+                            Template=GroupTemplateLibrary.SimpleTemplate.Id,
+                            Size=GroupTemplateLibrary.SimpleTemplate.SizeId,
+                            Controls= new ControlDefinition[]
+                            {
                                 new ButtonDefinition()
                                 {
                                     Id = "New",

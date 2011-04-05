@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RibbonUtils
+namespace RibbonUtils.Definitions
 {
-    public abstract class ControlDefinition
+    public abstract class ControlDefinition : RibbonDefinition
     {
         internal abstract string Type { get; }
 
-        public string Id;
         public string Title;
         public string Description = string.Empty;
         public string ToolTipTitle;
