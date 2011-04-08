@@ -81,15 +81,15 @@ namespace RibbonUtils
         {
 
             List<IRibbonCommand> commands = groups
-                .SelectMany(c => c.Controls)
-                .WithDescendants(c => c.Controls)
+                .SelectMany(g => g.Controls)
+                .WithDescendants(c => c is ContainerDefinition ? (c as ContainerDefinition).Controls : null)
                 .Where(c => !String.IsNullOrEmpty(c.CommandName))
                 .Select<ControlDefinition, IRibbonCommand>(b => new SPRibbonCommand(b.CommandName, b.CommandJavaScript, b.CommandEnableJavaScript)).ToList();
 
-            ScriptLink.Register(page, "SP.Runtime.js", false, true);
-            ScriptLink.Register(page, "SP.js", false, true);
-            ScriptLink.Register(page, "CUI.js", false, true);
-            ScriptLink.Register(page, "SP.Ribbon.js", false, true);
+            //ScriptLink.Register(page, "SP.Runtime.js", false, true);
+            //ScriptLink.Register(page, "SP.js", false, true);
+            //ScriptLink.Register(page, "CUI.js", false, true);
+            //ScriptLink.Register(page, "SP.Ribbon.js", false, true);
 
             SPRibbonScriptManager ribbonScriptManager = new SPRibbonScriptManager();
 

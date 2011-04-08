@@ -6,6 +6,7 @@ using System.Web.UI.WebControls.WebParts;
 using Microsoft.SharePoint.WebControls;
 using System.Xml;
 using RibbonUtils.Definitions;
+using Microsoft.SharePoint;
 
 namespace RibbonUtils
 {
@@ -35,6 +36,10 @@ namespace RibbonUtils
             get
             {
                 WebPartContextualInfo info = new WebPartContextualInfo();
+
+                WebPartManager webPartManager = WebPartManager.GetCurrentWebPartManager(this.Page);
+                if (webPartManager.DisplayMode.Name != WebPartManager.BrowseDisplayMode.Name)
+                    return info;
 
                 var contextualGroupDefinition = GetContextualGroupDefinition();
                 if (contextualGroupDefinition == null)
@@ -67,6 +72,10 @@ namespace RibbonUtils
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
+
+            WebPartManager webPartManager = WebPartManager.GetCurrentWebPartManager(this.Page);
+            if (webPartManager.DisplayMode.Name != WebPartManager.BrowseDisplayMode.Name)
+                return;
 
             var contextualGroupDefinition = GetContextualGroupDefinition();
             if (contextualGroupDefinition == null)

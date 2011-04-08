@@ -10,7 +10,7 @@ namespace RibbonUtils.Definitions.Controls
     /// Does not have any action.
     /// Inner controls are required.
     /// </summary>
-    public class FlyoutAnchorDefinition : ControlDefinition
+    public class FlyoutAnchorDefinition : ContainerDefinition
     {
         internal override string Type
         {

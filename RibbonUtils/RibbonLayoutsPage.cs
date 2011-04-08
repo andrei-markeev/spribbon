@@ -36,7 +36,7 @@ namespace RibbonUtils
  	        base.OnPreRender(e);
 
             var tabDefinition = GetTabDefinition();
-            if (tabDefinition != null)
+            if (tabDefinition != null && !this.DesignMode)
                 RibbonController.Current.AddRibbonTabToPage(tabDefinition, this);
         }
 

@@ -21,6 +21,5 @@ namespace RibbonUtils.Definitions
         public string CommandName;
         public string CommandJavaScript = string.Empty;
         public string CommandEnableJavaScript = "true";
-        public IEnumerable<ControlDefinition> Controls;
     }
 }

@@ -166,11 +166,12 @@ namespace RibbonUtils
                         controlElement.Add(new XAttribute("Image32by32Top", -control.ImageY.Value * 32));
                 }
 
-                if (control.GetType() == typeof(FlyoutAnchorDefinition)
-                    && control.Controls != null
-                    && control.Controls.Count() > 0)
+                var container = control as ContainerDefinition;
+                if (container != null
+                    && container.Controls != null
+                    && container.Controls.Count() > 0)
                 {
-                    string menuId = groupId + "." + control.Id + ".Menu";
+                    string menuId = groupId + "." + container.Id + ".Menu";
                     string sectionId = menuId + ".MainSection";
                     string controlsId = sectionId + ".Controls";
 
@@ -185,7 +186,7 @@ namespace RibbonUtils
                                 controlsElement)
                         ));
 
-                    RecursiveAddControls(controlsElement, control.Controls, sectionId);
+                    RecursiveAddControls(controlsElement, container.Controls, sectionId);
                 }
 
             }

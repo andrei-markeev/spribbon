@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Definitions\ContainerDefinition.cs" />
     <Compile Include="Definitions\Controls\ButtonDefinition.cs" />
     <Compile Include="ContextualWebPart.cs" />
     <Compile Include="Definitions\ControlDefinition.cs" />
