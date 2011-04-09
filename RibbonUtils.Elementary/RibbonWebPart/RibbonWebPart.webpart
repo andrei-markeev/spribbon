@@ -2,7 +2,7 @@
 <webParts>
   <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
     <metaData>
-      <type name="RibbonUtils.Elementary.VisualWebPart1.RibbonWebPart, $SharePoint.Project.AssemblyFullName$" />
+      <type name="RibbonUtils.Elementary.WebParts.RibbonWebPart, $SharePoint.Project.AssemblyFullName$" />
       <importErrorMessage>$Resources:core,ImportErrorMessage;</importErrorMessage>
     </metaData>
     <data>

@@ -18,6 +18,6 @@ namespace RibbonUtils.Definitions
         /// <summary>
         /// Inner tab
         /// </summary>
-        public TabDefinition Tab;
+        public IEnumerable<TabDefinition> Tabs;
     }
 }

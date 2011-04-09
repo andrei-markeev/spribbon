@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RibbonUtils.Elementary.VisualWebPart1 {
+namespace RibbonUtils.Elementary.WebParts {
     
     
     public partial class RibbonWebPartUserControl {

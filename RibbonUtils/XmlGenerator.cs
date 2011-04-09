@@ -105,18 +105,21 @@ namespace RibbonUtils
         /// <returns>XML for Ribbon, it can be used in RegisterDataExtension method of the SPRibbon object</returns>
         private XElement GetContextualGroupElement(ContextualGroupDefinition definition)
         {
-            var tabElement = GetTabElement(definition.Tab);
-
-            return new XElement("ContextualGroup",
+            var groupElement = new XElement("ContextualGroup",
                     new XAttribute("Color", "Yellow"),
                     new XAttribute("Command", definition.Id + ".EnableContextualGroup"),
                     new XAttribute("Id", RibbonHelper.RibbonId(definition.Id)),
                     new XAttribute("Title", definition.Title),
                     new XAttribute("Sequence", "502"),
-                    new XAttribute("ContextualGroupId", definition.Id),
-                    tabElement
+                    new XAttribute("ContextualGroupId", definition.Id)
                 );
 
+            foreach (TabDefinition tab in definition.Tabs)
+            {
+                groupElement.Add(GetTabElement(tab));
+            }
+
+            return groupElement;
         }
 
         private void RecursiveAddControls(XElement parent, IEnumerable<ControlDefinition> controls, string groupId)

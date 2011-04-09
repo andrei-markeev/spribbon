@@ -11,7 +11,7 @@ using RibbonUtils.Definitions;
 using RibbonUtils.Libraries;
 using RibbonUtils.Definitions.Controls;
 
-namespace RibbonUtils.Elementary.VisualWebPart1
+namespace RibbonUtils.Elementary.WebParts
 {
     [ToolboxItemAttribute(false)]
     public class RibbonWebPart : ContextualWebPart
@@ -31,34 +31,66 @@ namespace RibbonUtils.Elementary.VisualWebPart1
             {
                 Id = "TestContextualGroup",
                 Title = "Contextual actions",
-                Tab = new TabDefinition()
+                Tabs = new TabDefinition[]
                 {
-                    Id = "TestTab",
-                    Title = "My tab",
-                    GroupTemplates = new TemplateDefinition[] { GroupTemplateLibrary.SimpleTemplate },
-                    Groups = new GroupDefinition[]
-                {
-                    new GroupDefinition()
+                    new TabDefinition()
                     {
-                        Id = "TestControlGroup",
-                        Title = "Buttons group",
-                        Size = GroupTemplateLibrary.SimpleTemplate.SizeId,
-                        Template = GroupTemplateLibrary.SimpleTemplate.Id,
-                        Controls = new ControlDefinition[]
+                        Id = "TestTab",
+                        Title = "My tab",
+                        GroupTemplates = new TemplateDefinition[] { GroupTemplateLibrary.SimpleTemplate },
+                        Groups = new GroupDefinition[]
                         {
-                            new ButtonDefinition()
+                            new GroupDefinition()
                             {
-                                Id = "TestButton",
-                                Title = "Test alert",
-                                Image32Url = "/_layouts/images/erroricon.png",
-                                CommandName = "TestAlert",
-                                CommandJavaScript = "alert('test')",
-                                TemplateAlias = GroupTemplateLibrary.SimpleTemplate.SectionIds.First()
+                                Id = "TestControlGroup",
+                                Title = "Buttons group",
+                                Size = GroupTemplateLibrary.SimpleTemplate.SizeId,
+                                Template = GroupTemplateLibrary.SimpleTemplate.Id,
+                                Controls = new ControlDefinition[]
+                                {
+                                    new ButtonDefinition()
+                                    {
+                                        Id = "TestButton",
+                                        Title = "Test alert",
+                                        Image32Url = "/_layouts/images/erroricon.png",
+                                        CommandName = "TestAlert",
+                                        CommandJavaScript = "alert('test')",
+                                        TemplateAlias = GroupTemplateLibrary.SimpleTemplate.SectionIds.First()
+                                    }
+                                }
+
                             }
                         }
+                    },
+                    new TabDefinition()
+                    {
+                        Id = "TestTab2",
+                        Title = "My tab2",
+                        GroupTemplates = new TemplateDefinition[] { GroupTemplateLibrary.SimpleTemplate },
+                        Groups = new GroupDefinition[]
+                        {
+                            new GroupDefinition()
+                            {
+                                Id = "TestControlGroup2",
+                                Title = "Buttons group",
+                                Size = GroupTemplateLibrary.SimpleTemplate.SizeId,
+                                Template = GroupTemplateLibrary.SimpleTemplate.Id,
+                                Controls = new ControlDefinition[]
+                                {
+                                    new ButtonDefinition()
+                                    {
+                                        Id = "TestButton2",
+                                        Title = "Test alert 2",
+                                        Image32Url = "/_layouts/images/erroricon.png",
+                                        CommandName = "TestAlert2",
+                                        CommandJavaScript = "alert('test 2')",
+                                        TemplateAlias = GroupTemplateLibrary.SimpleTemplate.SectionIds.First()
+                                    }
+                                }
 
+                            }
+                        }
                     }
-                }
                 }
             };
 

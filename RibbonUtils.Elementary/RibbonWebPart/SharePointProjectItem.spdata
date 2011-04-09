@@ -6,6 +6,6 @@
     <ProjectItemFile Source="RibbonWebPartUserControl.ascx" Target="CONTROLTEMPLATES\RibbonUtils.Elementary\RibbonWebPart\" Type="TemplateFile" />
   </Files>
   <SafeControls>
-    <SafeControl Name="SafeControlEntry1" Assembly="$SharePoint.Project.AssemblyFullName$" Namespace="RibbonUtils.Elementary.VisualWebPart1" TypeName="*" IsSafe="true" IsSafeAgainstScript="false" />
+    <SafeControl Name="SafeControlEntry1" Assembly="$SharePoint.Project.AssemblyFullName$" Namespace="RibbonUtils.Elementary.WebParts" TypeName="*" IsSafe="true" IsSafeAgainstScript="false" />
   </SafeControls>
 </ProjectItem>

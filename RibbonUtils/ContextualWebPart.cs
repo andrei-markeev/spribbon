@@ -46,20 +46,22 @@ namespace RibbonUtils
                     return info;
 
                 WebPartRibbonContextualGroup contextualGroup = new WebPartRibbonContextualGroup();
-                WebPartRibbonTab ribbonTab = new WebPartRibbonTab();
 
-                //Create the contextual group object and initialize its values.
+                // Contextual group
                 contextualGroup.Id = RibbonHelper.RibbonId(contextualGroupDefinition.Id);
                 contextualGroup.Command = contextualGroupDefinition.Id + ".EnableContextualGroup";
                 contextualGroup.VisibilityContext = contextualGroupDefinition.Id + ".CustomVisibilityContext";
-
-                //Create the tab object and initialize its values.
-                ribbonTab.Id = RibbonHelper.RibbonId(contextualGroupDefinition.Tab.Id);
-                ribbonTab.VisibilityContext = contextualGroupDefinition.Tab.Id + ".CustomVisibilityContext";
-
-                //Add the contextual group and tab to the WebPartContextualInfo.
                 info.ContextualGroups.Add(contextualGroup);
-                info.Tabs.Add(ribbonTab);
+
+                // Tabs
+                foreach (TabDefinition tab in contextualGroupDefinition.Tabs)
+                {
+                    WebPartRibbonTab ribbonTab = new WebPartRibbonTab();
+                    ribbonTab.Id = RibbonHelper.RibbonId(tab.Id);
+                    ribbonTab.VisibilityContext = tab.Id + ".CustomVisibilityContext";
+                    info.Tabs.Add(ribbonTab);
+                }
+
                 info.PageComponentId = SPRibbon.GetWebPartPageComponentId(this);
 
                 return info;

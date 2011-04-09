@@ -39,8 +39,8 @@ namespace RibbonUtils
             page.PreRenderComplete += new EventHandler(page_PreRenderComplete);
 
             AddRibbonExtension(XmlGenerator.Current.GetContextualGroupXML(definition), page, "Ribbon.ContextualTabs");
-            AddGroupTemplatesRibbonExtensions(definition.Tab.GroupTemplates, page);
-            AddCommands(definition.Tab.Groups, page);
+            AddGroupTemplatesRibbonExtensions(definition.Tabs.SelectMany(t => t.GroupTemplates), page);
+            AddCommands(definition.Tabs.SelectMany(t => t.Groups), page);
         }
 
         internal void AddRibbonTabToPage(TabDefinition definition, Page page)
