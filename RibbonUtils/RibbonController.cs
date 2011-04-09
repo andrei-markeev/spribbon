@@ -34,9 +34,10 @@ namespace RibbonUtils
 
         #endregion
 
-        
         internal void AddRibbonContextualTabToPage(ContextualGroupDefinition definition, Page page)
         {
+            page.PreRenderComplete += new EventHandler(page_PreRenderComplete);
+
             AddRibbonExtension(XmlGenerator.Current.GetContextualGroupXML(definition), page, "Ribbon.ContextualTabs");
             AddGroupTemplatesRibbonExtensions(definition.Tab.GroupTemplates, page);
             AddCommands(definition.Tab.Groups, page);
@@ -47,6 +48,7 @@ namespace RibbonUtils
             AddRibbonExtension(XmlGenerator.Current.GetTabXML(definition), page, "Ribbon.Tabs");
             AddGroupTemplatesRibbonExtensions(definition.GroupTemplates, page);
             AddCommands(definition.Groups, page);
+            RegisterCommands(page);
 
             Ribbon ribbon = SPRibbon.GetCurrent(page);
             ribbon.MakeTabAvailable(RibbonHelper.RibbonId(definition.Id));
@@ -54,6 +56,16 @@ namespace RibbonUtils
         }
 
         #region Private functions
+
+        List<IRibbonCommand> commands = new List<IRibbonCommand>();
+
+        private void page_PreRenderComplete(object sender, EventArgs e)
+        {
+            Page page = sender as Page;
+            
+            if (commands.Count > 0)
+                RegisterCommands(page);
+        }
 
         private void AddGroupTemplatesRibbonExtensions(IEnumerable<TemplateDefinition> templates, Page page)
         {
@@ -77,20 +89,20 @@ namespace RibbonUtils
             ribbon.RegisterDataExtension(ribbonExtensions.FirstChild, parentId + "._children");
         }
 
-        private static void AddCommands(IEnumerable<GroupDefinition> groups, Page page)
+        private void AddCommands(IEnumerable<GroupDefinition> groups, Page page)
         {
 
-            List<IRibbonCommand> commands = groups
+            commands.AddRange(
+                groups
                 .SelectMany(g => g.Controls)
                 .WithDescendants(c => c is ContainerDefinition ? (c as ContainerDefinition).Controls : null)
                 .Where(c => !String.IsNullOrEmpty(c.CommandName))
-                .Select<ControlDefinition, IRibbonCommand>(b => new SPRibbonCommand(b.CommandName, b.CommandJavaScript, b.CommandEnableJavaScript)).ToList();
+                .Select<ControlDefinition, IRibbonCommand>(b => new SPRibbonCommand(b.CommandName, b.CommandJavaScript, b.CommandEnableJavaScript)));
 
-            //ScriptLink.Register(page, "SP.Runtime.js", false, true);
-            //ScriptLink.Register(page, "SP.js", false, true);
-            //ScriptLink.Register(page, "CUI.js", false, true);
-            //ScriptLink.Register(page, "SP.Ribbon.js", false, true);
+        }
 
+        private void RegisterCommands(Page page)
+        {
             SPRibbonScriptManager ribbonScriptManager = new SPRibbonScriptManager();
 
             ribbonScriptManager.RegisterGetCommandsFunction(page, "getGlobalCommands", commands);
@@ -98,10 +110,11 @@ namespace RibbonUtils
             ribbonScriptManager.RegisterHandleCommandFunction(page, "handleCommand", commands);
 
             page.ClientScript.RegisterClientScriptBlock(
-                page.GetType(), 
+                page.GetType(),
                 "InitPageComponent",
                 PageComponentScript.GetText("RibbonUtils"));
 
+            commands.Clear();
         }
 
         #endregion
