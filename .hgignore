@@ -5,3 +5,4 @@ pkgobj
 bin
 *.suo
 *.user
+TestResults

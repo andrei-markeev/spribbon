@@ -50,7 +50,7 @@ namespace RibbonUtils
         private void CheckArray(FieldInfo field, RibbonDefinition obj)
         {
             var attribute = (ArrayElementsRequiredAttribute)field.GetCustomAttributes(typeof(ArrayElementsRequiredAttribute), false).FirstOrDefault();
-
+            
             if (attribute != null)
             {
                 var value = (IEnumerable<RibbonDefinition>)field.GetValue(obj);
@@ -71,7 +71,7 @@ namespace RibbonUtils
 
             if (attribute != null)
             {
-                if (field.GetValue(obj).Equals(field.FieldType.IsValueType ? Activator.CreateInstance(field.FieldType) : null))
+                if (field.GetValue(obj) == (field.FieldType.IsValueType ? Activator.CreateInstance(field.FieldType) : null))
                     throw new ValidationException(
                         String.Format("{0}{1}: Validation failed! {2} is required.",
                             obj.GetType().Name,
@@ -113,7 +113,15 @@ namespace RibbonUtils
             if (attribute != null)
             {
                 string value = (string)field.GetValue(obj);
-                if (value == null || !new Regex(attribute.Pattern).Match(value).Success)
+                string pattern = attribute.Pattern;
+
+                if (!pattern.StartsWith("^"))
+                    pattern = "^" + pattern;
+
+                if (!pattern.EndsWith("$"))
+                    pattern += "$";
+
+                if (value == null || !new Regex(pattern).Match(value).Success)
                 {
                     throw new ValidationException(
                         String.Format("{0}{1}: Validation failed! {2} has value '{3}', which doesn't match validation pattern '{4}'.",

@@ -17,8 +17,9 @@ namespace RibbonUtils.Definitions.Controls
         }
 
         /// <summary>
-        /// Menu controls
+        /// Menu controls. At least one is required.
         /// </summary>
+        [ArrayElementsRequired]
         public IEnumerable<ControlDefinition> Controls { get; set; }
 
     }

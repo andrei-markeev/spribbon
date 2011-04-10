@@ -38,7 +38,7 @@ namespace RibbonUtils.Libraries
         /// </summary>
         public static GroupTemplateDefinition SimpleTemplate = new GroupTemplateDefinition()
         {
-            Id = "Ribbon.Templates.RibbonUtils.Simple",
+            Id = "RibbonUtilsSimple",
             SizeId = "Large",
             SectionIds = new string[] { "o1" },
             GetXMLFunc = (GroupTemplateDefinition definition) =>
@@ -64,7 +64,7 @@ namespace RibbonUtils.Libraries
         /// </summary>
         public static GroupTemplateDefinition ThreeRowTemplate = new GroupTemplateDefinition()
         {
-            Id = "Ribbon.Templates.RibbonUtils.Flexible",
+            Id = "RibbonUtilsThreeRow",
             SizeId = "Medium",
             SectionIds = new string[] { "o1" },
             GetXMLFunc = (GroupTemplateDefinition definition) =>

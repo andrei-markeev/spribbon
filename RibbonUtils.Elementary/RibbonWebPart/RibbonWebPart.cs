@@ -35,7 +35,7 @@ namespace RibbonUtils.Elementary.WebParts
                 {
                     new TabDefinition()
                     {
-                        Id = "Tab.1",
+                        Id = "Tab1",
                         Title = "for SharePoint 2010",
                         Groups = new GroupDefinition[]
                         {

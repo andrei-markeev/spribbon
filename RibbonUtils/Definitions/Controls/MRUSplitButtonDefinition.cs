@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace RibbonUtils.Definitions.Controls
 {
@@ -28,13 +29,15 @@ namespace RibbonUtils.Definitions.Controls
         }
 
         /// <summary>
-        /// Initial button ID, this must be ID of one of inner controls
+        /// Initial button ID, this must be ID of one of inner controls. Required.
         /// </summary>
+        [Required]
         public string InitialItem;
 
         /// <summary>
-        /// Menu controls, at least one member is required
+        /// Menu controls. At least one member is required.
         /// </summary>
+        [ArrayElementsRequired]
         public IEnumerable<ControlDefinition> Controls { get; set; }
     }
 }

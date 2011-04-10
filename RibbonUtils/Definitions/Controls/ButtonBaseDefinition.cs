@@ -23,12 +23,13 @@ namespace RibbonUtils.Definitions.Controls
         /// <summary>
         /// Javascript will be run when button is pressed.
         /// Required for all types of buttons.
+        /// By default, button does nothing.
         /// </summary>
         public string CommandJavaScript = string.Empty;
 
         /// <summary>
         /// Javascript to determine, if control is enabled or disabled.
-        /// By default it is "true" (always enabled).
+        /// By default it is "true" (button is always enabled).
         /// </summary>
         public string CommandEnableJavaScript = "true";
     }

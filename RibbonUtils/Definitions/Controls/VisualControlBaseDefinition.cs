@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace RibbonUtils.Definitions.Controls
 {
@@ -50,8 +51,9 @@ namespace RibbonUtils.Definitions.Controls
         }
 
         /// <summary>
-        /// Displayable title for control
+        /// Displayable title for control. Required.
         /// </summary>
+        [Required]
         public string Title;
 
         /// <summary>
