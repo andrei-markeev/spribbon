@@ -6,20 +6,19 @@ using System.Text;
 namespace RibbonUtils.Definitions.Controls
 {
     /// <summary>
-    /// Anchor for dropdown menu.
-    /// Does not have any action on click.
+    /// Button with dropdown menu
     /// </summary>
-    public class FlyoutAnchorDefinition : VisualControlBaseDefinition, IContainer
+    public class SplitButtonDefinition : ButtonBaseDefinition, IContainer
     {
+
         internal override string Tag
         {
-            get { return "FlyoutAnchor"; }
+            get { return "SplitButton"; }
         }
 
         /// <summary>
         /// Menu controls
         /// </summary>
         public IEnumerable<ControlDefinition> Controls { get; set; }
-
     }
 }

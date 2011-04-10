@@ -8,7 +8,7 @@ namespace RibbonUtils.Definitions
     /// <summary>
     /// Control group template definition.
     /// </summary>
-    public class TemplateDefinition : RibbonDefinition
+    public class GroupTemplateDefinition : RibbonDefinition
     {
         /// <summary>
         /// Id for size tags. You will need this id when creating <see cref="GroupDefinition"/> instances.
@@ -20,7 +20,7 @@ namespace RibbonUtils.Definitions
         /// </summary>
         public IEnumerable<string> SectionIds;
 
-        internal Func<TemplateDefinition, string> GetXMLFunc;
+        internal Func<GroupTemplateDefinition, string> GetXMLFunc;
         internal string XML
         {
             get

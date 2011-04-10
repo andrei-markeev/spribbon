@@ -38,16 +38,13 @@ namespace ChessWebPart.VisualWebPart1
                     {
                         Id = "GamesTab",
                         Title = "Chess",
-                        GroupTemplates = new TemplateDefinition[] { GroupTemplateLibrary.SimpleTemplate },
                         Groups = new GroupDefinition[]
                         {
                             new GroupDefinition()
                             {
                                 Id="Game",
                                 Title="Game",
-                                Description="",
-                                Template=GroupTemplateLibrary.SimpleTemplate.Id,
-                                Size=GroupTemplateLibrary.SimpleTemplate.SizeId,
+                                Template=GroupTemplateLibrary.SimpleTemplate,
                                 Controls= new ControlDefinition[]
                                 {
                                     new ButtonDefinition()
@@ -55,35 +52,29 @@ namespace ChessWebPart.VisualWebPart1
                                         Id = "New",
                                         Title = "Start new game",
                                         Description = "Create new user",
-                                        CommandName = "Chess.NewGame",
                                         CommandJavaScript = "window.location.reload();",
                                         Image16Url="/_layouts/images/ChessWebPart/new16.png",
-                                        Image32Url="/_layouts/images/ChessWebPart/new32.png",
-                                        TemplateAlias = GroupTemplateLibrary.SimpleTemplate.SectionIds.First()
+                                        Image32Url="/_layouts/images/ChessWebPart/new32.png"
                                     },
                                     new ButtonDefinition()
                                     {
                                         Id = "Undo",
                                         Title = "Undo last move",
-                                        CommandName = "Chess.UndoMove",
                                         CommandJavaScript = "Gb();",
                                         Image16Url = RibbonHelper.GetStandardImage16(),
                                         Image32Url = RibbonHelper.GetStandardImage32(),
                                         ImageX = 3,
-                                        ImageY = 13,
-                                        TemplateAlias = GroupTemplateLibrary.SimpleTemplate.SectionIds.First()
+                                        ImageY = 13
                                     },
                                     new ButtonDefinition()
                                     {
                                         Id= "Swap",
                                         Title= "Swap sides",
-                                        CommandName = "Chess.SwapSides",
                                         CommandJavaScript = "Rf(8-P);",
                                         Image16Url = RibbonHelper.GetStandardImage16(),
                                         Image32Url = RibbonHelper.GetStandardImage32(),
                                         ImageX = 12,
-                                        ImageY = 2,
-                                        TemplateAlias = GroupTemplateLibrary.SimpleTemplate.SectionIds.First()
+                                        ImageY = 2
                                     }
                                 }
 
@@ -93,51 +84,43 @@ namespace ChessWebPart.VisualWebPart1
                             {
                                 Id="Options",
                                 Title="Options",
-                                Description="",
-                                Template=GroupTemplateLibrary.SimpleTemplate.Id,
-                                Size=GroupTemplateLibrary.SimpleTemplate.SizeId,
+                                Template=GroupTemplateLibrary.SimpleTemplate,
                                 Controls= new ControlDefinition[]
                                 {
                                     new FlyoutAnchorDefinition()
                                     {
                                         Id="Promotion",
                                         Title="Promote",
-                                        CommandName="SelectPromotion",
                                         Image16Url="/_layouts/images/ChessWebPart/promote16.png",
                                         Image32Url="/_layouts/images/ChessWebPart/promote32.png",
-                                        TemplateAlias = GroupTemplateLibrary.SimpleTemplate.SectionIds.First(),
                                         Controls = new ControlDefinition[]
                                         {
                                             new ButtonDefinition()
                                             {
                                                 Id = "Queen",
                                                 Title = "Queen",
-                                                CommandName = "PromoteQueen",
-                                                CommandJavaScript = "chessPromotion = 0;",
+                                                CommandJavaScript = "chessPromotion = 0; SP.UI.Notify.addNotification('Pawn now promotes to queen');",
                                                 Image32Url = "/_layouts/images/ChessWebPart/5.gif"
                                             },
                                             new ButtonDefinition()
                                             {
                                                 Id = "Bishop",
                                                 Title = "Bishop",
-                                                CommandName = "PromoteBishop",
-                                                CommandJavaScript = "chessPromotion = 1;",
+                                                CommandJavaScript = "chessPromotion = 1; SP.UI.Notify.addNotification('Pawn now promotes to bishop');",
                                                 Image32Url = "/_layouts/images/ChessWebPart/4.gif"
                                             },
                                             new ButtonDefinition()
                                             {
                                                 Id = "Knight",
                                                 Title = "Knight",
-                                                CommandName = "PromoteKnight",
-                                                CommandJavaScript = "chessPromotion = 2;",
+                                                CommandJavaScript = "chessPromotion = 2; SP.UI.Notify.addNotification('Pawn now promotes to knight');",
                                                 Image32Url = "/_layouts/images/ChessWebPart/3.gif"
                                             },
                                             new ButtonDefinition()
                                             {
                                                 Id = "Rook",
                                                 Title = "Rook",
-                                                CommandName = "PromoteRook",
-                                                CommandJavaScript = "chessPromotion = 3;",
+                                                CommandJavaScript = "chessPromotion = 3; SP.UI.Notify.addNotification('Pawn now promotes to rook');",
                                                 Image32Url = "/_layouts/images/ChessWebPart/2.gif"
                                             }
                                         }
@@ -150,29 +133,25 @@ namespace ChessWebPart.VisualWebPart1
                                         Image32Url = RibbonHelper.GetStandardImage32(),
                                         ImageX = 5,
                                         ImageY = 9,
-                                        TemplateAlias = GroupTemplateLibrary.SimpleTemplate.SectionIds.First(),
                                         Controls = new ControlDefinition[]
                                         {
                                             new ButtonDefinition()
                                             {
                                                 Id = "Stupid",
                                                 Title = "Stupid",
-                                                CommandName = "StupidDifficulty",
-                                                CommandJavaScript = "chessDifficulty = 1;"
+                                                CommandJavaScript = "chessDifficulty = 1; SP.UI.Notify.addNotification('Difficulty is set to easy!');"
                                             },
                                             new ButtonDefinition()
                                             {
                                                 Id = "Middling",
                                                 Title = "Middling",
-                                                CommandName = "MiddlingDifficulty",
-                                                CommandJavaScript = "chessDifficulty = 2;"
+                                                CommandJavaScript = "chessDifficulty = 2; SP.UI.Notify.addNotification('Difficulty is set to middle!');"
                                             },
                                             new ButtonDefinition()
                                             {
                                                 Id = "Slow",
                                                 Title = "Slow",
-                                                CommandName = "SlowDifficulty",
-                                                CommandJavaScript = "chessDifficulty = 3;"
+                                                CommandJavaScript = "chessDifficulty = 3; SP.UI.Notify.addNotification('Difficulty level is set to hard!');"
                                             }
                                         }
                                     }

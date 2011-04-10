@@ -43,6 +43,7 @@
     <Reference Include="Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.CommandUI, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -51,11 +52,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Definitions\ContainerDefinition.cs" />
+    <Compile Include="ArrayElementsRequired.cs" />
+    <Compile Include="Definitions\ContextualGroupColor.cs" />
+    <Compile Include="Definitions\Controls\IContainer.cs" />
     <Compile Include="Definitions\Controls\ButtonDefinition.cs" />
     <Compile Include="ContextualWebPart.cs" />
     <Compile Include="Definitions\ControlDefinition.cs" />
     <Compile Include="Definitions\Controls\FlyoutAnchorDefinition.cs" />
+    <Compile Include="Definitions\Controls\LabelDefinition.cs" />
+    <Compile Include="Definitions\Controls\MRUSplitButtonDefinition.cs" />
+    <Compile Include="Definitions\Controls\SplitButtonBaseDefinition.cs" />
+    <Compile Include="Definitions\Controls\TextBoxDefinition.cs" />
+    <Compile Include="Definitions\Controls\ButtonBaseDefinition.cs" />
+    <Compile Include="Definitions\Controls\VisualControlBaseDefinition.cs" />
     <Compile Include="LinqExtensions.cs" />
     <Compile Include="Definitions\RibbonDefinition.cs" />
     <Compile Include="PageComponentScript.cs" />
@@ -69,7 +78,8 @@
     </Compile>
     <Compile Include="Definitions\TabDefinition.cs" />
     <Compile Include="Libraries\GroupTemplateLibrary.cs" />
-    <Compile Include="Definitions\TemplateDefinition.cs" />
+    <Compile Include="Definitions\GroupTemplateDefinition.cs" />
+    <Compile Include="ValidationHelper.cs" />
     <Compile Include="XmlGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

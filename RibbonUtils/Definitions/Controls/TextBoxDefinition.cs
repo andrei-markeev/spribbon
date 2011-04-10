@@ -6,13 +6,14 @@ using System.Text;
 namespace RibbonUtils.Definitions.Controls
 {
     /// <summary>
-    /// Simple button. Does not have inner controls.
+    /// Textbox control
     /// </summary>
-    public class ButtonDefinition : ButtonBaseDefinition
+    public class TextBoxDefinition : ControlDefinition
     {
         internal override string Tag
         {
-            get { return "Button"; }
+            get { return "TextBox"; }
         }
+
     }
 }

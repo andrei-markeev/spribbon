@@ -8,7 +8,7 @@ using RibbonUtils.Definitions.Controls;
 
 namespace RibbonUtils
 {
-    public class XmlGenerator
+    internal class XmlGenerator
     {
         #region Singleton
 
@@ -43,13 +43,37 @@ namespace RibbonUtils
 
         #region Private methods
 
+        /// <summary>
+        /// Generates Ribbon XML based on ContextualGroupDefinition object
+        /// </summary>
+        /// <param name="definition"></param>
+        /// <returns>XML for Ribbon, it can be used in RegisterDataExtension method of the SPRibbon object</returns>
+        private XElement GetContextualGroupElement(ContextualGroupDefinition definition)
+        {
+            definition.Validate();
+
+            var groupElement = new XElement("ContextualGroup",
+                    new XAttribute("Color", definition.Color.ToString()),
+                    new XAttribute("Command", definition.Id + ".EnableContextualGroup"),
+                    new XAttribute("Id", RibbonHelper.RibbonId(definition.Id)),
+                    new XAttribute("Title", definition.Title),
+                    new XAttribute("Sequence", "502"),
+                    new XAttribute("ContextualGroupId", definition.Id)
+                );
+
+            foreach (TabDefinition tab in definition.Tabs)
+            {
+                groupElement.Add(GetTabElement(tab));
+            }
+
+            return groupElement;
+        }
         private XElement GetTabElement(TabDefinition definition)
         {
             var tabElement =
                 new XElement("Tab",
                     new XAttribute("Id", RibbonHelper.RibbonId(definition.Id)),
                     new XAttribute("Title", definition.Title),
-                    new XAttribute("Description", definition.Description),
                     new XAttribute("Sequence", "501"),
                     new XElement("Scaling",
                         new XAttribute("Id", RibbonHelper.RibbonId(definition.Id + ".Scaling"))
@@ -62,27 +86,33 @@ namespace RibbonUtils
             int groupIndex = 0;
             foreach (GroupDefinition group in definition.Groups)
             {
+                // Setting up some calculated fields to all group controls, including inner
+                foreach (var control in group.Controls.WithDescendants(c => c is IContainer ? (c as IContainer).Controls : null))
+                {
+                    control.ParentGroup = group;
+                }
+                
                 groupIndex++;
+                
                 string groupId = RibbonHelper.RibbonId(definition.Id + "." + group.Id);
 
                 tabElement.Element("Scaling").Add(
                     new XElement("MaxSize",
                         new XAttribute("Id", groupId + ".MaxSize"),
                         new XAttribute("GroupId", groupId),
-                        new XAttribute("Size", group.Size)
+                        new XAttribute("Size", group.Template.SizeId)
                     ),
                     new XElement("Scale",
                         new XAttribute("Id", groupId + ".Scale"),
                         new XAttribute("GroupId", groupId),
-                        new XAttribute("Size", group.Size)
+                        new XAttribute("Size", group.Template.SizeId)
                     ));
 
                 XElement groupElement = new XElement("Group",
                         new XAttribute("Id", groupId),
                         new XAttribute("Title", group.Title),
-                        new XAttribute("Description", group.Description),
                         new XAttribute("Sequence", groupIndex),
-                        new XAttribute("Template", group.Template),
+                        new XAttribute("Template", group.Template.Id),
                         new XElement("Controls",
                             new XAttribute("Id", groupId + ".Controls")
                             )
@@ -98,102 +128,51 @@ namespace RibbonUtils
 
         }
 
-        /// <summary>
-        /// Generates Ribbon XML based on ContextualGroupDefinition object
-        /// </summary>
-        /// <param name="definition"></param>
-        /// <returns>XML for Ribbon, it can be used in RegisterDataExtension method of the SPRibbon object</returns>
-        private XElement GetContextualGroupElement(ContextualGroupDefinition definition)
-        {
-            var groupElement = new XElement("ContextualGroup",
-                    new XAttribute("Color", "Yellow"),
-                    new XAttribute("Command", definition.Id + ".EnableContextualGroup"),
-                    new XAttribute("Id", RibbonHelper.RibbonId(definition.Id)),
-                    new XAttribute("Title", definition.Title),
-                    new XAttribute("Sequence", "502"),
-                    new XAttribute("ContextualGroupId", definition.Id)
-                );
-
-            foreach (TabDefinition tab in definition.Tabs)
-            {
-                groupElement.Add(GetTabElement(tab));
-            }
-
-            return groupElement;
-        }
 
         private void RecursiveAddControls(XElement parent, IEnumerable<ControlDefinition> controls, string groupId)
         {
             int controlIndex = 0;
             foreach (ControlDefinition control in controls)
             {
+                control.NameSpace = groupId;
+
                 controlIndex++;
-                var controlElement = new XElement(control.Type,
-                        new XAttribute("Id", groupId + "." + control.Id),
-                        new XAttribute("Sequence", controlIndex),
-                        new XAttribute("LabelText", control.Title),
-                        new XAttribute("Description", control.Description)
+                var controlElement = new XElement(control.Tag,
+                        new XAttribute("Sequence", controlIndex)
                         );
+                
+                control.AddAttributes(controlElement);
+
+                AddContainerAttributes(controlElement, control as IContainer, control.FullId);
+
                 parent.Add(controlElement);
-
-                if (control.TemplateAlias != null)
-                    controlElement.Add(new XAttribute("TemplateAlias", control.TemplateAlias));
-
-                if (control.CommandName != null)
-                    controlElement.Add(new XAttribute("Command", control.CommandName));
-
-                if (!String.IsNullOrEmpty(control.ToolTipTitle))
-                {
-                    controlElement.Add(new XAttribute("ToolTipTitle", control.ToolTipTitle));
-                    controlElement.Add(new XAttribute("ToolTipDescription", control.ToolTipDescription));
-                }
-
-                if (control.Image16Url != null)
-                    controlElement.Add(new XAttribute("Image16by16", control.Image16Url));
-                if (control.Image32Url != null)
-                    controlElement.Add(new XAttribute("Image32by32", control.Image32Url));
-
-                if (control.ImageX.HasValue)
-                {
-                    if (control.Image16Url != null)
-                        controlElement.Add(new XAttribute("Image16by16Left", -control.ImageX.Value * 16));
-                    if (control.Image32Url != null)
-                        controlElement.Add(new XAttribute("Image32by32Left", -control.ImageX.Value * 32));
-                }
-
-                if (control.ImageY.HasValue)
-                {
-                    if (control.Image16Url != null)
-                        controlElement.Add(new XAttribute("Image16by16Top", -control.ImageY.Value * 16));
-                    if (control.Image32Url != null)
-                        controlElement.Add(new XAttribute("Image32by32Top", -control.ImageY.Value * 32));
-                }
-
-                var container = control as ContainerDefinition;
-                if (container != null
-                    && container.Controls != null
-                    && container.Controls.Count() > 0)
-                {
-                    string menuId = groupId + "." + container.Id + ".Menu";
-                    string sectionId = menuId + ".MainSection";
-                    string controlsId = sectionId + ".Controls";
-
-                    var controlsElement = new XElement("Controls", new XAttribute("Id", controlsId));
-
-                    controlElement.Add(
-                        new XElement("Menu",
-                            new XAttribute("Id", menuId),
-                            new XElement("MenuSection",
-                                new XAttribute("Id", sectionId),
-                                new XAttribute("DisplayMode", "Menu32"),
-                                controlsElement)
-                        ));
-
-                    RecursiveAddControls(controlsElement, container.Controls, sectionId);
-                }
-
             }
 
+        }
+
+        private void AddContainerAttributes(XElement controlElement, IContainer container, string containerId)
+        {
+            if (container == null
+                || container.Controls == null
+                || container.Controls.Count() == 0)
+                return;
+
+            string menuId = containerId + ".Menu";
+            string sectionId = menuId + ".MainSection";
+            string controlsId = sectionId + ".Controls";
+
+            var controlsElement = new XElement("Controls", new XAttribute("Id", controlsId));
+
+            controlElement.Add(
+                new XElement("Menu",
+                    new XAttribute("Id", menuId),
+                    new XElement("MenuSection",
+                        new XAttribute("Id", sectionId),
+                        new XAttribute("DisplayMode", "Menu32"),
+                        controlsElement)
+                ));
+
+            RecursiveAddControls(controlsElement, container.Controls, sectionId);
         }
 
         #endregion

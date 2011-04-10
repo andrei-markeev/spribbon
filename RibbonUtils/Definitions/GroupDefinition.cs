@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace RibbonUtils.Definitions
 {
@@ -11,28 +12,21 @@ namespace RibbonUtils.Definitions
     public class GroupDefinition : RibbonDefinition
     {
         /// <summary>
-        /// Title. Will be displayed below the controls with small gray font.
+        /// Title. Will be displayed below the controls with small gray font. Required.
         /// </summary>
+        [Required]
         public string Title;
 
         /// <summary>
-        /// Group description
+        /// Group template. For standard templates, see <see cref="GroupTemplateLibrary"/>. Required.
         /// </summary>
-        public string Description = string.Empty;
-
-        /// <summary>
-        /// Size identifier from <see cref="TemplateDefition"/>
-        /// </summary>
-        public object Size;
+        [Required]
+        public GroupTemplateDefinition Template;
         
         /// <summary>
         /// Collection of inner controls
         /// </summary>
-        public IEnumerable<ControlDefinition> Controls;
+        public ControlDefinition[] Controls;
 
-        /// <summary>
-        /// Group template id. For standard templates, see <see cref="GroupTemplateLibrary"/>.
-        /// </summary>
-        public string Template;
     }
 }

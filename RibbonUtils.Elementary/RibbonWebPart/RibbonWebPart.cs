@@ -30,32 +30,39 @@ namespace RibbonUtils.Elementary.WebParts
             return new ContextualGroupDefinition()
             {
                 Id = "TestContextualGroup",
-                Title = "Contextual actions",
+                Title = "Ribbon Utils",
                 Tabs = new TabDefinition[]
                 {
                     new TabDefinition()
                     {
-                        Id = "TestTab",
-                        Title = "My tab",
-                        GroupTemplates = new TemplateDefinition[] { GroupTemplateLibrary.SimpleTemplate },
+                        Id = "Tab.1",
+                        Title = "for SharePoint 2010",
                         Groups = new GroupDefinition[]
                         {
                             new GroupDefinition()
                             {
-                                Id = "TestControlGroup",
-                                Title = "Buttons group",
-                                Size = GroupTemplateLibrary.SimpleTemplate.SizeId,
-                                Template = GroupTemplateLibrary.SimpleTemplate.Id,
+                                Id = "Group",
+                                Title = "Three-row group",
+                                Template = GroupTemplateLibrary.ThreeRowTemplate,
                                 Controls = new ControlDefinition[]
                                 {
+                                    new LabelDefinition()
+                                    {
+                                        Id = "Label",
+                                        Title = "Enter your data:",
+                                        Image16Url = "/_layouts/images/wpedit.gif",
+                                        ForId = "TextBox"
+                                    },
+                                    new TextBoxDefinition()
+                                    {
+                                        Id = "TextBox"
+                                    },
                                     new ButtonDefinition()
                                     {
-                                        Id = "TestButton",
-                                        Title = "Test alert",
-                                        Image32Url = "/_layouts/images/erroricon.png",
-                                        CommandName = "TestAlert",
-                                        CommandJavaScript = "alert('test')",
-                                        TemplateAlias = GroupTemplateLibrary.SimpleTemplate.SectionIds.First()
+                                        Id = "Button",
+                                        Title = "Save!",
+                                        Image16Url = "/_layouts/images/saveitem.gif",
+                                        CommandJavaScript = "alert('simple test')"
                                     }
                                 }
 
@@ -64,27 +71,62 @@ namespace RibbonUtils.Elementary.WebParts
                     },
                     new TabDefinition()
                     {
-                        Id = "TestTab2",
-                        Title = "My tab2",
-                        GroupTemplates = new TemplateDefinition[] { GroupTemplateLibrary.SimpleTemplate },
+                        Id = "Tab2",
+                        Title = "on CodePlex",
                         Groups = new GroupDefinition[]
                         {
                             new GroupDefinition()
                             {
-                                Id = "TestControlGroup2",
+                                Id = "Group",
                                 Title = "Buttons group",
-                                Size = GroupTemplateLibrary.SimpleTemplate.SizeId,
-                                Template = GroupTemplateLibrary.SimpleTemplate.Id,
+                                Template = GroupTemplateLibrary.SimpleTemplate,
                                 Controls = new ControlDefinition[]
                                 {
-                                    new ButtonDefinition()
+                                    new MRUSplitButtonDefinition()
                                     {
-                                        Id = "TestButton2",
-                                        Title = "Test alert 2",
-                                        Image32Url = "/_layouts/images/erroricon.png",
-                                        CommandName = "TestAlert2",
-                                        CommandJavaScript = "alert('test 2')",
-                                        TemplateAlias = GroupTemplateLibrary.SimpleTemplate.SectionIds.First()
+                                        Id = "MRUSplitButton",
+                                        InitialItem = "Button1",
+                                        Controls = new ControlDefinition[]
+                                        {
+                                            new ButtonDefinition()
+                                            {
+                                                Id = "Button1",
+                                                Title = "MRU test 1",
+                                                CommandJavaScript = "alert('mru test 1')",
+                                                Image32Url = "/_layouts/images/gbsmpset.gif"
+                                            },
+                                            new ButtonDefinition()
+                                            {
+                                                Id = "Button2",
+                                                Title = "MRU test 2",
+                                                CommandJavaScript = "alert('mru test 2')",
+                                                Image32Url = "/_layouts/images/lg_ICASCX.gif"
+                                            }
+                                        }
+                                    },
+                                    new SplitButtonDefinition()
+                                    {
+                                        Id = "SplitButton",
+                                        Title = "Split button",
+                                        Image32Url = "/_layouts/images/LG_DATASOURCE.gif",
+                                        CommandJavaScript = "alert('split test!')",
+                                        Controls = new ControlDefinition[]
+                                        {
+                                            new ButtonDefinition()
+                                            {
+                                                Id = "Button1",
+                                                Title = "Split test 1",
+                                                CommandJavaScript = "alert('split test 1')",
+                                                Image32Url = "/_layouts/images/lg_ICACCDB.gif"
+                                            },
+                                            new ButtonDefinition()
+                                            {
+                                                Id = "Button2",
+                                                Title = "Split test 2",
+                                                CommandJavaScript = "alert('split test 2')",
+                                                Image32Url = "/_layouts/images/lg_ICASAX.gif"
+                                            }
+                                        }
                                     }
                                 }
 

@@ -7,6 +7,7 @@ using System.Web.UI;
 using Microsoft.SharePoint.WebControls;
 using System.Xml;
 using Microsoft.Web.CommandUI;
+using RibbonUtils.Definitions.Controls;
 
 namespace RibbonUtils
 {
@@ -67,12 +68,12 @@ namespace RibbonUtils
                 RegisterCommands(page);
         }
 
-        private void AddGroupTemplatesRibbonExtensions(IEnumerable<TemplateDefinition> templates, Page page)
+        private void AddGroupTemplatesRibbonExtensions(IEnumerable<GroupTemplateDefinition> templates, Page page)
         {
             Ribbon ribbon = SPRibbon.GetCurrent(page);
             XmlDocument ribbonExtensions = new XmlDocument();
 
-            foreach (TemplateDefinition template in templates)
+            foreach (GroupTemplateDefinition template in templates)
             {
                 ribbonExtensions.LoadXml(template.XML);
                 ribbon.RegisterDataExtension(ribbonExtensions.FirstChild, "Ribbon.Templates._children");
@@ -91,14 +92,29 @@ namespace RibbonUtils
 
         private void AddCommands(IEnumerable<GroupDefinition> groups, Page page)
         {
-
+            
+            // MRUSplitButtonDefinition: Command="{Id}MenuCommand"
             commands.AddRange(
                 groups
                 .SelectMany(g => g.Controls)
-                .WithDescendants(c => c is ContainerDefinition ? (c as ContainerDefinition).Controls : null)
-                .Where(c => !String.IsNullOrEmpty(c.CommandName))
-                .Select<ControlDefinition, IRibbonCommand>(b => new SPRibbonCommand(b.CommandName, b.CommandJavaScript, b.CommandEnableJavaScript)));
+                .WithDescendants(c => c is IContainer ? (c as IContainer).Controls : null)
+                .OfType<MRUSplitButtonDefinition>()
+                .Select<MRUSplitButtonDefinition, IRibbonCommand>(c => 
+                    new SPRibbonCommand(
+                        c.FullId + "MenuCommand", 
+                        "handleCommand(properties['CommandValueId']);",
+                        "true"
+                        )
+                    )
+                );
 
+            // Buttons of all types, including Button, SplitButton, ToggleButton
+            commands.AddRange(
+                groups
+                .SelectMany(g => g.Controls)
+                .WithDescendants(c => c is IContainer ? (c as IContainer).Controls : null)
+                .OfType<ButtonBaseDefinition>()
+                .Select<ButtonBaseDefinition, IRibbonCommand>(b => new SPRibbonCommand(b.FullId + "Command", b.CommandJavaScript, b.CommandEnableJavaScript)));
         }
 
         private void RegisterCommands(Page page)

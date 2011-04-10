@@ -17,31 +17,27 @@ namespace RibbonUtils.Elementary.Layouts
             {
                 Id = "TestRibbon",
                 Title = "Test",
-                GroupTemplates = new TemplateDefinition[] { GroupTemplateLibrary.SimpleTemplate },
                 Groups = new GroupDefinition[]
-            {
-                new GroupDefinition()
                 {
-                    Id = "TestGroup",
-                    Title = "Test group",
-                    Size = GroupTemplateLibrary.SimpleTemplate.SizeId,
-                    Template = GroupTemplateLibrary.SimpleTemplate.Id,
-                    Controls = new ControlDefinition[]
+                    new GroupDefinition()
                     {
-                        new ButtonDefinition()
+                        Id = "TestGroup",
+                        Title = "Test group",
+                        Template = GroupTemplateLibrary.SimpleTemplate,
+                        Controls = new ControlDefinition[]
                         {
-                            Id = "TestButton",
-                            Title = "Test button",
-                            TemplateAlias = GroupTemplateLibrary.SimpleTemplate.SectionIds.First(),
-                            CommandName = "TestCommand",
-                            CommandJavaScript = "alert('test!');",
-                            Image32Url = RibbonHelper.GetStandardImage32(),
-                            ImageX = 6,
-                            ImageY = 0
+                            new ButtonDefinition()
+                            {
+                                Id = "TestButton",
+                                Title = "Test button",
+                                CommandJavaScript = "alert('test!');",
+                                Image32Url = RibbonHelper.GetStandardImage32(),
+                                ImageX = 6,
+                                ImageY = 0
+                            }
                         }
                     }
                 }
-            }
 
             };
         }

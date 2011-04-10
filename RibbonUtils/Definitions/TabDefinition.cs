@@ -2,32 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
+using RibbonUtils.Libraries;
 
 namespace RibbonUtils.Definitions
 {
     /// <summary>
-    /// Definition for ribbon tab
+    /// Definition for a ribbon tab
     /// </summary>
     public class TabDefinition : RibbonDefinition
     {
         /// <summary>
-        /// Title, it will be displayed as the tab caption
+        /// Title, it will be displayed as the tab caption.
         /// </summary>
+        [Required]
         public string Title;
 
         /// <summary>
-        /// Templates for control groups within the tab. See <see cref="GroupTemplateLibrary"/> for standard templates.
+        /// <para>Templates for control groups within the tab.</para>
+        /// <para>By default, it equals to <see cref="GroupTemplateLibrary.AllTemplates"/>.</para>
         /// </summary>
-        public IEnumerable<TemplateDefinition> GroupTemplates;
+        [ArrayElementsRequired]
+        public GroupTemplateDefinition[] GroupTemplates = GroupTemplateLibrary.AllTemplates;
 
         /// <summary>
-        /// Groups of controls
+        /// Groups of controls. Required at least one group.
         /// </summary>
-        public IEnumerable<GroupDefinition> Groups;
-
-        /// <summary>
-        /// Description for the tab usage
-        /// </summary>
-        public object Description = string.Empty;
+        [ArrayElementsRequired]
+        public GroupDefinition[] Groups;
     }
 }
