@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace RibbonUtils.Definitions
 {
@@ -37,7 +38,10 @@ namespace RibbonUtils.Definitions
                 if (this.TemplateAlias != null)
                     controlElement.Add(new XAttribute("TemplateAlias", this.TemplateAlias));
                 else
-                    controlElement.Add(new XAttribute("TemplateAlias", this.ParentGroup.Template.SectionIds.First()));
+                    if (this.ParentGroup == null)
+                        throw new ValidationException("Control {0} (Id='{1}'): you need to set TemplateAlias property manually for detached from group control.");
+                    else
+                        controlElement.Add(new XAttribute("TemplateAlias", this.ParentGroup.Template.SectionIds.First()));
             }
 
         }
@@ -71,7 +75,7 @@ namespace RibbonUtils.Definitions
         /// when a template is applied to the group.
         /// </para>
         /// <para>
-        /// If you use standard templates from <see cref="GroupTemplateLibrary"/>, or your own templates
+        /// If you use standard templates from <see cref="Libraries.GroupTemplateLibrary"/>, or your own templates
         /// with single section, you can leave this field blank to use first alias of the template.
         /// </para>
         /// <para>

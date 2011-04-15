@@ -53,28 +53,25 @@ namespace ChessWebPart.VisualWebPart1
                                         Title = "Start new game",
                                         Description = "Create new user",
                                         CommandJavaScript = "window.location.reload();",
-                                        Image16Url="/_layouts/images/ChessWebPart/new16.png",
-                                        Image32Url="/_layouts/images/ChessWebPart/new32.png"
+                                        Image = new ImageDefinition() 
+                                        { 
+                                            Url16 = "/_layouts/images/ChessWebPart/new16.png", 
+                                            Url32 = "/_layouts/images/ChessWebPart/new32.png"
+                                        }
                                     },
                                     new ButtonDefinition()
                                     {
                                         Id = "Undo",
                                         Title = "Undo last move",
                                         CommandJavaScript = "Gb();",
-                                        Image16Url = RibbonHelper.GetStandardImage16(),
-                                        Image32Url = RibbonHelper.GetStandardImage32(),
-                                        ImageX = 3,
-                                        ImageY = 13
+                                        Image = ImageLibrary.GetStandardImage(3,13)
                                     },
                                     new ButtonDefinition()
                                     {
                                         Id= "Swap",
                                         Title= "Swap sides",
                                         CommandJavaScript = "Rf(8-P);",
-                                        Image16Url = RibbonHelper.GetStandardImage16(),
-                                        Image32Url = RibbonHelper.GetStandardImage32(),
-                                        ImageX = 12,
-                                        ImageY = 2
+                                        Image = ImageLibrary.GetStandardImage(12,2)
                                     }
                                 }
 
@@ -91,8 +88,11 @@ namespace ChessWebPart.VisualWebPart1
                                     {
                                         Id="Promotion",
                                         Title="Promote",
-                                        Image16Url="/_layouts/images/ChessWebPart/promote16.png",
-                                        Image32Url="/_layouts/images/ChessWebPart/promote32.png",
+                                        Image = new ImageDefinition()
+                                        {
+                                            Url16 = "/_layouts/images/ChessWebPart/promote16.png",
+                                            Url32 = "/_layouts/images/ChessWebPart/promote32.png"
+                                        },
                                         Controls = new ControlDefinition[]
                                         {
                                             new ButtonDefinition()
@@ -100,28 +100,28 @@ namespace ChessWebPart.VisualWebPart1
                                                 Id = "Queen",
                                                 Title = "Queen",
                                                 CommandJavaScript = "chessPromotion = 0; SP.UI.Notify.addNotification('Pawn now promotes to queen');",
-                                                Image32Url = "/_layouts/images/ChessWebPart/5.gif"
+                                                Image = new ImageDefinition() { Url32 = "/_layouts/images/ChessWebPart/5.gif" }
                                             },
                                             new ButtonDefinition()
                                             {
                                                 Id = "Bishop",
                                                 Title = "Bishop",
                                                 CommandJavaScript = "chessPromotion = 1; SP.UI.Notify.addNotification('Pawn now promotes to bishop');",
-                                                Image32Url = "/_layouts/images/ChessWebPart/4.gif"
+                                                Image = new ImageDefinition() { Url32 = "/_layouts/images/ChessWebPart/4.gif" }
                                             },
                                             new ButtonDefinition()
                                             {
                                                 Id = "Knight",
                                                 Title = "Knight",
                                                 CommandJavaScript = "chessPromotion = 2; SP.UI.Notify.addNotification('Pawn now promotes to knight');",
-                                                Image32Url = "/_layouts/images/ChessWebPart/3.gif"
+                                                Image = new ImageDefinition() { Url32 = "/_layouts/images/ChessWebPart/3.gif" }
                                             },
                                             new ButtonDefinition()
                                             {
                                                 Id = "Rook",
                                                 Title = "Rook",
                                                 CommandJavaScript = "chessPromotion = 3; SP.UI.Notify.addNotification('Pawn now promotes to rook');",
-                                                Image32Url = "/_layouts/images/ChessWebPart/2.gif"
+                                                Image = new ImageDefinition() { Url32 = "/_layouts/images/ChessWebPart/2.gif" }
                                             }
                                         }
                                     },
@@ -129,10 +129,7 @@ namespace ChessWebPart.VisualWebPart1
                                     {
                                         Id="Difficulty",
                                         Title = "Computer level",
-                                        Image16Url = RibbonHelper.GetStandardImage16(),
-                                        Image32Url = RibbonHelper.GetStandardImage32(),
-                                        ImageX = 5,
-                                        ImageY = 9,
+                                        Image = ImageLibrary.GetStandardImage(5,9),
                                         Controls = new ControlDefinition[]
                                         {
                                             new ButtonDefinition()

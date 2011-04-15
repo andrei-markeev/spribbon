@@ -18,7 +18,7 @@ namespace RibbonUtils.Definitions
         public string Title;
 
         /// <summary>
-        /// Group template. For standard templates, see <see cref="GroupTemplateLibrary"/>. Required.
+        /// Group template. For standard templates, see <see cref="Libraries.GroupTemplateLibrary"/>. Required.
         /// </summary>
         [Required]
         public GroupTemplateDefinition Template;

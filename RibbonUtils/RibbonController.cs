@@ -8,16 +8,23 @@ using Microsoft.SharePoint.WebControls;
 using System.Xml;
 using Microsoft.Web.CommandUI;
 using RibbonUtils.Definitions.Controls;
+using Microsoft.SharePoint;
+using System.Runtime.InteropServices;
 
 namespace RibbonUtils
 {
-
+    /// <summary>
+    /// Manage the ribbon creation from page (local ribbon)
+    /// </summary>
     internal class RibbonController
     {
         #region Singleton
 
         private static RibbonController instance = null;
 
+        /// <summary>
+        /// Singleton instance of RibbonController class
+        /// </summary>
         public static RibbonController Current
         {
             get
@@ -35,36 +42,40 @@ namespace RibbonUtils
 
         #endregion
 
+        #region Internal
+
         internal void AddRibbonContextualTabToPage(ContextualGroupDefinition definition, Page page)
         {
             page.PreRenderComplete += new EventHandler(page_PreRenderComplete);
 
             AddRibbonExtension(XmlGenerator.Current.GetContextualGroupXML(definition), page, "Ribbon.ContextualTabs");
             AddGroupTemplatesRibbonExtensions(definition.Tabs.SelectMany(t => t.GroupTemplates), page);
-            AddCommands(definition.Tabs.SelectMany(t => t.Groups), page);
+
+            RibbonCommandRepository.Current.AddCommands(definition);
         }
 
         internal void AddRibbonTabToPage(TabDefinition definition, Page page)
         {
             AddRibbonExtension(XmlGenerator.Current.GetTabXML(definition), page, "Ribbon.Tabs");
             AddGroupTemplatesRibbonExtensions(definition.GroupTemplates, page);
-            AddCommands(definition.Groups, page);
+
+            RibbonCommandRepository.Current.AddCommands(definition);
             RegisterCommands(page);
 
             Ribbon ribbon = SPRibbon.GetCurrent(page);
-            ribbon.MakeTabAvailable(RibbonHelper.RibbonId(definition.Id));
-            ribbon.InitialTabId = RibbonHelper.RibbonId(definition.Id);
+            ribbon.MakeTabAvailable("Ribbon." + definition.Id);
+            ribbon.InitialTabId = "Ribbon." + definition.Id;
         }
 
-        #region Private functions
+        #endregion
 
-        List<IRibbonCommand> commands = new List<IRibbonCommand>();
+        #region Private functions
 
         private void page_PreRenderComplete(object sender, EventArgs e)
         {
             Page page = sender as Page;
-            
-            if (commands.Count > 0)
+
+            if (RibbonCommandRepository.Current.GetCommandsCount() > 0)
                 RegisterCommands(page);
         }
 
@@ -90,47 +101,20 @@ namespace RibbonUtils
             ribbon.RegisterDataExtension(ribbonExtensions.FirstChild, parentId + "._children");
         }
 
-        private void AddCommands(IEnumerable<GroupDefinition> groups, Page page)
-        {
-            
-            // MRUSplitButtonDefinition: Command="{Id}MenuCommand"
-            commands.AddRange(
-                groups
-                .SelectMany(g => g.Controls)
-                .WithDescendants(c => c is IContainer ? (c as IContainer).Controls : null)
-                .OfType<MRUSplitButtonDefinition>()
-                .Select<MRUSplitButtonDefinition, IRibbonCommand>(c => 
-                    new SPRibbonCommand(
-                        c.FullId + "MenuCommand", 
-                        "handleCommand(properties['CommandValueId']);",
-                        "true"
-                        )
-                    )
-                );
-
-            // Buttons of all types, including Button, SplitButton, ToggleButton
-            commands.AddRange(
-                groups
-                .SelectMany(g => g.Controls)
-                .WithDescendants(c => c is IContainer ? (c as IContainer).Controls : null)
-                .OfType<ButtonBaseDefinition>()
-                .Select<ButtonBaseDefinition, IRibbonCommand>(b => new SPRibbonCommand(b.FullId + "Command", b.CommandJavaScript, b.CommandEnableJavaScript)));
-        }
-
         private void RegisterCommands(Page page)
         {
             SPRibbonScriptManager ribbonScriptManager = new SPRibbonScriptManager();
 
-            ribbonScriptManager.RegisterGetCommandsFunction(page, "getGlobalCommands", commands);
-            ribbonScriptManager.RegisterCommandEnabledFunction(page, "commandEnabled", commands);
-            ribbonScriptManager.RegisterHandleCommandFunction(page, "handleCommand", commands);
+            ribbonScriptManager.RegisterGetCommandsFunction(page, "getGlobalCommands", RibbonCommandRepository.Current.GetCommands());
+            ribbonScriptManager.RegisterCommandEnabledFunction(page, "commandEnabled", RibbonCommandRepository.Current.GetCommands());
+            ribbonScriptManager.RegisterHandleCommandFunction(page, "handleCommand", RibbonCommandRepository.Current.GetCommands());
 
             page.ClientScript.RegisterClientScriptBlock(
                 page.GetType(),
                 "InitPageComponent",
                 PageComponentScript.GetText("RibbonUtils"));
 
-            commands.Clear();
+            RibbonCommandRepository.Current.ClearCommands();
         }
 
         #endregion

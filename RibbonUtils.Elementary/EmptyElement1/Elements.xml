@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+
+  <!--<CustomAction Id="Test11" Location="Command.UI.Ribbon">
+    <CommandUIExtension>
+      <CommandUIDefinitions>
+        <CommandUIDefinition Location="Ribbon.ListItem.New.Controls._children">
+          <Button Id="Ribbon.ListItem.New.MyButton"
+                  Sequence="5"
+                  TemplateAlias="o1" 
+                  LabelText="Hello world!"
+                  Command="MyButtonCommand"
+                  />
+        </CommandUIDefinition>
+      </CommandUIDefinitions>
+      <CommandUIHandlers>
+        <CommandUIHandler Command="MyButtonCommand" CommandAction="alert('hello!');" EnabledScript="" />
+      </CommandUIHandlers>
+    </CommandUIExtension>
+  </CustomAction>-->
+
+  <!--<CustomAction Location="CommandUI.Ribbon" RegistrationType="List" RegistrationId="100">
+    <CommandUIExtension xmlns="http://schemas.microsoft.com/sharepoint/">
+      <CommandUIDefinitions>
+        <CommandUIDefinition Location="Ribbon.ListItem.New.Controls._children">
+          <Button Sequence="1" Id=".MyButton" TemplateAlias="o1" LabelText="Hello world!" Description="" ToolTipTitle="Simple test" ToolTipDescription="This is simple test button which must be displayed in generic list 'Items' contextual tabs." Image16by16="/_layouts/1033/images/formatmap16x16.png" Image32by32="/_layouts/1033/images/formatmap32x32.png" Image16by16Left="0" Image32by32Left="0" Image16by16Top="0" Image32by32Top="0" Command=".MyButtonCommand" />
+        </CommandUIDefinition>
+      </CommandUIDefinitions>
+    </CommandUIExtension>
+  </CustomAction>-->
+</Elements>

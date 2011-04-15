@@ -50,7 +50,7 @@ namespace RibbonUtils.Elementary.WebParts
                                     {
                                         Id = "Label",
                                         Title = "Enter your data:",
-                                        Image16Url = "/_layouts/images/wpedit.gif",
+                                        Image = new ImageDefinition() { Url16 = "/_layouts/images/wpedit.gif" },
                                         ForId = "TextBox"
                                     },
                                     new TextBoxDefinition()
@@ -61,7 +61,7 @@ namespace RibbonUtils.Elementary.WebParts
                                     {
                                         Id = "Button",
                                         Title = "Save!",
-                                        Image16Url = "/_layouts/images/saveitem.gif",
+                                        Image = new ImageDefinition() { Url16 = "/_layouts/images/saveitem.gif" },
                                         CommandJavaScript = "alert('simple test')"
                                     }
                                 }
@@ -93,14 +93,14 @@ namespace RibbonUtils.Elementary.WebParts
                                                 Id = "Button1",
                                                 Title = "MRU test 1",
                                                 CommandJavaScript = "alert('mru test 1')",
-                                                Image32Url = "/_layouts/images/gbsmpset.gif"
+                                                Image = new ImageDefinition() { Url32 = "/_layouts/images/gbsmpset.gif" }
                                             },
                                             new ButtonDefinition()
                                             {
                                                 Id = "Button2",
                                                 Title = "MRU test 2",
                                                 CommandJavaScript = "alert('mru test 2')",
-                                                Image32Url = "/_layouts/images/lg_ICASCX.gif"
+                                                Image = new ImageDefinition() { Url32 = "/_layouts/images/lg_ICASCX.gif" }
                                             }
                                         }
                                     },
@@ -108,7 +108,7 @@ namespace RibbonUtils.Elementary.WebParts
                                     {
                                         Id = "SplitButton",
                                         Title = "Split button",
-                                        Image32Url = "/_layouts/images/LG_DATASOURCE.gif",
+                                        Image = new ImageDefinition() { Url32 = "/_layouts/images/LG_DATASOURCE.gif" },
                                         CommandJavaScript = "alert('split test!')",
                                         Controls = new ControlDefinition[]
                                         {
@@ -117,14 +117,14 @@ namespace RibbonUtils.Elementary.WebParts
                                                 Id = "Button1",
                                                 Title = "Split test 1",
                                                 CommandJavaScript = "alert('split test 1')",
-                                                Image32Url = "/_layouts/images/lg_ICACCDB.gif"
+                                                Image = new ImageDefinition() { Url32 = "/_layouts/images/lg_ICACCDB.gif" }
                                             },
                                             new ButtonDefinition()
                                             {
                                                 Id = "Button2",
                                                 Title = "Split test 2",
                                                 CommandJavaScript = "alert('split test 2')",
-                                                Image32Url = "/_layouts/images/lg_ICASAX.gif"
+                                                Image = new ImageDefinition() { Url32 = "/_layouts/images/lg_ICASAX.gif" }
                                             }
                                         }
                                     }

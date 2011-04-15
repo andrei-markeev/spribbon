@@ -10,6 +10,9 @@ namespace RibbonUtils.Definitions.Controls
     /// </summary>
     public interface IContainer
     {
+        /// <summary>
+        /// Child controls of a container
+        /// </summary>
         IEnumerable<ControlDefinition> Controls { get; set; }
     }
 }

@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BB1F664B-9266-4fd6-B973-E1E44974B511};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SandboxedSolution>False</SandboxedSolution>
+    <ActiveDeploymentConfiguration>Default</ActiveDeploymentConfiguration>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,6 +54,9 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Feature1\Feature1.EventReceiver.cs">
+      <DependentUpon>Feature1.feature</DependentUpon>
+    </Compile>
     <Compile Include="Layouts\RibbonUtils.Elementary\RibbonPage.aspx.cs">
       <DependentUpon>RibbonPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -64,6 +68,9 @@
     <Compile Include="RibbonWebPart\RibbonWebPart.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="EmptyElement1\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{ba53ca93-90d4-410a-8060-1765b3a5ccfc}</SharePointProjectItemId>
+    </None>
     <None Include="key.snk" />
     <None Include="Layouts\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{d6ec3c24-5469-47be-8a8d-8b004a80bbc5}</SharePointProjectItemId>
@@ -75,6 +82,9 @@
     <None Include="RibbonWebPart\Elements.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EmptyElement1\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Layouts\RibbonUtils.Elementary\RibbonPage.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>

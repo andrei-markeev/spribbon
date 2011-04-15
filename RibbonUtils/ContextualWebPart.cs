@@ -48,7 +48,7 @@ namespace RibbonUtils
                 WebPartRibbonContextualGroup contextualGroup = new WebPartRibbonContextualGroup();
 
                 // Contextual group
-                contextualGroup.Id = RibbonHelper.RibbonId(contextualGroupDefinition.Id);
+                contextualGroup.Id = "Ribbon." + contextualGroupDefinition.Id;
                 contextualGroup.Command = contextualGroupDefinition.Id + ".EnableContextualGroup";
                 contextualGroup.VisibilityContext = contextualGroupDefinition.Id + ".CustomVisibilityContext";
                 info.ContextualGroups.Add(contextualGroup);
@@ -57,7 +57,7 @@ namespace RibbonUtils
                 foreach (TabDefinition tab in contextualGroupDefinition.Tabs)
                 {
                     WebPartRibbonTab ribbonTab = new WebPartRibbonTab();
-                    ribbonTab.Id = RibbonHelper.RibbonId(tab.Id);
+                    ribbonTab.Id = "Ribbon." + tab.Id;
                     ribbonTab.VisibilityContext = tab.Id + ".CustomVisibilityContext";
                     info.Tabs.Add(ribbonTab);
                 }

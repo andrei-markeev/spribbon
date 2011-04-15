@@ -31,9 +31,7 @@ namespace RibbonUtils.Elementary.Layouts
                                 Id = "TestButton",
                                 Title = "Test button",
                                 CommandJavaScript = "alert('test!');",
-                                Image32Url = RibbonHelper.GetStandardImage32(),
-                                ImageX = 6,
-                                ImageY = 0
+                                Image = ImageLibrary.GetStandardImage(6, 0)
                             }
                         }
                     }

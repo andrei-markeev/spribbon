@@ -5,6 +5,7 @@ using System.Text;
 using RibbonUtils.Definitions;
 using System.Xml.Linq;
 using RibbonUtils.Definitions.Controls;
+using Microsoft.SharePoint.WebControls;
 
 namespace RibbonUtils
 {
@@ -31,14 +32,55 @@ namespace RibbonUtils
 
         #endregion
 
+
+        internal string GetCommandUIDefinitionXML(string location, string definitionXml, string commandXml)
+        {
+            var parsedElements = XDocument.Parse(definitionXml).Elements();
+            var commandElements = XDocument.Parse(commandXml).Elements();
+
+            var document = new XDocument(
+                new XElement("CommandUIExtension",
+                    new XElement("CommandUIDefinitions",
+                        new XElement("CommandUIDefinition",
+                            new XAttribute("Location", location),
+                            parsedElements
+                            )
+                        )
+                    )
+                );
+
+            if (!String.IsNullOrEmpty(commandXml))
+                document.Element("CommandUIExtension").Add(
+                    new XElement("CommandUIHandlers",
+                        commandElements
+                        ));
+
+
+            return document.ToString();
+        }
+
+        internal string GetCommandUIHandlerXML(IRibbonCommand command)
+        {
+            return new XDocument(
+                new XElement("CommandUIHandler",
+                    new XAttribute("Command", command.Id),
+                    new XAttribute("CommandAction", "javascript: " + command.HandlerStatement + ";"),
+                    new XAttribute("EnabledScript", command.EnabledStatement))).ToString();
+        }
+
         internal string GetContextualGroupXML(ContextualGroupDefinition definition)
         {
-            return new XDocument(GetContextualGroupElement(definition as ContextualGroupDefinition)).ToString();
+            return new XDocument(GetContextualGroupElement(definition)).ToString();
         }
 
         internal string GetTabXML(TabDefinition definition)
         {
-            return new XDocument(GetTabElement(definition as TabDefinition)).ToString();
+            return new XDocument(GetTabElement(definition)).ToString();
+        }
+
+        internal string GetControlXML(ControlDefinition controlDefinition, int sequence, string groupId)
+        {
+            return new XDocument(GetControlElement(controlDefinition, sequence, groupId)).ToString();
         }
 
         #region Private methods
@@ -55,7 +97,7 @@ namespace RibbonUtils
             var groupElement = new XElement("ContextualGroup",
                     new XAttribute("Color", definition.Color.ToString()),
                     new XAttribute("Command", definition.Id + ".EnableContextualGroup"),
-                    new XAttribute("Id", RibbonHelper.RibbonId(definition.Id)),
+                    new XAttribute("Id", "Ribbon." + definition.Id),
                     new XAttribute("Title", definition.Title),
                     new XAttribute("Sequence", "502"),
                     new XAttribute("ContextualGroupId", definition.Id)
@@ -72,14 +114,14 @@ namespace RibbonUtils
         {
             var tabElement =
                 new XElement("Tab",
-                    new XAttribute("Id", RibbonHelper.RibbonId(definition.Id)),
+                    new XAttribute("Id", "Ribbon." + definition.Id),
                     new XAttribute("Title", definition.Title),
                     new XAttribute("Sequence", "501"),
                     new XElement("Scaling",
-                        new XAttribute("Id", RibbonHelper.RibbonId(definition.Id + ".Scaling"))
+                        new XAttribute("Id", "Ribbon." + definition.Id + ".Scaling")
                     ),
                     new XElement("Groups",
-                        new XAttribute("Id", RibbonHelper.RibbonId(definition.Id + ".Groups"))
+                        new XAttribute("Id", "Ribbon." + definition.Id + ".Groups")
                         )
                 );
 
@@ -94,7 +136,7 @@ namespace RibbonUtils
                 
                 groupIndex++;
                 
-                string groupId = RibbonHelper.RibbonId(definition.Id + "." + group.Id);
+                string groupId = "Ribbon." + definition.Id + "." + group.Id;
 
                 tabElement.Element("Scaling").Add(
                     new XElement("MaxSize",
@@ -128,24 +170,27 @@ namespace RibbonUtils
 
         }
 
+        private XElement GetControlElement(ControlDefinition control, int controlIndex, string groupId)
+        {
+            var controlElement = new XElement(control.Tag,
+                    new XAttribute("Sequence", controlIndex)
+                    );
+            
+            control.NameSpace = groupId;
+            control.AddAttributes(controlElement);
+
+            AddContainerAttributes(controlElement, control as IContainer, control.FullId);
+
+            return controlElement;
+        }
 
         private void RecursiveAddControls(XElement parent, IEnumerable<ControlDefinition> controls, string groupId)
         {
             int controlIndex = 0;
             foreach (ControlDefinition control in controls)
             {
-                control.NameSpace = groupId;
-
                 controlIndex++;
-                var controlElement = new XElement(control.Tag,
-                        new XAttribute("Sequence", controlIndex)
-                        );
-                
-                control.AddAttributes(controlElement);
-
-                AddContainerAttributes(controlElement, control as IContainer, control.FullId);
-
-                parent.Add(controlElement);
+                parent.Add(GetControlElement(control, controlIndex, groupId));
             }
 
         }
@@ -176,5 +221,6 @@ namespace RibbonUtils
         }
 
         #endregion
+
     }
 }
