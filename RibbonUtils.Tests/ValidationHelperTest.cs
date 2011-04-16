@@ -184,6 +184,18 @@ namespace RibbonUtils.Tests
             target.CheckRegularExpression(field, obj);
         }
 
+        [TestMethod()]
+        [DeploymentItem("RibbonUtils.dll")]
+        [ExpectedException(typeof(ValidationException))]
+        public void CheckRegularExpressionTest4()
+        {
+            ValidationHelper_Accessor target = new ValidationHelper_Accessor();
+            FieldInfo field = typeof(ValidationHelperTester).GetField("RegexField");
+
+            // RegexField is null
+            RibbonDefinition obj = new ValidationHelperTester() { RegexField = "Good Test" };
+            target.CheckRegularExpression(field, obj);
+        }
 
         #endregion
 

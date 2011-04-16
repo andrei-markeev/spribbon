@@ -39,15 +39,70 @@ namespace RibbonUtils.Elementary.Features.Feature1
                 TemplateAlias = "o1"
             };
 
-            var ribbonLocation = new RibbonLocation(ReceiverGuid, web, ListTypes.GenericList);
-            RibbonFromFeature.Current.AddControl(ribbonLocation, button, "Ribbon.ListItem.Manage", 1);
+            var group = new GroupDefinition()
+            {
+                Id = "MyGroup",
+                Title = "Custom controls",
+                Template = Libraries.GroupTemplateLibrary.SimpleTemplate,
+                Controls = new ControlDefinition[]
+                {
+                    new ButtonDefinition()
+                    {
+                        Id = "TestInGroup",
+                        Title = "Test button in group",
+                        CommandJavaScript = "alert('test from group!')",
+                        Image = Libraries.ImageLibrary.GetStandardImage(0, 1)
+                    },
+                    new ButtonDefinition()
+                    {
+                        Id = "TestInGroup2",
+                        Title = "Test button in group2",
+                        CommandJavaScript = "alert('test from group2!')",
+                        Image = Libraries.ImageLibrary.GetStandardImage(0, 2)
+                    }
+                }
+            };
+
+            var tab = new TabDefinition()
+            {
+                Id = "CustomListTab",
+                Title = "Custom List tab",
+                Groups = new GroupDefinition[]
+                {
+                    group,
+                    new GroupDefinition()
+                    {
+                        Id = "SecondGroup",
+                        Title = "Three row group",
+                        Template = GroupTemplateLibrary.ThreeRowTemplate,
+                        Controls = new ControlDefinition[]
+                        {
+                            button,
+                            new TextBoxDefinition()
+                            {
+                                Id="TestTextBox"
+                            }
+                        }
+
+                    }
+                }
+            };
+
+            var ribbonCustomAction = new RibbonCustomAction();
+
+            ribbonCustomAction.ReplaceTab(tab, "Ribbon.List");
+            ribbonCustomAction.AddControl(button, "Ribbon.ListItem.Manage", 1);
+            ribbonCustomAction.AddControlGroup(group, "Ribbon.ListItem", 25);
+
+            ribbonCustomAction.Provision(ReceiverGuid, web, ListTypes.GenericList);
+
         }
 
 
         public override void FeatureDeactivating(SPFeatureReceiverProperties properties)
         {
             SPWeb web = (properties.Feature.Parent as SPSite).RootWeb;
-            RibbonFromFeature.Current.RemoveAllCustomizations(web, ReceiverGuid);
+            RibbonCustomAction.RemoveAllCustomizations(web, ReceiverGuid);
         }
 
 

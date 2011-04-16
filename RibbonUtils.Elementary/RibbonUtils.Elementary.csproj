@@ -68,9 +68,6 @@
     <Compile Include="RibbonWebPart\RibbonWebPart.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="EmptyElement1\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{ba53ca93-90d4-410a-8060-1765b3a5ccfc}</SharePointProjectItemId>
-    </None>
     <None Include="key.snk" />
     <None Include="Layouts\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{d6ec3c24-5469-47be-8a8d-8b004a80bbc5}</SharePointProjectItemId>
@@ -82,9 +79,6 @@
     <None Include="RibbonWebPart\Elements.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EmptyElement1\Elements.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Layouts\RibbonUtils.Elementary\RibbonPage.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>

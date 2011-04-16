@@ -33,21 +33,27 @@ namespace RibbonUtils
         #endregion
 
 
-        internal string GetCommandUIDefinitionXML(string location, string definitionXml, string commandXml)
+        internal string GetCommandUIExtensionXML(string definitionsXml, string commandXml, string templatesXml)
         {
-            var parsedElements = XDocument.Parse(definitionXml).Elements();
-            var commandElements = XDocument.Parse(commandXml).Elements();
+            var parsedElements = ParseXml(definitionsXml);
+            var commandElements = ParseXml(commandXml);
+            var templateElements = ParseXml(templatesXml);
 
             var document = new XDocument(
                 new XElement("CommandUIExtension",
-                    new XElement("CommandUIDefinitions",
-                        new XElement("CommandUIDefinition",
-                            new XAttribute("Location", location),
-                            parsedElements
-                            )
-                        )
+                    new XElement("CommandUIDefinitions")
                     )
                 );
+
+            document.Element("CommandUIExtension").Element("CommandUIDefinitions").Add(parsedElements);
+
+            foreach (var templateElement in templateElements)
+            {
+                document.Element("CommandUIExtension").Element("CommandUIDefinitions").Add(
+                    new XElement("CommandUIDefinition",
+                        new XAttribute("Location", "Ribbon.Templates._children"),
+                        templateElement));
+            }
 
             if (!String.IsNullOrEmpty(commandXml))
                 document.Element("CommandUIExtension").Add(
@@ -55,6 +61,24 @@ namespace RibbonUtils
                         commandElements
                         ));
 
+
+            return document.ToString();
+        }
+
+        internal string GetCommandUIDefinitionXML(string location, string definitionXml)
+        {
+            var parsedElements = ParseXml(definitionXml);
+
+            var document = new XDocument(new XElement("root"));
+
+            foreach (var parsedElement in parsedElements)
+            {
+                document.Element("root").Add(
+                    new XElement("CommandUIDefinition",
+                        new XAttribute("Location", location),
+                        parsedElement
+                    ));
+            }
 
             return document.ToString();
         }
@@ -70,17 +94,26 @@ namespace RibbonUtils
 
         internal string GetContextualGroupXML(ContextualGroupDefinition definition)
         {
+            definition.Validate();
             return new XDocument(GetContextualGroupElement(definition)).ToString();
         }
 
         internal string GetTabXML(TabDefinition definition)
         {
+            definition.Validate();
             return new XDocument(GetTabElement(definition)).ToString();
         }
 
-        internal string GetControlXML(ControlDefinition controlDefinition, int sequence, string groupId)
+        internal string GetGroupXML(GroupDefinition definition, int sequence, string tabId)
         {
-            return new XDocument(GetControlElement(controlDefinition, sequence, groupId)).ToString();
+            definition.Validate();
+            return new XDocument(GetGroupElement(definition, sequence, tabId)).ToString();
+        }
+
+        internal string GetControlXML(ControlDefinition definition, int sequence, string groupId)
+        {
+            definition.Validate();
+            return new XDocument(GetControlElement(definition, sequence, groupId)).ToString();
         }
 
         #region Private methods
@@ -92,8 +125,6 @@ namespace RibbonUtils
         /// <returns>XML for Ribbon, it can be used in RegisterDataExtension method of the SPRibbon object</returns>
         private XElement GetContextualGroupElement(ContextualGroupDefinition definition)
         {
-            definition.Validate();
-
             var groupElement = new XElement("ContextualGroup",
                     new XAttribute("Color", definition.Color.ToString()),
                     new XAttribute("Command", definition.Id + ".EnableContextualGroup"),
@@ -110,6 +141,8 @@ namespace RibbonUtils
 
             return groupElement;
         }
+
+
         private XElement GetTabElement(TabDefinition definition)
         {
             var tabElement =
@@ -128,46 +161,56 @@ namespace RibbonUtils
             int groupIndex = 0;
             foreach (GroupDefinition group in definition.Groups)
             {
-                // Setting up some calculated fields to all group controls, including inner
-                foreach (var control in group.Controls.WithDescendants(c => c is IContainer ? (c as IContainer).Controls : null))
-                {
-                    control.ParentGroup = group;
-                }
-                
                 groupIndex++;
                 
-                string groupId = "Ribbon." + definition.Id + "." + group.Id;
+                var groupElement = GetGroupElement(group, groupIndex, "Ribbon." + definition.Id);
 
-                tabElement.Element("Scaling").Add(
-                    new XElement("MaxSize",
-                        new XAttribute("Id", groupId + ".MaxSize"),
-                        new XAttribute("GroupId", groupId),
-                        new XAttribute("Size", group.Template.SizeId)
-                    ),
-                    new XElement("Scale",
-                        new XAttribute("Id", groupId + ".Scale"),
-                        new XAttribute("GroupId", groupId),
-                        new XAttribute("Size", group.Template.SizeId)
-                    ));
-
-                XElement groupElement = new XElement("Group",
-                        new XAttribute("Id", groupId),
-                        new XAttribute("Title", group.Title),
-                        new XAttribute("Sequence", groupIndex),
-                        new XAttribute("Template", group.Template.Id),
-                        new XElement("Controls",
-                            new XAttribute("Id", groupId + ".Controls")
-                            )
-                    );
-
-                tabElement.Element("Groups").Add(groupElement);
-
-                RecursiveAddControls(groupElement.Element("Controls"), group.Controls, groupId);
-
+                tabElement.Element("Scaling").AddFirst(groupElement.Element("Scaling").Element("MaxSize"));
+                tabElement.Element("Scaling").Add(groupElement.Element("Scaling").Element("Scaling"));
+                tabElement.Element("Groups").Add(groupElement.Element("Group"));
             }
 
             return tabElement;
 
+        }
+
+        private XElement GetGroupElement(GroupDefinition definition, int groupIndex, string tabId)
+        {
+            // Setting up some calculated fields to all group controls, including inner
+            foreach (var control in definition.Controls.WithDescendants(c => c is IContainer ? (c as IContainer).Controls : null))
+            {
+                control.ParentGroup = definition;
+            }
+
+            string groupId = tabId + "." + definition.Id;
+
+            var scalingElement = new XElement("Scaling",
+                new XAttribute("Id", tabId + ".Scaling"),
+                new XElement("MaxSize",
+                    new XAttribute("Id", groupId + ".MaxSize"),
+                    new XAttribute("GroupId", groupId),
+                    new XAttribute("Size", definition.Template.SizeId)
+                ),
+                new XElement("Scale",
+                    new XAttribute("Id", groupId + ".Scale"),
+                    new XAttribute("GroupId", groupId),
+                    new XAttribute("Size", definition.Template.SizeId)
+                )
+                );
+
+            var groupElement = new XElement("Group",
+                    new XAttribute("Id", groupId),
+                    new XAttribute("Title", definition.Title),
+                    new XAttribute("Sequence", groupIndex),
+                    new XAttribute("Template", definition.Template.Id),
+                    new XElement("Controls",
+                        new XAttribute("Id", groupId + ".Controls")
+                        )
+                );
+
+            RecursiveAddControls(groupElement.Element("Controls"), definition.Controls, groupId);
+
+            return new XElement("root", scalingElement, groupElement);
         }
 
         private XElement GetControlElement(ControlDefinition control, int controlIndex, string groupId)
@@ -218,6 +261,14 @@ namespace RibbonUtils
                 ));
 
             RecursiveAddControls(controlsElement, container.Controls, sectionId);
+        }
+
+        private IEnumerable<XElement> ParseXml(string xml)
+        {
+            var parsedElements = XDocument.Parse(xml).Elements();
+            if (parsedElements.First().Name == "root")
+                parsedElements = parsedElements.First().Elements();
+            return parsedElements;
         }
 
         #endregion
