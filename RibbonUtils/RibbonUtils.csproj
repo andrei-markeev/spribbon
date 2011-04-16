@@ -67,6 +67,7 @@
     <Compile Include="Definitions\Controls\VisualControlBaseDefinition.cs" />
     <Compile Include="Definitions\ToolTipDefinition.cs" />
     <Compile Include="Definitions\ImageDefinition.cs" />
+    <Compile Include="Libraries\ControlLibrary.cs" />
     <Compile Include="Libraries\ImageLibrary.cs" />
     <Compile Include="LinqExtensions.cs" />
     <Compile Include="Definitions\RibbonDefinition.cs" />
