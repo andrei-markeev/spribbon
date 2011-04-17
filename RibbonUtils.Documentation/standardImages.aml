@@ -5,8 +5,8 @@
       <para>OOTB SharePoint Ribbon icons are availiable for custom ribbons too. 
       This article describes, how this can be done.</para>
     </introduction>
-    <section address="StandardImages">
-      <title>Using standard SharePoint images from Ribbon Utils</title>
+    <section address="StandardIcons">
+      <title>Standard SharePoint Ribbon icons</title>
       <content>
         <para>
         Standard Ribbon icons are contained in two complex images:
@@ -24,6 +24,11 @@
 	    <mediaLink>
 	    	<image xlink:href="formatmap32x32"/>
 		</mediaLink>
+	  </content>
+	</section>
+    <section address="Usage">
+      <title>Accessing standard icons from Ribbon Utils</title>
+      <content>
         <para>
         RibbonUtils simplifies work with standard images. You can use
         <codeEntityReference qualifyHint="true" autoUpgrade="true">M:RibbonUtils.Libraries.ImageLibrary.GetStandardImage(System.Int32,System.Int32)</codeEntityReference>

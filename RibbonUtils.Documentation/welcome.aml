@@ -26,20 +26,6 @@
 		  <listItem><para><legacyItalic>RibbonLayoutsPage</legacyItalic> - base class for Application Pages with ribbon</para></listItem>
 		  <listItem><para><legacyItalic>RibbonCustomAction</legacyItalic> - provision ribbon with Ribbon Utils definition classes (alternative to SharePoint XML provisioning)</para></listItem>
 		</list>
-	    <para>
-		To get the project news, you can either follow the project <externalLink>
-<linkText>at CodePlex</linkText>
-<linkAlternateText>Go to the CodePlex project page</linkAlternateText>
-<linkUri>http://ribbonutils.codeplex.com</linkUri>
-<linkTarget>_blank</linkTarget>
-</externalLink>, or 
-<externalLink>
-<linkText>follow the author</linkText>
-<linkAlternateText>Go to Twitter</linkAlternateText>
-<linkUri>http://www.twitter.com/amarkeev</linkUri>
-<linkTarget>_blank</linkTarget>
-</externalLink> on Twitter.
-	    </para>
       </content>
     </section>
     

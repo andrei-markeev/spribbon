@@ -36,25 +36,25 @@
         <Filter entryType="Class" fullName="RibbonUtils.ArrayElementsRequiredAttribute" filterName="ArrayElementsRequiredAttribute" isExposed="False" />
       </Filter>
     </ApiFilter>
-    <HelpTitle>Ribbon Utils for SharePoint 2010 documentation</HelpTitle>
+    <HelpTitle>SharePoint Ribbon Utils documentation</HelpTitle>
     <KeepLogFile>False</KeepLogFile>
     <ProjectSummary>&amp;lt%3bpara&amp;gt%3bRibbon is a central SharePoint 2010 feature, but for developer it is not so handy, as for a user.&amp;lt%3b/para&amp;gt%3b
 &amp;lt%3bpara&amp;gt%3bThis project aims to provide better API for Ribbon creation and managing in SharePoint 2010.&amp;lt%3b/para&amp;gt%3b</ProjectSummary>
     <ComponentConfigurations>
       <ComponentConfig id="Code Block Component" enabled="True">
         <component id="Code Block Component" type="SandcastleBuilder.Components.CodeBlockComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll">
-  <basePath value="{@HtmlEncProjectFolder}" />
-  <languageFilter value="true" />
-  <allowMissingSource value="false" />
-  <removeRegionMarkers value="false" />
-  <colorizer syntaxFile="{@SHFBFolder}Colorizer\highlight.xml" styleFile="{@SHFBFolder}Colorizer\highlight.xsl" copyImageUrl="../icons/CopyCode.gif" language="cs" tabSize="4" numberLines="true" outlining="true" keepSeeTags="false" defaultTitle="true" />
-</component>
+          <basePath value="{@HtmlEncProjectFolder}" />
+          <languageFilter value="true" />
+          <allowMissingSource value="false" />
+          <removeRegionMarkers value="false" />
+          <colorizer syntaxFile="{@SHFBFolder}Colorizer\highlight.xml" styleFile="{@SHFBFolder}Colorizer\highlight.xsl" copyImageUrl="../icons/CopyCode.gif" language="cs" tabSize="4" numberLines="true" outlining="true" keepSeeTags="false" defaultTitle="true" />
+        </component>
       </ComponentConfig>
     </ComponentConfigurations>
     <CppCommentsFixup>True</CppCommentsFixup>
     <SyntaxFilters>CSharp</SyntaxFilters>
     <SdkLinkTarget>Top</SdkLinkTarget>
-    <CopyrightHref>http://ribbonutils.codeplex.com</CopyrightHref>
+    <CopyrightHref>http://spribbon.codeplex.com</CopyrightHref>
     <CopyrightText>SharePoint Ribbon Utils</CopyrightText>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <HtmlHelp1xCompilerPath>
