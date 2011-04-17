@@ -7,6 +7,7 @@ namespace RibbonUtils
 {
     /// <summary>
     /// Template identifiers for standard SharePoint lists
+    /// Helper enumeration for <see cref="RibbonCustomAction"/> class Provision methods.
     /// </summary>
     public enum ListTypes
     {

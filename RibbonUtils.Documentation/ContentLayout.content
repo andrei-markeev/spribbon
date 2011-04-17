@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Topics>
+  <Topic id="5b3886da-4f52-4732-aba8-cc200ea98cb5" visible="True" isDefault="true" title="Getting started" />
+  <Topic id="cf4ab2a4-87b2-47a1-918b-4a103cea7dcc" visible="True" noFile="true" title="Project features">
+    <Topic id="10d75750-9f92-452b-94c2-a2e4d6a2e854" visible="True" title="ChessWebPart example project" />
+    <Topic id="221ad13b-6f59-4133-a877-2494f74c7f62" visible="True" title="ContextualWebPart" tocTitle="How to: ContextualWebPart" />
+    <Topic id="6335e0c6-e9c8-4468-a1fd-93a90377e363" visible="True" title="RibbonLayoutsPage" tocTitle="How to: RibbonLayoutsPage" />
+    <Topic id="22375680-1675-4cfe-ab6c-58459fbe29dc" visible="True" title="RibbonCustomAction" tocTitle="How to: RibbonCustomAction" />
+    <Topic id="06e4b52f-2379-4dbb-bc6c-28e285c8f400" visible="True" title="Definitions validation" />
+  </Topic>
+  <Topic id="e91f0875-f635-4845-9cac-f98328d48c67" visible="True" noFile="true" title="Articles">
+    <Topic id="97a2cc26-fb80-4e45-b29e-d80873ed2e24" visible="True" title="How to perform postbacks with Ribbon Utils" />
+    <Topic id="c269ecc9-a6e1-4e1f-ad8d-22a34f9d606e" visible="True" title="Using standard SharePoint images in your definitions" />
+  </Topic>
+</Topics>

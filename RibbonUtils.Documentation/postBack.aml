@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="97a2cc26-fb80-4e45-b29e-d80873ed2e24" revisionNumber="1">
+  <developerHowToDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+      By default, <codeEntityReference>T:RibbonUtils.Definitions.Controls.ButtonDefinition</codeEntityReference>
+      and other Ribbon Utils button definitions, provide ability to set up javascript actions for
+      buttons, using 
+      <codeEntityReference>F:RibbonUtils.Definitions.Controls.ButtonBaseDefinition.CommandJavaScript</codeEntityReference>
+      field. But, sometimes, server side processing is needed.
+      </para>
+      <para>
+      This article describes, how developer can perform postbacks with Ribbon Utils.
+      </para>
+    </introduction>
+    <procedure>
+      <title>.</title>
+      <steps class="ordered">
+        <step>
+          <content>
+            <para>First of all, you will need to define constant with
+            postback identifier.</para>
+    		<code language="csharp">
+const string RibbonPostbackId = "MyPostbackEvent";
+            </code>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Next, pass this identifier into __doPostBack javascript 
+            subroutine in your ribbon button definition.</para>
+    		<code language="csharp">
+new ButtonDefinition()
+{
+	Id = "PostbackButton",
+	Title = "My postback button",
+	CommandJavaScript = String.Format("__doPostBack('{0}','');"), RibbonPostbackId)
+}
+		    </code>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>In your ContextualWebPart descendent, add this
+            code to <legacyItalic>CreateChildControls</legacyItalic>
+            method:</para>
+		    <code language="csharp">
+if (this.Page.Request["__EVENTTARGET"] == RibbonPostbackId)
+{
+	// do whatever you need
+}
+		    </code>
+          </content>
+        </step>
+      </steps>
+    </procedure>
+    <codeExample>
+        <para>
+        Let's look at a little more complex example.
+        </para>
+        <para>
+        Consider, you have textbox at your ribbon, and you want to
+        get user input from this textbox from your codebehind, when
+        your ribbon button is pressed.
+        </para>
+        <para>
+        Full-qualified Id for this textbox is "Ribbon.CustomTab.CustomGroup.CustomTextBox".
+        </para>
+        <para>Here is the solution:</para>
+        
+	    <code language="csharp">
+public class VisualWebPart1 : ContextualWebPart
+{
+	private const string textBoxPostbackId = "MyTextBoxPostbackId";
+	private const string textBoxId = "Ribbon.CustomTab.CustomGroup.CustomTextBox";
+
+	public override ContextualGroupDefinition GetContextualGroupDefinition()
+	{
+		return new ContextualGroupDefinition()
+		{
+		
+			// ...
+
+			new ButtonDefinition()
+			{
+				Id = "PostbackButton",
+				Title = "My postback button",
+				CommandJavaScript = 
+					String.Format(
+						"__doPostBack('{0}',{1});"), 
+						textBoxPostbackId,
+						"document.getElementById('" + textBoxId + "').value"
+					)
+			}
+		
+			// ...
+		};
+	}
+
+
+	public override CreateChildControls()
+	{
+		// ...
+
+		if (this.Page.Request["__EVENTTARGET"] == textBoxPostbackId)
+		{
+			string textBoxValue = this.Page.Request["__EVENTARGUMENT"];
+			// do whatever you need with textBoxValue
+		}
+		
+		// ...
+	}
+}
+	    </code>
+	</codeExample>
+
+  </developerHowToDocument>
+</topic>

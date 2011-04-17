@@ -6,6 +6,9 @@ using RibbonUtils.Definitions.Controls;
 
 namespace RibbonUtils.Libraries
 {
+    /// <summary>
+    /// This library contains control definitions
+    /// </summary>
     public class ControlLibrary
     {
         private static Random random;
@@ -16,6 +19,11 @@ namespace RibbonUtils.Libraries
             return random;
         }
 
+        /// <summary>
+        /// Create random simple button control.
+        /// This will use random standard image, random button caption and javascript notification action through SP.UI.Notify.
+        /// </summary>
+        /// <returns>Returns random button definition</returns>
         public static ButtonDefinition CreateRandomButton()
         {
             string id = GetRandom().Next(100, 999).ToString();

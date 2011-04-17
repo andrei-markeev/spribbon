@@ -6,7 +6,8 @@ using System.Text;
 namespace RibbonUtils
 {
     /// <summary>
-    /// Display forms for a SharePoint list
+    /// Display forms for a SharePoint list.
+    /// Helper enumeration for <see cref="RibbonCustomAction"/> class Provision methods.
     /// </summary>
     public enum ListForms
     {

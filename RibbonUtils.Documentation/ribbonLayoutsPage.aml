@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="6335e0c6-e9c8-4468-a1fd-93a90377e363" revisionNumber="1">
+  <developerHowToDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para><codeEntityReference>T:RibbonUtils.RibbonLayoutsPage</codeEntityReference> is base class for simplifying creation of Application Pages with ribbon.</para>
+    </introduction>
+    <procedure>
+      <title>Creating a simple demo</title>
+      <steps class="ordered">
+        <step>
+          <content>
+            <para>Create new SharePoint Empty Project in Visual Studio 2010 </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Add reference to RibbonUtils.dll </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Add RibbonUtils.dll into GAC deployment list (Package.package, 'Advanced' tab)</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Add 'Layouts' SharePoint Mapped folder to the project</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Add Application Page item into 'Layouts' folder </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Inherit ApplicationPage1 class from RibbonLayoutsPage </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Override GetTabDefinition method and provide ribbon definition, using classes from RibbonUtils.Definition namespace</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Deploy! </para>
+          </content>
+        </step>
+      </steps>
+    </procedure>
+    <codeExample>
+    <code language="csharp">
+public partial class ApplicationPage1 : RibbonLayoutsPage
+{
+    public override TabDefinition GetTabDefinition()
+    {
+        return new TabDefinition()
+        {
+            Id = "TestRibbon",
+            Title = "Test",
+            Groups = new GroupDefinition[]
+            {
+                new GroupDefinition()
+                {
+                    Id = "TestGroup",
+                    Title = "Test group",
+                    Template = GroupTemplateLibrary.SimpleTemplate,
+                    Controls = new ControlDefinition[]
+                    {
+                        new ButtonDefinition()
+                        {
+                            Id = "TestButton",
+                            Title = "Test button",
+                            CommandJavaScript = "alert('test!');",
+                            Image = ImageLibrary.GetStandardImage(6, 0)
+                        }
+                    }
+                }
+            }
+
+        };
+    }
+}
+	</code>
+    </codeExample>
+    <para>
+    	You will see the following result after deployment of this code:
+    </para>
+    <mediaLink>
+    	<image xlink:href="ribbonLayoutsPage"/>
+	</mediaLink>
+
+    <relatedTopics>
+    	<codeEntityReference>T:RibbonUtils.RibbonLayoutsPage</codeEntityReference>
+    </relatedTopics>
+  </developerHowToDocument>
+</topic>
