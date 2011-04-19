@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="22375680-1675-4cfe-ab6c-58459fbe29dc" revisionNumber="1">
+  <developerHowToDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+      <codeEntityReference>T:FluentRibbon.RibbonCustomAction</codeEntityReference> 
+      class simplifies syntax for creating and managing ribbons through SharePoint 
+      feature receivers.
+      </para>
+      <para>
+	  Because of using special definition classes, Fluent Ribbon API brings to 
+	  developers an alternative way for ribbon creation.
+      </para>
+      <para>
+	  Comparing to XML definitions (SharePoint native way), code definitions 
+	  are much more flexible, compact and documented. Intellisense for C# code 
+	  is, again, much better.
+      </para>
+      <para>
+	  Finally, Fluent Ribbon API has qualitative run-time Validation of it's definitions. 
+	  That is very important, because SharePoint itself often hides errors or does 
+	  not provide appropriate exception messages.
+      </para>
+    </introduction>
+    <procedure>
+      <title>Creating a simple demo</title>
+      <steps class="ordered">
+        <step>
+          <content>
+            <para>Create new SharePoint Empty Project in Visual Studio 2010 </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Add reference to FluentRibbon.dll </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Add FluentRibbon.dll into GAC deployment list (Package.package, 'Advanced' tab)</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Right-click on 'Features' project folder and select 'Add Feature' </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Right-click on 'Feature1' and select 'Add Event Receiver' </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Go to generated Feature1.EventReceiver.cs class and uncomment FeatureActivated and FeatureDeactivating methods overrides.</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Create some ribbon elements definitions. Tabs, control groups, and all the control types are now supported as elements for RibbonCustomAction. </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Instantiate RibbonCustomAction class.</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Use 
+            	<codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.AddTab(FluentRibbon.Definitions.TabDefinition)</codeEntityReference>, 
+            	<codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.ReplaceTab(FluentRibbon.Definitions.TabDefinition,System.String)</codeEntityReference>, 
+            	<codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.AddControlGroup(FluentRibbon.Definitions.GroupDefinition,System.String,System.Int32)</codeEntityReference>, 
+            	<codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.ReplaceControlGroup(FluentRibbon.Definitions.GroupDefinition,System.String,System.Int32)</codeEntityReference>, 
+            	<codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.AddControl(FluentRibbon.Definitions.ControlDefinition,System.String,System.Int32)</codeEntityReference> and 
+            	<codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.ReplaceControl(FluentRibbon.Definitions.ControlDefinition,System.String,System.Int32)</codeEntityReference> methods 
+            	to add your ribbon elements to the RibbonCustomAction instance.
+            </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>After adding all the definition into the instance, you should provision your custom action 
+            to specific location, using <codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.Provision(System.Guid,Microsoft.SharePoint.SPWeb)</codeEntityReference>
+            method.
+            This method has many overloads, so please, read intellisense documentation carefully to select 
+            appropriate overload.</para>
+          </content>
+        </step>
+      </steps>
+    </procedure>
+    <codeExample>
+    <code language="csharp">
+[Guid("4e0a75de-9dc0-4e2a-b7c3-2d6932bf7707")]
+public class Feature1EventReceiver : SPFeatureReceiver
+{
+    Guid ReceiverGuid { get { return new Guid("4e0a75de-9dc0-4e2a-b7c3-2d6932bf7707"); } }
+
+    public override void FeatureActivated(SPFeatureReceiverProperties properties)
+    {
+        SPWeb web = (properties.Feature.Parent as SPSite).RootWeb;
+
+        var button1 = ControlLibrary.CreateRandomButton();
+        var button2 = ControlLibrary.CreateRandomButton();
+        var button3 = ControlLibrary.CreateRandomButton();
+
+        var group = new GroupDefinition()
+        {
+            Id = "MyGroup",
+            Title = "Custom controls",
+            Template = Libraries.GroupTemplateLibrary.SimpleTemplate,
+            Controls = new ControlDefinition[]
+            {
+                button2,
+                button3
+            }
+        };
+
+        var ribbonCustomAction = new RibbonCustomAction();
+
+        ribbonCustomAction.AddControlGroup(group, "Ribbon.ListItem", 25);
+
+        // We need assign TemplateAlias manually to buttons, if they will be deployed separately
+        button1.TemplateAlias = "o1";
+        ribbonCustomAction.AddControl(button1, "Ribbon.ListItem.Manage", 1);
+
+        ribbonCustomAction.Provision(ReceiverGuid, web, ListTypes.GenericList);
+
+    }
+
+
+    public override void FeatureDeactivating(SPFeatureReceiverProperties properties)
+    {
+        SPWeb web = (properties.Feature.Parent as SPSite).RootWeb;
+        RibbonCustomAction.RemoveAllCustomizations(web, ReceiverGuid);
+    }
+
+}
+	</code>
+    </codeExample>
+    <para>
+    	You will see the following result after deployment of this code:
+    </para>
+    <mediaLink>
+    	<image xlink:href="ribbonCustomAction"/>
+	</mediaLink>
+	<!-- <buildInstructions>Optional instructions for building a
+         code example.</buildInstructions> -->
+    <!-- <robustProgramming>Optional discussion of error handling and other
+         issues related to writing solid code.</robustProgramming> -->
+    <!-- <security>Optional discussion of security issues.</security> -->
+    <relatedTopics>
+    	<codeEntityReference>T:FluentRibbon.RibbonCustomAction</codeEntityReference>
+    </relatedTopics>
+  </developerHowToDocument>
+</topic>

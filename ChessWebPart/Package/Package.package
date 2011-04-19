@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="c0d50030-7965-4298-98b4-fedf72f6eb75" solutionId="c0d50030-7965-4298-98b4-fedf72f6eb75" resetWebServer="false" name="ChessWebPart" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
   <assemblies>
-    <projectOutputAssembly location="RibbonUtils.dll" deploymentTarget="GlobalAssemblyCache" projectPath="..\RibbonUtils\RibbonUtils.csproj" />
+    <projectOutputAssembly location="FluentRibbon.dll" deploymentTarget="GlobalAssemblyCache" projectPath="..\FluentRibbon\FluentRibbon.csproj" />
   </assemblies>
   <features>
     <featureReference itemId="b25866d9-b0d2-4fa0-abaf-4a7643817269" />

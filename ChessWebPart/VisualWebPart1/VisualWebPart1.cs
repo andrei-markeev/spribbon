@@ -7,10 +7,10 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
-using RibbonUtils;
-using RibbonUtils.Definitions;
-using RibbonUtils.Definitions.Controls;
-using RibbonUtils.Libraries;
+using FluentRibbon;
+using FluentRibbon.Definitions;
+using FluentRibbon.Definitions.Controls;
+using FluentRibbon.Libraries;
 
 namespace ChessWebPart.VisualWebPart1
 {

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="10d75750-9f92-452b-94c2-a2e4d6a2e854" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+      	ChessWebPart sample project is shipped with SharePoint Fluent Ribbon API project.
+      	It is a chess game, fully integrated to SharePoint UI.
+      </para>
+    </introduction>
+    <!-- Add one or more top-level section elements.  These are collapsible.
+         If using <autoOutline />, add an address attribute to identify it
+         and specify a title so that it can be jumped to with a hyperlink. -->
+    <section address="ChessWebPart">
+      <title>ChessWebPart sample project</title>
+      <content>
+        
+        <para>
+        	For the ChessWebPart, I'm using a well-known opensource javascript chess game for 
+				<externalLink>
+				<linkText>P4wn</linkText>
+				<linkAlternateText>P4wn chess project page</linkAlternateText>
+				<linkUri>http://p4wn.sourceforge.net/</linkUri>
+				<linkTarget>_blank</linkTarget>
+				</externalLink> project.
+		</para>
+		
+		<para>
+        	Unfortunately, not very strong engine, but it is pure js, so what do you want?! :)
+        </para>
+        
+        <para>
+			Originally, the game look like this:
+		</para>
+	    
+	    <mediaLink>
+	    	<image xlink:href="chessOriginal"/>
+		</mediaLink>
+		
+		<para>
+			From this point, to integrate this chess into SharePoint, you could
+			eigher use this whole look, or take only the board, and create
+			contextual tab for the buttons and options.
+		</para>
+		
+		<para>
+			So, you know which variant I preferred, aren't you? :)
+		</para>
+		
+		<para>
+			I ended up with pretty cool look:
+		</para>
+	    
+	    <mediaLink>
+	    	<image xlink:href="chessWebPart"/>
+		</mediaLink>
+		
+      </content>
+    </section>
+    <relatedTopics>
+      <link xlink:href="221ad13b-6f59-4133-a877-2494f74c7f62">How to: ContextualWebPart</link>
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

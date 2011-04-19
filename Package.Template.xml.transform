@@ -1,0 +1,5 @@
+<Solution> 
+	<Assemblies>
+		<Assembly Location="RibbonUtils.dll" DeploymentTarget="GlobalAssemblyCache" />
+	</Assemblies>
+</Solution>

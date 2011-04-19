@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="06e4b52f-2379-4dbb-bc6c-28e285c8f400" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>Validation is very important in SharePoint development, because
+      SharePoint itself very often hides errors or provides useless exception
+      messages. Fluent Ribbon always validates your ribbon elements definitions,
+      and display very descriptive messages, if, for example, some required
+      fields were missed.</para>
+    </introduction>
+    <section address="Validation">
+      <title>Definitions validation</title>
+      <content>
+		<para>
+			When you pass definition of a Ribbon tab or contextual tab group 
+			into Fluent Ribbon, this definitions are first of all will be validated 
+			using Fluent Ribbon﻿ internal validation routines.
+		</para>
+
+		<para>
+			Validation is performed at run-time, when your Application Page or 
+			WebPart Page is loaded into one's browser, or when Feature with 
+			RibbonCustomAction code is activated.
+		</para>
+		
+		<para>
+			If validation is failed, ValidationException will be thrown, and the 
+			Error page will be displayed. To get the error description, you should 
+			observe your ULS logs, located in 
+			"C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\LOGS"
+			folder.
+		</para>
+
+		<para>
+			Also you can configure IIS to display error text right in the browser. 
+			In this case, you need to turn CustomErrors setting to "Off" or "RemoteOnly" 
+			value in your web.config file:
+		</para>
+		
+		<code language="xml">
+ &lt;customErrors mode="Off" /&gt;
+ 		</code>
+ 		
+ 		<para>or</para>
+ 
+ 		<code language="xml">
+ &lt;customErrors mode="RemoteOnly" /&gt;
+ 		</code>
+ 
+ 		<para>
+	 		RemoteOnly option allows to display errors only to localhost clients.
+ 		</para>
+
+		<para>
+			Actually you need to change two web.config files:
+		</para>
+
+		<list class="ordered">
+		  <listItem><para>For Application Pages, web.config file is located in ﻿"C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\TEMPLATE\LAYOUTS" folder. </para></listItem>
+		  <listItem><para>For Webpart Pages and lists, web.config file is located inside "inetpub" folder, under your portal virtual directory folder. For instance, if you have portal on the default, 80 port, you will need "C:\inetpub\wwwroot\wss\VirtualDirectories\80\web.config" file. </para></listItem>
+		</list>
+
+		<para>
+			After these changes, you will see the error message right in your browser, for example:
+		</para>
+		
+	    <mediaLink>
+	    	<image xlink:href="validationError"/>
+		</mediaLink>
+
+      </content>
+
+    </section>
+    <relatedTopics>
+    	<codeEntityReference>N:FluentRibbon.Definitions</codeEntityReference>
+    	<codeEntityReference>N:FluentRibbon.Definitions.Controls</codeEntityReference>
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

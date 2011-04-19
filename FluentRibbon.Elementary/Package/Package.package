@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="4eb19b76-fb28-44c9-8f91-d736a888975d" solutionId="4eb19b76-fb28-44c9-8f91-d736a888975d" resetWebServer="false" name="FluentRibbon.Elementary" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <assemblies>
+    <projectOutputAssembly location="FluentRibbon.dll" deploymentTarget="GlobalAssemblyCache" projectPath="..\FluentRibbon\FluentRibbon.csproj" />
+  </assemblies>
+  <features>
+    <featureReference itemId="65fd23b1-867b-4671-a7f5-c1027ce43548" />
+  </features>
+  <projectItems>
+    <projectItemReference itemId="d6ec3c24-5469-47be-8a8d-8b004a80bbc5" />
+  </projectItems>
+</package>
