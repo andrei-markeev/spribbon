@@ -5,8 +5,8 @@ using System.Text;
 using Microsoft.SharePoint;
 using FluentRibbon.Definitions;
 using FluentRibbon.Definitions.Controls;
-using Microsoft.SharePoint.WebControls;
 using FluentRibbon.Libraries;
+using FluentRibbon.Commands;
 
 namespace FluentRibbon
 {

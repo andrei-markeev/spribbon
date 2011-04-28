@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="5a949bda-4b5d-44cc-9b1d-c6826f850649" solutionId="5a949bda-4b5d-44cc-9b1d-c6826f850649" resetWebServer="false" name="FluentRibbon.SandboxSample" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <assemblies>
+    <projectOutputAssembly location="FluentRibbon.Sandboxed.dll" deploymentTarget="GlobalAssemblyCache" projectPath="..\FluentRibbon.Sandboxed\FluentRibbon.Sandboxed.csproj" />
+  </assemblies>
+  <features>
+    <featureReference itemId="4f9b2bc8-1780-4044-bb0b-2f276aecceb5" />
+  </features>
+</package>

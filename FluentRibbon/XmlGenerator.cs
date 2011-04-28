@@ -6,6 +6,7 @@ using FluentRibbon.Definitions;
 using System.Xml.Linq;
 using FluentRibbon.Definitions.Controls;
 using Microsoft.SharePoint.WebControls;
+using FluentRibbon.Commands;
 
 namespace FluentRibbon
 {
@@ -83,7 +84,7 @@ namespace FluentRibbon
             return document.ToString();
         }
 
-        internal string GetCommandUIHandlerXML(IRibbonCommand command)
+        internal string GetCommandUIHandlerXML(FluentRibbonCommand command)
         {
             return new XDocument(
                 new XElement("CommandUIHandler",

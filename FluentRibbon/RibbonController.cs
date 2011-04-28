@@ -10,6 +10,7 @@ using Microsoft.Web.CommandUI;
 using FluentRibbon.Definitions.Controls;
 using Microsoft.SharePoint;
 using System.Runtime.InteropServices;
+using FluentRibbon.Commands;
 
 namespace FluentRibbon
 {
@@ -105,9 +106,9 @@ namespace FluentRibbon
         {
             SPRibbonScriptManager ribbonScriptManager = new SPRibbonScriptManager();
 
-            ribbonScriptManager.RegisterGetCommandsFunction(page, "getGlobalCommands", RibbonCommandRepository.Current.GetCommands());
-            ribbonScriptManager.RegisterCommandEnabledFunction(page, "commandEnabled", RibbonCommandRepository.Current.GetCommands());
-            ribbonScriptManager.RegisterHandleCommandFunction(page, "handleCommand", RibbonCommandRepository.Current.GetCommands());
+            ribbonScriptManager.RegisterGetCommandsFunction(page, "getGlobalCommands", RibbonCommandConverter.Convert(RibbonCommandRepository.Current.GetCommands()));
+            ribbonScriptManager.RegisterCommandEnabledFunction(page, "commandEnabled", RibbonCommandConverter.Convert(RibbonCommandRepository.Current.GetCommands()));
+            ribbonScriptManager.RegisterHandleCommandFunction(page, "handleCommand", RibbonCommandConverter.Convert(RibbonCommandRepository.Current.GetCommands()));
 
             page.ClientScript.RegisterClientScriptBlock(
                 page.GetType(),

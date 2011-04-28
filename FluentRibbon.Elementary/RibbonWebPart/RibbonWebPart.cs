@@ -30,7 +30,7 @@ namespace FluentRibbon.Elementary.WebParts
             return new ContextualGroupDefinition()
             {
                 Id = "TestContextualGroup",
-                Title = "Ribbon Utils",
+                Title = "Fluent Ribbon API",
                 Tabs = new TabDefinition[]
                 {
                     new TabDefinition()
@@ -109,7 +109,7 @@ namespace FluentRibbon.Elementary.WebParts
                                         Id = "SplitButton",
                                         Title = "Split button",
                                         Image = new ImageDefinition() { Url32 = "/_layouts/images/LG_DATASOURCE.gif" },
-                                        CommandJavaScript = "alert('split test!')",
+                                        CommandJavaScript = "alert('split test!'); document.getElementById('Ribbon.Tab2.Group.SplitButton-Large').style.display = 'none';",
                                         Controls = new ControlDefinition[]
                                         {
                                             new ButtonDefinition()

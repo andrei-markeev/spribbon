@@ -13,9 +13,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentRibbon.Tests", "Fluen
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B53CB8DC-5F2C-49C3-993E-D171860F43CF}"
 	ProjectSection(SolutionItems) = preProject
-		Local.testsettings = Local.testsettings
 		FluentRibbon.vsmdi = FluentRibbon.vsmdi
+		Local.testsettings = Local.testsettings
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentRibbon.Sandboxed", "FluentRibbon.Sandboxed\FluentRibbon.Sandboxed.csproj", "{BA2D9789-8F6D-4D0B-B410-1DC04A428E3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentRibbon.SandboxSample", "FluentRibbon.SandboxSample\FluentRibbon.SandboxSample.csproj", "{4276031F-1037-46CD-B305-56DE166C407D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2F47293D-9894-4504-AED2-EA7AA8B14EF7} = {2F47293D-9894-4504-AED2-EA7AA8B14EF7}
 	EndProjectSection
 EndProject
 Global
@@ -47,6 +54,16 @@ Global
 		{A13DAC54-D6B8-47CD-9031-1EC0D3E14D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A13DAC54-D6B8-47CD-9031-1EC0D3E14D1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A13DAC54-D6B8-47CD-9031-1EC0D3E14D1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA2D9789-8F6D-4D0B-B410-1DC04A428E3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA2D9789-8F6D-4D0B-B410-1DC04A428E3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA2D9789-8F6D-4D0B-B410-1DC04A428E3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA2D9789-8F6D-4D0B-B410-1DC04A428E3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4276031F-1037-46CD-B305-56DE166C407D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4276031F-1037-46CD-B305-56DE166C407D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4276031F-1037-46CD-B305-56DE166C407D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4276031F-1037-46CD-B305-56DE166C407D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4276031F-1037-46CD-B305-56DE166C407D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4276031F-1037-46CD-B305-56DE166C407D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,5 +71,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{2F47293D-9894-4504-AED2-EA7AA8B14EF7} = {543EB6D5-76CA-41CE-AEAE-1876FEC01D24}
 		{46FFC522-DDD4-4D0C-863D-06AF78D0B4EB} = {543EB6D5-76CA-41CE-AEAE-1876FEC01D24}
+		{4276031F-1037-46CD-B305-56DE166C407D} = {543EB6D5-76CA-41CE-AEAE-1876FEC01D24}
 	EndGlobalSection
 EndGlobal

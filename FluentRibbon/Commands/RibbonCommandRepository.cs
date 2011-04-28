@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using FluentRibbon.Definitions;
 using FluentRibbon.Definitions.Controls;
-using Microsoft.SharePoint.WebControls;
 
-namespace FluentRibbon
+namespace FluentRibbon.Commands
 {
     /// <summary>
     /// Helper class for Ribbon commands managing and collecting
@@ -34,14 +33,14 @@ namespace FluentRibbon
 
         #endregion
 
-        List<IRibbonCommand> commands = new List<IRibbonCommand>();
+        List<FluentRibbonCommand> commands = new List<FluentRibbonCommand>();
 
         public int GetCommandsCount()
         {
             return commands.Count;
         }
 
-        public IEnumerable<IRibbonCommand> GetCommands()
+        public IEnumerable<FluentRibbonCommand> GetCommands()
         {
             return commands.AsReadOnly();
         }
@@ -71,8 +70,8 @@ namespace FluentRibbon
                 controls
                 .WithDescendants(c => c is IContainer ? (c as IContainer).Controls : null)
                 .OfType<MRUSplitButtonDefinition>()
-                .Select<MRUSplitButtonDefinition, IRibbonCommand>(c =>
-                    new SPRibbonCommand(
+                .Select<MRUSplitButtonDefinition, FluentRibbonCommand>(c =>
+                    new FluentRibbonCommand(
                         c.FullId + "MenuCommand",
                         "handleCommand(properties['CommandValueId']);",
                         "true"
@@ -85,7 +84,7 @@ namespace FluentRibbon
                 controls
                 .WithDescendants(c => c is IContainer ? (c as IContainer).Controls : null)
                 .OfType<ButtonBaseDefinition>()
-                .Select<ButtonBaseDefinition, IRibbonCommand>(b => new SPRibbonCommand(b.FullId + "Command", b.CommandJavaScript, b.CommandEnableJavaScript)));
+                .Select<ButtonBaseDefinition, FluentRibbonCommand>(b => new FluentRibbonCommand(b.FullId + "Command", b.CommandJavaScript, b.CommandEnableJavaScript)));
         }
 
 

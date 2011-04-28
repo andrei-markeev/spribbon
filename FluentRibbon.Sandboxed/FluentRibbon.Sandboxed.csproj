@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BA2D9789-8F6D-4D0B-B410-1DC04A428E3B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FluentRibbon.Sandboxed</RootNamespace>
+    <AssemblyName>FluentRibbon.Sandboxed</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\FluentRibbon\ArrayElementsRequired.cs">
+      <Link>ArrayElementsRequired.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Commands\FluentRibbonCommand.cs">
+      <Link>Commands\FluentRibbonCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Commands\RibbonCommandRepository.cs">
+      <Link>Commands\RibbonCommandRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\ContextualGroupColor.cs">
+      <Link>Definitions\ContextualGroupColor.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\ContextualGroupDefinition.cs">
+      <Link>Definitions\ContextualGroupDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\ControlDefinition.cs">
+      <Link>Definitions\ControlDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\ButtonBaseDefinition.cs">
+      <Link>Definitions\Controls\ButtonBaseDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\ButtonDefinition.cs">
+      <Link>Definitions\Controls\ButtonDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\FlyoutAnchorDefinition.cs">
+      <Link>Definitions\Controls\FlyoutAnchorDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\IContainer.cs">
+      <Link>Definitions\Controls\IContainer.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\LabelDefinition.cs">
+      <Link>Definitions\Controls\LabelDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\MRUSplitButtonDefinition.cs">
+      <Link>Definitions\Controls\MRUSplitButtonDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\SplitButtonBaseDefinition.cs">
+      <Link>Definitions\Controls\SplitButtonBaseDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\TextBoxDefinition.cs">
+      <Link>Definitions\Controls\TextBoxDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\VisualControlBaseDefinition.cs">
+      <Link>Definitions\Controls\VisualControlBaseDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\GroupDefinition.cs">
+      <Link>Definitions\GroupDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\GroupTemplateDefinition.cs">
+      <Link>Definitions\GroupTemplateDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\ImageDefinition.cs">
+      <Link>Definitions\ImageDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\RibbonDefinition.cs">
+      <Link>Definitions\RibbonDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\TabDefinition.cs">
+      <Link>Definitions\TabDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\ToolTipDefinition.cs">
+      <Link>Definitions\ToolTipDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Libraries\ControlLibrary.cs">
+      <Link>Libraries\ControlLibrary.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Libraries\GroupTemplateLibrary.cs">
+      <Link>Libraries\GroupTemplateLibrary.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\Libraries\ImageLibrary.cs">
+      <Link>Libraries\ImageLibrary.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\LinqExtensions.cs">
+      <Link>LinqExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\ListForms.cs">
+      <Link>ListForms.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\ListTypes.cs">
+      <Link>ListTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\RibbonCustomAction.cs">
+      <Link>RibbonCustomAction.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\RibbonCustomAction\Controls.cs">
+      <Link>RibbonCustomAction\Controls.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\RibbonCustomAction\Groups.cs">
+      <Link>RibbonCustomAction\Groups.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\RibbonCustomAction\ProvisionOverloads.cs">
+      <Link>RibbonCustomAction\ProvisionOverloads.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\RibbonCustomAction\Tabs.cs">
+      <Link>RibbonCustomAction\Tabs.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\ValidationHelper.cs">
+      <Link>ValidationHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\XmlGenerator.cs">
+      <Link>XmlGenerator.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Key.snk" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
