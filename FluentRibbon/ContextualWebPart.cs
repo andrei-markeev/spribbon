@@ -29,6 +29,20 @@ namespace FluentRibbon
         public abstract ContextualGroupDefinition GetContextualGroupDefinition();
 
         /// <summary>
+        /// Get contextual group definition with Unique Id
+        /// </summary>
+        private ContextualGroupDefinition GetUniqueContextualGroupDefinition()
+        {
+            var definition = GetContextualGroupDefinition();
+            if (definition != null)
+            {
+                definition.Id = this.UniqueID.Replace("_","").Replace("$","") + definition.Id;
+            }
+
+            return definition;
+        }
+
+        /// <summary>
         /// IWebPartPageComponentProvider realization
         /// </summary>
         public WebPartContextualInfo WebPartContextualInfo
@@ -41,7 +55,7 @@ namespace FluentRibbon
                 if (webPartManager.DisplayMode.Name != WebPartManager.BrowseDisplayMode.Name)
                     return info;
 
-                var contextualGroupDefinition = GetContextualGroupDefinition();
+                var contextualGroupDefinition = GetUniqueContextualGroupDefinition();
                 if (contextualGroupDefinition == null)
                     return info;
 
@@ -79,7 +93,7 @@ namespace FluentRibbon
             if (webPartManager.DisplayMode.Name != WebPartManager.BrowseDisplayMode.Name)
                 return;
 
-            var contextualGroupDefinition = GetContextualGroupDefinition();
+            var contextualGroupDefinition = GetUniqueContextualGroupDefinition();
             if (contextualGroupDefinition == null)
                 return;
 

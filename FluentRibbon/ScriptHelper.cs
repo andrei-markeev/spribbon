@@ -2,12 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FluentRibbon.Commands;
 
 namespace FluentRibbon
 {
-    internal class PageComponentScript
+    internal class ScriptHelper
     {
-        internal static string GetText(string nameSpace)
+
+        internal static string GetCommandsScript(IEnumerable<FluentRibbonCommand> commands)
+        {
+            return String.Format(@" 
+                <script language=""javascript"" defer=""true""> 
+                 //<![CDATA[
+                    function getGlobalCommands()
+                    {{
+                        return [{0}];
+                    }}
+                    function commandEnabled(commandId)
+                    {{
+{1}
+                        return false;
+                    }}
+                    function handleCommand(commandId, properties, sequence)
+                    {{
+{2}
+                        return false;
+                    }}
+
+                 //]]> 
+                </script>",
+                String.Join(",", commands.Select(c => "'" + c.Id + "'").ToArray()),
+                String.Join("\n", commands.Select(c => String.Format("if (commandId == '{0}') {{ return {1}; }}", c.Id, c.EnabledStatement)).ToArray()),
+                String.Join("\n", commands.Select(c => String.Format("if (commandId == '{0}') {{ {1}; return true; }}", c.Id, c.HandlerStatement)).ToArray())
+                 );
+        }
+
+        internal static string GetPageComponentScript(string nameSpace)
         {
             // This is not the best way to load the script, but it has an important advantage: you don't need to deploy FluentRibbon.
             // All is now in the assembly, and all you need is to install the assembly in GAC.
@@ -87,5 +117,6 @@ ExecuteOrDelayUntilScriptLoaded(initContextualPageComponent,'sp.ribbon.js');
                  //]]> 
                  </script>".Replace("{0}", nameSpace);
         }
+
     }
 }

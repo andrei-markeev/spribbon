@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FluentRibbon.Definitions;
-using System.Web.UI;
-using Microsoft.SharePoint.WebControls;
 using System.Xml;
-using Microsoft.Web.CommandUI;
-using FluentRibbon.Definitions.Controls;
-using Microsoft.SharePoint;
+using System.Web.UI;
 using System.Runtime.InteropServices;
+
+using Microsoft.SharePoint;
+using Microsoft.Web.CommandUI;
+using Microsoft.SharePoint.WebControls;
+
+using FluentRibbon.Definitions;
+using FluentRibbon.Definitions.Controls;
 using FluentRibbon.Commands;
 
 namespace FluentRibbon
@@ -104,16 +106,21 @@ namespace FluentRibbon
 
         private void RegisterCommands(Page page)
         {
-            SPRibbonScriptManager ribbonScriptManager = new SPRibbonScriptManager();
+            // SPRibbonScriptManager is not avaliable for sandboxed solutions
+            //SPRibbonScriptManager ribbonScriptManager = new SPRibbonScriptManager();
+            //ribbonScriptManager.RegisterGetCommandsFunction(page, "getGlobalCommands", RibbonCommandConverter.Convert(RibbonCommandRepository.Current.GetCommands()));
+            //ribbonScriptManager.RegisterCommandEnabledFunction(page, "commandEnabled", RibbonCommandConverter.Convert(RibbonCommandRepository.Current.GetCommands()));
+            //ribbonScriptManager.RegisterHandleCommandFunction(page, "handleCommand", RibbonCommandConverter.Convert(RibbonCommandRepository.Current.GetCommands()));
 
-            ribbonScriptManager.RegisterGetCommandsFunction(page, "getGlobalCommands", RibbonCommandConverter.Convert(RibbonCommandRepository.Current.GetCommands()));
-            ribbonScriptManager.RegisterCommandEnabledFunction(page, "commandEnabled", RibbonCommandConverter.Convert(RibbonCommandRepository.Current.GetCommands()));
-            ribbonScriptManager.RegisterHandleCommandFunction(page, "handleCommand", RibbonCommandConverter.Convert(RibbonCommandRepository.Current.GetCommands()));
+            page.ClientScript.RegisterClientScriptBlock(
+                page.GetType(),
+                "FluentRibbonCommands",
+                ScriptHelper.GetCommandsScript(RibbonCommandRepository.Current.GetCommands()));
 
             page.ClientScript.RegisterClientScriptBlock(
                 page.GetType(),
                 "InitPageComponent",
-                PageComponentScript.GetText("FluentRibbon"));
+                ScriptHelper.GetPageComponentScript("FluentRibbon"));
 
             RibbonCommandRepository.Current.ClearCommands();
         }
