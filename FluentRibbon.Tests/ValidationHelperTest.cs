@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Reflection;
 using FluentRibbon.Definitions;
-using System.ComponentModel.DataAnnotations;
 
 namespace FluentRibbon.Tests
 {
@@ -25,11 +24,10 @@ namespace FluentRibbon.Tests
         public void CheckArrayTest1()
         {
             ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("ArrayField");
 
             // ArrayField is null
             RibbonDefinition obj = new ValidationHelperTester();
-            target.CheckArray(field, obj);
+            target.CheckArrayHasElements(obj, "ArrayField");
 
             Assert.Fail("Expected ValidationException was not thrown!");
         }
@@ -40,11 +38,10 @@ namespace FluentRibbon.Tests
         public void CheckArrayTest2()
         {
             ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("ArrayField");
 
             // ArrayField is empty array
             RibbonDefinition obj = new ValidationHelperTester() { ArrayField = new TabDefinition[] { } };
-            target.CheckArray(field, obj);
+            target.CheckArrayHasElements(obj, "ArrayField");
 
             Assert.Fail("Expected ValidationException was not thrown!");
         }
@@ -54,11 +51,10 @@ namespace FluentRibbon.Tests
         public void CheckArrayTest3()
         {
             ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("ArrayField");
 
             // ArrayField filled properly
             RibbonDefinition obj = new ValidationHelperTester() { ArrayField = new TabDefinition[] { new TabDefinition() } };
-            target.CheckArray(field, obj);
+            target.CheckArrayHasElements(obj, "ArrayField");
         }
 
         #endregion
@@ -71,11 +67,10 @@ namespace FluentRibbon.Tests
         public void CheckIntRangeTest1()
         {
             ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("RangeField");
             
             // RangeField is null
             RibbonDefinition obj = new ValidationHelperTester();
-            target.CheckIntRange(field, obj);
+            target.CheckIntRange(obj, "RangeField", 1, 9);
 
             Assert.Fail("Expected ValidationException was not thrown!");
         }
@@ -86,11 +81,10 @@ namespace FluentRibbon.Tests
         public void CheckIntRangeTest2()
         {
             ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("RangeField");
 
             // RangeField is outside of the range
             RibbonDefinition obj = new ValidationHelperTester() { RangeField = -1 };
-            target.CheckIntRange(field, obj);
+            target.CheckIntRange(obj, "RangeField", 1, 9);
 
             Assert.Fail("Expected ValidationException was not thrown!");
         }
@@ -100,10 +94,9 @@ namespace FluentRibbon.Tests
         public void CheckIntRangeTest3()
         {
             ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("RangeField");
-            // RangeField is null
+            // RangeField is in range
             RibbonDefinition obj = new ValidationHelperTester() { RangeField = 5 };
-            target.CheckIntRange(field, obj);
+            target.CheckIntRange(obj, "RangeField", 1, 9);
         }
 
         #endregion
@@ -116,11 +109,10 @@ namespace FluentRibbon.Tests
         public void CheckRequiredTest1()
         {
             ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("RequiredField");
 
             // RequiredField is null
             RibbonDefinition obj = new ValidationHelperTester();
-            target.CheckRequired(field, obj);
+            target.CheckNotNull(obj, "RequiredField");
 
             Assert.Fail("Expected ValidationException was not thrown!");
         }
@@ -130,11 +122,10 @@ namespace FluentRibbon.Tests
         public void CheckRequiredTest2()
         {
             ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("RequiredField");
 
             // RequiredField is not null
             RibbonDefinition obj = new ValidationHelperTester() { RequiredField = String.Empty };
-            target.CheckRequired(field, obj);
+            target.CheckNotNull(obj, "RequiredField");
 
         }
 
@@ -148,11 +139,10 @@ namespace FluentRibbon.Tests
         public void CheckRegularExpressionTest1()
         {
             ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("RegexField");
 
             // RegexField is null
             RibbonDefinition obj = new ValidationHelperTester();
-            target.CheckRegularExpression(field, obj);
+            target.CheckRegularExpression(obj, "RegexField", "[A-Za-z]+");
 
             Assert.Fail("Expected ValidationException was not thrown!");
         }
@@ -163,11 +153,10 @@ namespace FluentRibbon.Tests
         public void CheckRegularExpressionTest2()
         {
             ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("RegexField");
 
             // RegexField has invalid characters
             RibbonDefinition obj = new ValidationHelperTester() { RegexField = "Bad.Test" };
-            target.CheckRegularExpression(field, obj);
+            target.CheckRegularExpression(obj, "RegexField", "[A-Za-z]+");
 
             Assert.Fail("Expected ValidationException was not thrown!");
         }
@@ -177,11 +166,10 @@ namespace FluentRibbon.Tests
         public void CheckRegularExpressionTest3()
         {
             ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("RegexField");
 
             // RegexField is null
             RibbonDefinition obj = new ValidationHelperTester() { RegexField = "GoodTest" };
-            target.CheckRegularExpression(field, obj);
+            target.CheckRegularExpression(obj, "RegexField", "[A-Za-z]+");
         }
 
         [TestMethod()]
@@ -190,59 +178,10 @@ namespace FluentRibbon.Tests
         public void CheckRegularExpressionTest4()
         {
             ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("RegexField");
 
             // RegexField is null
             RibbonDefinition obj = new ValidationHelperTester() { RegexField = "Good Test" };
-            target.CheckRegularExpression(field, obj);
-        }
-
-        #endregion
-
-        #region RequiredRangeField tests (complex)
-
-        [TestMethod()]
-        [DeploymentItem("FluentRibbon.dll")]
-        [ExpectedException(typeof(ValidationException))]
-        public void ValidateOneFieldTest1()
-        {
-            ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("RequiredRangeField");
-
-            // RequiredRangeField is null
-            RibbonDefinition obj = new ValidationHelperTester();
-            target.ValidateOneField(field, obj);
-
-            Assert.Fail("Expected ValidationException was not thrown!");
-        }
-
-        [TestMethod()]
-        [DeploymentItem("FluentRibbon.dll")]
-        [ExpectedException(typeof(ValidationException))]
-        public void ValidateOneFieldTest2()
-        {
-            ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("RequiredRangeField");
-
-            // RequiredRangeField is not in range
-            RibbonDefinition obj = new ValidationHelperTester() { RequiredRangeField = -1 };
-            target.ValidateOneField(field, obj);
-
-            Assert.Fail("Expected ValidationException was not thrown!");
-        }
-
-
-        [TestMethod()]
-        [DeploymentItem("FluentRibbon.dll")]
-        public void ValidateOneFieldTest3()
-        {
-            ValidationHelper_Accessor target = new ValidationHelper_Accessor();
-            FieldInfo field = typeof(ValidationHelperTester).GetField("RequiredRangeField");
-
-            // RequiredRangeField is ok
-            RibbonDefinition obj = new ValidationHelperTester() { RequiredRangeField = 11 };
-            target.ValidateOneField(field, obj);
-
+            target.CheckRegularExpression(obj, "RegexField", "[A-Za-z]+");
         }
 
         #endregion

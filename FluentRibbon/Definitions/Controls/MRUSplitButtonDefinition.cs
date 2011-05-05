@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using System.ComponentModel.DataAnnotations;
 
 namespace FluentRibbon.Definitions.Controls
 {
@@ -23,6 +22,13 @@ namespace FluentRibbon.Definitions.Controls
                 );
         }
 
+        internal override void Validate()
+        {
+            base.Validate();
+            ValidationHelper.Current.CheckNotNull(this, "InitialItem");
+            ValidationHelper.Current.CheckArrayHasElements(this, "Controls");
+        }
+
         internal override string Tag
         {
             get { return "MRUSplitButton"; }
@@ -31,13 +37,11 @@ namespace FluentRibbon.Definitions.Controls
         /// <summary>
         /// Initial button ID, this must be ID of one of inner controls. Required.
         /// </summary>
-        [Required]
         public string InitialItem;
 
         /// <summary>
         /// Menu controls. At least one member is required.
         /// </summary>
-        [ArrayElementsRequired]
         public IEnumerable<ControlDefinition> Controls { get; set; }
     }
 }

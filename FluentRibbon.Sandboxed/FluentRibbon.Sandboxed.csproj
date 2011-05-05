@@ -48,9 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\FluentRibbon\ArrayElementsRequired.cs">
-      <Link>ArrayElementsRequired.cs</Link>
-    </Compile>
     <Compile Include="..\FluentRibbon\Commands\FluentRibbonCommand.cs">
       <Link>Commands\FluentRibbonCommand.cs</Link>
     </Compile>
@@ -143,6 +140,9 @@
     </Compile>
     <Compile Include="..\FluentRibbon\RibbonCustomAction\Tabs.cs">
       <Link>RibbonCustomAction\Tabs.cs</Link>
+    </Compile>
+    <Compile Include="..\FluentRibbon\ValidationException.cs">
+      <Link>ValidationException.cs</Link>
     </Compile>
     <Compile Include="..\FluentRibbon\ValidationHelper.cs">
       <Link>ValidationHelper.cs</Link>

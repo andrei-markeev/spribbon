@@ -11,6 +11,12 @@ namespace FluentRibbon.Definitions.Controls
     /// </summary>
     public class FlyoutAnchorDefinition : VisualControlBaseDefinition, IContainer
     {
+        internal override void Validate()
+        {
+            base.Validate();
+            ValidationHelper.Current.CheckArrayHasElements(this, "Controls");
+        }
+
         internal override string Tag
         {
             get { return "FlyoutAnchor"; }
@@ -19,7 +25,6 @@ namespace FluentRibbon.Definitions.Controls
         /// <summary>
         /// Menu controls. At least one is required.
         /// </summary>
-        [ArrayElementsRequired]
         public IEnumerable<ControlDefinition> Controls { get; set; }
 
     }

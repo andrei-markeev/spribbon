@@ -39,7 +39,11 @@ namespace FluentRibbon.Definitions
                     controlElement.Add(new XAttribute("TemplateAlias", this.TemplateAlias));
                 else
                     if (this.ParentGroup == null)
-                        throw new ValidationException("Control {0} (Id='{1}'): you need to set TemplateAlias property manually for detached from group control.");
+                        throw new ValidationException(
+                            String.Format("Control {0}{1}: you need to set TemplateAlias property manually for detached from group control.",
+                                this.GetType().Name,
+                                this.Id != null ? " (Id='" + this.Id + "')" : String.Empty)
+                            );
                     else
                         controlElement.Add(new XAttribute("TemplateAlias", this.ParentGroup.Template.SectionIds.First()));
             }

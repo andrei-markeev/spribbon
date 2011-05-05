@@ -59,30 +59,33 @@ public class VisualWebPart1 : ContextualWebPart
         {
             Id = "TestContextualGroup",
             Title = "Contextual actions",
-            Tab = new TabDefinition()
+            Tabs = new TabDefinition[]
             {
-                Id = "TestTab",
-                Title = "My tab",
-                Groups = new GroupDefinition[]
-                {
-                    new GroupDefinition()
-                    {
-                        Id = "TestControlGroup",
-                        Title = "Buttons group",
-                        Template = GroupTemplateLibrary.SimpleTemplate,
-                        Controls = new ControlDefinition[]
-                        {
-                            new ButtonDefinition()
-                            {
-                                Id = "TestButton",
-                                Title = "Test alert",
-                                Image = new ImageDefinition() { Url32 = "/_layouts/images/erroricon.png" },
-                                CommandJavaScript = "alert('test')",
-                            }
-                        }
-
-                    }
-                }
+                new TabDefinition()
+	            {
+	                Id = "TestTab",
+	                Title = "My tab",
+	                Groups = new GroupDefinition[]
+	                {
+	                    new GroupDefinition()
+	                    {
+	                        Id = "TestControlGroup",
+	                        Title = "Buttons group",
+	                        Template = GroupTemplateLibrary.SimpleTemplate,
+	                        Controls = new ControlDefinition[]
+	                        {
+	                            new ButtonDefinition()
+	                            {
+	                                Id = "TestButton",
+	                                Title = "Test alert",
+	                                Image = new ImageDefinition() { Url32 = "/_layouts/images/erroricon.png" },
+	                                CommandJavaScript = "alert('test')",
+	                            }
+	                        }
+	
+	                    }
+	                }
+	            }
             }
         };
 

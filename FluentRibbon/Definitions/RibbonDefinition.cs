@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 
 namespace FluentRibbon.Definitions
 {
@@ -12,32 +10,10 @@ namespace FluentRibbon.Definitions
     /// </summary>
     public abstract class RibbonDefinition
     {
-        /// <summary>
-        /// Validate required properties (marked with <see cref="RequiredAttribute"/>) 
-        /// and throw an Exception if required data was not provided.
-        /// </summary>
         internal virtual void Validate()
         {
-            foreach (var field in this.GetType().GetFields())
-            {
-                ValidationHelper.Current.ValidateOneField(field, this);
-
-                if (field.FieldType.IsArray)
-                {
-                    if (field.FieldType.GetElementType().IsSubclassOf(typeof(RibbonDefinition)))
-                    {
-                        foreach (var value in (field.GetValue(this) as IEnumerable<RibbonDefinition>))
-                        {
-                            value.Validate();
-                        }
-                    }
-                }
-                else if (field.FieldType.IsSubclassOf(typeof(RibbonDefinition)))
-                {
-                    (field.GetValue(this) as RibbonDefinition).Validate();
-                }
-            }
-            
+            ValidationHelper.Current.CheckNotNull(this, "Id");
+            ValidationHelper.Current.CheckRegularExpression(this, "Id", "[A-Za-z_][A-Za-z0-9_]*");
         }
 
         /// <summary>
@@ -48,8 +24,6 @@ namespace FluentRibbon.Definitions
         /// Dots ('.') are not allowed within the Id.
         /// </para>
         /// </summary>
-        [Required]
-        [RegularExpression("[A-Za-z_][A-Za-z0-9]*")]
         public string Id;
     }
 }

@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArrayElementsRequired.cs" />
     <Compile Include="Commands\RibbonCommandConverter.cs" />
     <Compile Include="Definitions\ContextualGroupColor.cs" />
     <Compile Include="Definitions\Controls\IContainer.cs" />
@@ -92,6 +91,7 @@
     <Compile Include="Definitions\GroupTemplateDefinition.cs" />
     <Compile Include="ListForms.cs" />
     <Compile Include="ListTypes.cs" />
+    <Compile Include="ValidationException.cs" />
     <Compile Include="ValidationHelper.cs" />
     <Compile Include="XmlGenerator.cs" />
   </ItemGroup>

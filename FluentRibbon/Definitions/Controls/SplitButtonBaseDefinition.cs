@@ -10,6 +10,11 @@ namespace FluentRibbon.Definitions.Controls
     /// </summary>
     public class SplitButtonDefinition : ButtonBaseDefinition, IContainer
     {
+        internal override void Validate()
+        {
+            base.Validate();
+            ValidationHelper.Current.CheckArrayHasElements(this, "Controls");
+        }
 
         internal override string Tag
         {
@@ -19,7 +24,6 @@ namespace FluentRibbon.Definitions.Controls
         /// <summary>
         /// Menu controls
         /// </summary>
-        [ArrayElementsRequired]
         public IEnumerable<ControlDefinition> Controls { get; set; }
     }
 }

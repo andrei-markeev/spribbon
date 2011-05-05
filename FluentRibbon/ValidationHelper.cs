@@ -33,108 +33,80 @@ namespace FluentRibbon
 
         #endregion
 
-        internal void ValidateOneField(FieldInfo field, RibbonDefinition obj)
+        internal void CheckArrayHasElements(RibbonDefinition obj, string fieldName)
         {
-            CheckRequired(field, obj);
-
-            if (field.FieldType == typeof(Int32))
-                CheckIntRange(field, obj);
-
-            if (field.FieldType == typeof(String))
-                CheckRegularExpression(field, obj);
-
-            if (field.FieldType.IsArray)
-                CheckArray(field, obj);
-        }
-
-        private void CheckArray(FieldInfo field, RibbonDefinition obj)
-        {
-            var attribute = (ArrayElementsRequiredAttribute)field.GetCustomAttributes(typeof(ArrayElementsRequiredAttribute), false).FirstOrDefault();
-            
-            if (attribute != null)
+            var value = (IEnumerable<RibbonDefinition>)obj.GetType().GetField(fieldName).GetValue(obj);
+            if (value == null || value.Count() == 0)
             {
-                var value = (IEnumerable<RibbonDefinition>)field.GetValue(obj);
-                if (value == null || value.Count() == 0)
-                    throw new ValidationException(
-                        String.Format("{0}{1}: Validation failed! {2} is required to have at least one element.",
-                            obj.GetType().Name,
-                            obj.Id != null ? " (id='" + obj.Id + "')" : String.Empty,
-                            field.Name
-                            )
-                        );
+                throw new ValidationException(
+                    String.Format("{0}{1}: Validation failed! {2} is required to have at least one element.",
+                        obj.GetType().Name,
+                        obj.Id != null ? " (id='" + obj.Id + "')" : String.Empty,
+                        fieldName
+                        )
+                    );
             }
         }
 
-        private void CheckRequired(FieldInfo field, RibbonDefinition obj)
+        internal void CheckNotNull(RibbonDefinition obj, string fieldName)
         {
-            var attribute = field.GetCustomAttributes(typeof(RequiredAttribute), false).FirstOrDefault();
+            object value = obj.GetType().GetField(fieldName).GetValue(obj);
 
-            if (attribute != null)
+            if (value == null)
             {
-                if (field.GetValue(obj) == (field.FieldType.IsValueType ? Activator.CreateInstance(field.FieldType) : null))
-                    throw new ValidationException(
-                        String.Format("{0}{1}: Validation failed! {2} is required.",
-                            obj.GetType().Name,
-                            obj.Id != null ? " (id='" + obj.Id + "')" : String.Empty,
-                            field.Name
-                            )
-                        );
+                throw new ValidationException(
+                    String.Format("{0}{1}: Validation failed! {2} is required.",
+                        obj.GetType().Name,
+                        obj.Id != null ? " (id='" + obj.Id + "')" : String.Empty,
+                        fieldName
+                        )
+                    );
             }
 
         }
 
-        private void CheckIntRange(FieldInfo field, RibbonDefinition obj)
+        internal void CheckIntRange(RibbonDefinition obj, string fieldName, int minimum, int maximum)
         {
-            var attribute = (RangeAttribute)field.GetCustomAttributes(typeof(RangeAttribute), false).FirstOrDefault();
+            int value = (int)obj.GetType().GetField(fieldName).GetValue(obj);
 
-            if (attribute != null)
+            if (value < minimum || value > maximum)
             {
-                int value = (int)field.GetValue(obj);
-                if (value < Convert.ToInt32(attribute.Minimum) || value > Convert.ToInt32(attribute.Maximum))
-                {
-                    throw new ValidationException(
-                        String.Format("{0}{1}: Validation failed! {2} has value {3}, which is outside of allowed range [{4}..{5}].",
-                            obj.GetType().Name,
-                            obj.Id != null ? " (id='" + obj.Id + "')" : String.Empty,
-                            field.Name,
-                            value,
-                            Convert.ToInt32(attribute.Minimum),
-                            Convert.ToInt32(attribute.Maximum)
-                            )
-                        );
-                }
+                throw new ValidationException(
+                    String.Format("{0}{1}: Validation failed! {2} has value {3}, which is outside of allowed range [{4}..{5}].",
+                        obj.GetType().Name,
+                        obj.Id != null ? " (id='" + obj.Id + "')" : String.Empty,
+                        fieldName,
+                        value,
+                        minimum,
+                        maximum
+                        )
+                    );
             }
         }
 
-        private void CheckRegularExpression(FieldInfo field, RibbonDefinition obj)
+        internal void CheckRegularExpression(RibbonDefinition obj, string fieldName, string pattern)
         {
-            var attribute = (RegularExpressionAttribute)field.GetCustomAttributes(typeof(RegularExpressionAttribute), false).FirstOrDefault();
+            string value = (string)obj.GetType().GetField(fieldName).GetValue(obj);
 
-            if (attribute != null)
+            if (!pattern.StartsWith("^"))
+                pattern = "^" + pattern;
+
+            if (!pattern.EndsWith("$"))
+                pattern += "$";
+
+            if (value == null || !new Regex(pattern).Match(value).Success)
             {
-                string value = (string)field.GetValue(obj);
-                string pattern = attribute.Pattern;
-
-                if (!pattern.StartsWith("^"))
-                    pattern = "^" + pattern;
-
-                if (!pattern.EndsWith("$"))
-                    pattern += "$";
-
-                if (value == null || !new Regex(pattern).Match(value).Success)
-                {
-                    throw new ValidationException(
-                        String.Format("{0}{1}: Validation failed! {2} has value '{3}', which doesn't match validation pattern '{4}'.",
-                            obj.GetType().Name,
-                            obj.Id != null ? " (id='" + obj.Id + "')" : String.Empty,
-                            field.Name,
-                            value == null ? String.Empty : value,
-                            attribute.Pattern
-                            )
-                        );
-                }
-
+                throw new ValidationException(
+                    String.Format("{0}{1}: Validation failed! {2} has value '{3}', which doesn't match validation pattern '{4}'.",
+                        obj.GetType().Name,
+                        obj.Id != null ? " (id='" + obj.Id + "')" : String.Empty,
+                        fieldName,
+                        value == null ? String.Empty : value,
+                        pattern
+                        )
+                    );
             }
+
         }
     }
 }

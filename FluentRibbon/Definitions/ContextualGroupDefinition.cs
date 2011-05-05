@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 
 namespace FluentRibbon.Definitions
 {
@@ -11,11 +10,16 @@ namespace FluentRibbon.Definitions
     /// </summary>
     public class ContextualGroupDefinition : RibbonDefinition
     {
+        internal override void Validate()
+        {
+            base.Validate();
+            ValidationHelper.Current.CheckNotNull(this, "Title");
+            ValidationHelper.Current.CheckArrayHasElements(this, "Tabs");
+        }
 
         /// <summary>
-        /// Title. Will be shown above inner tabs
+        /// Title. Will be shown above inner tabs. Required.
         /// </summary>
-        [Required]
         public string Title;
 
         /// <summary>
@@ -24,9 +28,8 @@ namespace FluentRibbon.Definitions
         public ContextualGroupColor Color = ContextualGroupColor.Yellow;
         
         /// <summary>
-        /// Inner tabs
+        /// Inner tabs. At least one tab is required.
         /// </summary>
-        [ArrayElementsRequired]
         public TabDefinition[] Tabs;
 
     }

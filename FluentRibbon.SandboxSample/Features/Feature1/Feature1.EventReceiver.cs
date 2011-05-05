@@ -18,7 +18,6 @@ namespace FluentRibbon.SandboxSample.Features.Feature1
     [Guid("2ee4a447-27c2-4def-ad7d-fa3644ca32aa")]
     public class Feature1EventReceiver : SPFeatureReceiver
     {
-        Guid ReceiverGuid { get { return new Guid("44D577B2-3242-4255-8928-608D84944D1D"); } }
 
         public override void FeatureActivated(SPFeatureReceiverProperties properties)
         {
@@ -32,7 +31,7 @@ namespace FluentRibbon.SandboxSample.Features.Feature1
             button1.TemplateAlias = "o1";
             ribbonCustomAction.AddControl(button1, "Ribbon.ListItem.New", 1);
 
-            ribbonCustomAction.Provision(ReceiverGuid, web, ListTypes.GenericList);
+            ribbonCustomAction.Provision(properties.Feature.DefinitionId, web, ListTypes.GenericList);
 
         }
 
@@ -40,7 +39,7 @@ namespace FluentRibbon.SandboxSample.Features.Feature1
         public override void FeatureDeactivating(SPFeatureReceiverProperties properties)
         {
             SPWeb web = (properties.Feature.Parent as SPSite).RootWeb;
-            RibbonCustomAction.RemoveAllCustomizations(web, ReceiverGuid);
+            RibbonCustomAction.RemoveAllCustomizations(web, properties.Feature.DefinitionId);
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using System.ComponentModel.DataAnnotations;
 
 namespace FluentRibbon.Definitions.Controls
 {
@@ -19,6 +18,12 @@ namespace FluentRibbon.Definitions.Controls
             base.AddAttributes(controlElement);
         }
 
+        internal override void Validate()
+        {
+            base.Validate();
+            ValidationHelper.Current.CheckNotNull(this, "ForId");
+        }
+
         internal override string Tag
         {
             get { return "Label"; }
@@ -27,7 +32,6 @@ namespace FluentRibbon.Definitions.Controls
         /// <summary>
         /// Id of referenced control
         /// </summary>
-        [Required]
         public string ForId;
     }
 }

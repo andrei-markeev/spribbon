@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using System.ComponentModel.DataAnnotations;
 
 namespace FluentRibbon.Definitions.Controls
 {
@@ -53,10 +52,15 @@ namespace FluentRibbon.Definitions.Controls
 
         }
 
+        internal override void Validate()
+        {
+            base.Validate();
+            ValidationHelper.Current.CheckNotNull(this, "Title");
+        }
+
         /// <summary>
         /// Displayable title for control. Required.
         /// </summary>
-        [Required]
         public string Title;
 
         /// <summary>

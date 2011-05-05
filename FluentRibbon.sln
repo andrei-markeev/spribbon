@@ -21,9 +21,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentRibbon.Sandboxed", "FluentRibbon.Sandboxed\FluentRibbon.Sandboxed.csproj", "{BA2D9789-8F6D-4D0B-B410-1DC04A428E3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentRibbon.SandboxSample", "FluentRibbon.SandboxSample\FluentRibbon.SandboxSample.csproj", "{4276031F-1037-46CD-B305-56DE166C407D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{2F47293D-9894-4504-AED2-EA7AA8B14EF7} = {2F47293D-9894-4504-AED2-EA7AA8B14EF7}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
