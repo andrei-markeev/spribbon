@@ -37,8 +37,8 @@ namespace FluentRibbon
         internal string GetCommandUIExtensionXML(string definitionsXml, string commandXml, string templatesXml)
         {
             var parsedElements = ParseXml(definitionsXml);
-            var commandElements = ParseXml(commandXml);
-            var templateElements = ParseXml(templatesXml);
+            var commandElements = ParseXml(String.IsNullOrEmpty(commandXml) ? "<root></root>" : commandXml);
+            var templateElements = ParseXml(String.IsNullOrEmpty(templatesXml) ? "<root></root>" : templatesXml);
 
             var document = new XDocument(
                 new XElement("CommandUIExtension",
@@ -68,6 +68,11 @@ namespace FluentRibbon
 
         internal string GetCommandUIDefinitionXML(string location, string definitionXml)
         {
+            if (String.IsNullOrEmpty(definitionXml))
+                return new XDocument(
+                    new XElement("CommandUIDefinition",
+                        new XAttribute("Location", location))).ToString();
+
             var parsedElements = ParseXml(definitionXml);
 
             var document = new XDocument(new XElement("root"));

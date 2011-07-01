@@ -43,5 +43,6 @@ namespace FluentRibbon
 
             RibbonCommandsXML = ConcatXML(RibbonCommandsXML, GetCommandsXML(controlDefinition));
         }
+
     }
 }

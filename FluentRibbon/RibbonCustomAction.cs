@@ -44,6 +44,15 @@ namespace FluentRibbon
             RibbonTemplatesXML = "<root>" + String.Join("", GroupTemplateLibrary.AllTemplates.Select(t => t.XML).ToArray()) + "</root>";
         }
 
+        /// <summary>
+        /// Removes ribbon element with specified id (it can be control, control group, tab, whatever..)
+        /// </summary>
+        /// <param name="controlId">Id of control, which will be deleted</param>
+        public void RemoveRibbonElement(string controlId)
+        {
+            RibbonXML = ConcatXML(RibbonXML, XmlGenerator.Current.GetCommandUIDefinitionXML(controlId, string.Empty));
+        }
+
 
         /// <summary>
         /// Provision all pending customizations to specified web.
@@ -58,9 +67,9 @@ namespace FluentRibbon
         /// <returns>Id of provisioned custom action</returns>
         
         // Overloads for this method are in "RibbonCustomAction/ProvisionOverloads.cs"
-        public Guid Provision(Guid featureUniqueGuid, SPWeb web, string templateId, ListForms whichForms, SPBasePermissions? rights)
+        public Guid Provision(Guid featureUniqueGuid, SPUserCustomActionCollection userCustomActions, string templateId, ListForms whichForms, SPBasePermissions? rights)
         {
-            var customAction = web.UserCustomActions.Add();
+            var customAction = userCustomActions.Add();
 
             customAction.Name = "FluentRibbon._" + featureUniqueGuid.ToString().Replace("-", "") + "._" + Guid.NewGuid().ToString().Replace("-", "");
             customAction.Location = GetRibbonLocationByListForms(whichForms);
@@ -74,7 +83,6 @@ namespace FluentRibbon
                 customAction.Rights = rights.Value;
 
             customAction.Update();
-            web.Update();
 
             return customAction.Id;
         }
@@ -94,7 +102,7 @@ namespace FluentRibbon
         #endregion
 
         /// <summary>
-        /// Remove all ribbon customization. Usually done in FeatureDeactivating method.
+        /// Remove all ribbon customizations from specified web. Usually done in FeatureDeactivating method.
         /// </summary>
         /// <param name="web">SPWeb object, from which customizations will be removed.</param>
         /// <param name="featureScopedGuid">Guid, which was previosly passed into ribbon creation methods.</param>
@@ -116,6 +124,28 @@ namespace FluentRibbon
                 web.Update();
         }
 
+        /// <summary>
+        /// Remove all ribbon customizations from specified list. Usually done in FeatureDeactivating method.
+        /// </summary>
+        /// <param name="web">SPList object, from which customizations will be removed.</param>
+        /// <param name="featureScopedGuid">Guid, which was previosly passed into ribbon creation methods.</param>
+        public static void RemoveAllCustomizations(SPList list, Guid featureScopedGuid)
+        {
+            bool isCollectionChanged = false;
+            for (int i = list.UserCustomActions.Count - 1; i >= 0; i--)
+            {
+                var customAction = list.UserCustomActions.ElementAt(i);
+
+                if (customAction.Name.StartsWith("FluentRibbon._" + featureScopedGuid.ToString().Replace("-", "")))
+                {
+                    isCollectionChanged = true;
+                    customAction.Delete();
+                }
+            }
+
+            if (isCollectionChanged)
+                list.Update();
+        }
 
         #region Private
 
