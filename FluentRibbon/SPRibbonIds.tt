@@ -1,0 +1,114 @@
+﻿<#@ template debug="true" hostSpecific="true"  language="C#" #>
+<#@ output extension=".cs" encoding="UTF-8" #>
+<#@ Assembly Name="System.Core.dll" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Xml.Linq" #>
+
+<#
+	var doc = XDocument.Load(@"C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\TEMPLATE\GLOBAL\XML\CMDUI.XML");
+	var resx = XDocument.Load(@"C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\Resources\core.resx");
+#>
+
+public class SPRibbonIds
+{
+
+<#
+	var ribbon = doc.Element(XNamespace.Get("http://schemas.microsoft.com/sharepoint/") + "CommandUI")
+				.Element(XNamespace.Get("http://schemas.microsoft.com/sharepoint/") + "Ribbon");
+
+	var tabElements = new List<XElement>();
+	tabElements.AddRange(ribbon.Element(XNamespace.Get("http://schemas.microsoft.com/sharepoint/") + "Tabs").Elements());
+	tabElements.AddRange(ribbon.Element(XNamespace.Get("http://schemas.microsoft.com/sharepoint/") + "ContextualTabs").Elements().Elements());
+	
+	foreach (XElement tabElement in tabElements)
+	{
+		var tabValue = tabElement.Attribute("Id").Value;
+		var tabName = tabValue.Substring("Ribbon.".Length).Replace(".", "_");
+		var tabTitle = String.Empty;
+		if (tabElement.Attribute("Title").Value.StartsWith("$Resources:core,"))
+		{
+			tabTitle = tabElement.Attribute("Title").Value.Substring("$Resources:core,".Length).Trim().TrimEnd(';').ToLower();
+			var element = resx
+				.Element("root")
+				.Elements("data")
+				.FirstOrDefault(e => e.Attribute("name").Value.ToLower() == tabTitle);
+
+			if (element != null)
+				tabTitle = element.Element("value").Value;
+
+			tabTitle = "/// <summary>'" + tabTitle + "' tab.</summary>";
+		}
+
+#>
+		<#=tabTitle#>
+		public class <#=tabName#>
+		{
+			//<summary>Id of the tab</summary>
+			public const string Id = "<#=tabValue#>";
+			//<summary>Inner groups of controls</summary>
+			public class Groups
+			{
+<#
+			foreach (XElement groupElement in tabElement.Element(XNamespace.Get("http://schemas.microsoft.com/sharepoint/") + "Groups").Elements())
+			{
+				var groupValue = groupElement.Attribute("Id").Value;
+				var groupName = groupValue.Substring(groupValue.LastIndexOf(".") + 1);
+				if (groupValue.StartsWith(tabValue + "."))
+					groupName = groupValue.Substring(tabValue.Length + 1).Replace(".", "_");
+
+				var groupTitle = String.Empty;
+				if (groupElement.Attribute("Title").Value.StartsWith("$Resources:core,"))
+				{
+					groupTitle = groupElement.Attribute("Title").Value.Substring("$Resources:core,".Length).Trim().TrimEnd(';').ToLower();
+					var element = resx
+						.Element("root")
+						.Elements("data")
+						.FirstOrDefault(e => e.Attribute("name").Value.ToLower() == groupTitle);
+
+					if (element != null)
+						groupTitle = element.Element("value").Value;
+
+					groupTitle = "/// <summary>'" + groupTitle + "' control group.</summary>";
+				}
+#>
+				<#= groupTitle #>
+				public class <#=groupName#>
+				{
+					//<summary>Id of the group</summary>
+					public const string Id = "<#=groupValue#>";
+					//<summary>Ids of controls inside the group. Inner controls are not presented for now</summary>
+					public class ControlIds
+					{
+<#
+					foreach (XElement controlElement in groupElement.Element(XNamespace.Get("http://schemas.microsoft.com/sharepoint/") + "Controls").Elements())
+					{
+						var controlValue = controlElement.Attribute("Id").Value;
+						var controlName = controlValue.Substring(controlValue.LastIndexOf(".") + 1);
+						if (controlValue.StartsWith(groupValue + "."))
+							controlName = controlValue.Substring(groupValue.Length + 1).Replace(".", "_");
+#>
+						public const string <#=controlName#> = "<#=controlValue#>";
+<#
+					}
+#>
+					}
+				}
+<#
+			}
+#>
+			}
+		}
+<#
+	}
+#>
+
+
+}
