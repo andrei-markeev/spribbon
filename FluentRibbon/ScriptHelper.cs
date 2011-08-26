@@ -14,24 +14,29 @@ namespace FluentRibbon
             return String.Format(@" 
                 <script language=""javascript"" defer=""true""> 
                  //<![CDATA[
-                    function getGlobalCommands()
+                    function getFocusedCommands()
                     {{
                         return [{0}];
                     }}
+                    function getGlobalCommands()
+                    {{
+                        return [{1}];
+                    }}
                     function commandEnabled(commandId)
                     {{
-{1}
+{2}
                         return false;
                     }}
                     function handleCommand(commandId, properties, sequence)
                     {{
-{2}
+{3}
                         return false;
                     }}
 
                  //]]> 
                 </script>",
-                String.Join(",", commands.Select(c => "'" + c.Id + "'").ToArray()),
+                String.Join(",", commands.Where(c => c.Id.EndsWith("QueryCommand")).Select(c => "'" + c.Id + "'").ToArray()),
+                String.Join(",", commands.Where(c => !c.Id.EndsWith("QueryCommand")).Select(c => "'" + c.Id + "'").ToArray()),
                 String.Join("\n", commands.Select(c => String.Format("if (commandId == '{0}') {{ return {1}; }}", c.Id, c.EnabledStatement)).ToArray()),
                 String.Join("\n", commands.Select(c => String.Format("if (commandId == '{0}') {{ {1}; return true; }}", c.Id, c.HandlerStatement)).ToArray())
                  );
@@ -84,16 +89,20 @@ Type.registerNamespace('{0}');
  
 {0}.PageComponent.prototype = {
     init: function () {
-        // if you have something to initalize
     },
     getFocusedCommands: function () {
-        return [];
+        return getFocusedCommands();
     },
     getGlobalCommands: function () {
-        // Server side commands will show up here
         return getGlobalCommands();
     },
     isFocusable: function () {
+        return true;
+    },
+    receiveFocus: function() {
+        return true;
+    },
+    yieldFocus: function() {
         return true;
     },
     canHandleCommand: function (commandId) {

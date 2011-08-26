@@ -85,6 +85,18 @@ namespace FluentRibbon.Commands
                 .WithDescendants(c => c is IContainer ? (c as IContainer).Controls : null)
                 .OfType<ButtonBaseDefinition>()
                 .Select<ButtonBaseDefinition, FluentRibbonCommand>(b => new FluentRibbonCommand(b.FullId + "Command", b.CommandJavaScript, b.CommandEnableJavaScript)));
+
+            // Initializable controls
+            var initializationScript = "function initialValue() { {IVScript} }; var v = initialValue(); if (v != null) { properties['On'] = true; properties['Value'] = v; }";
+            commands.AddRange(
+                controls
+                .WithDescendants(c => c is IContainer ? (c as IContainer).Controls : null)
+                .Where(c => c is IInitializable)
+                .SelectMany(c => new FluentRibbonCommand[]
+                    {
+                        new FluentRibbonCommand(c.FullId + "Command", String.Empty, "true"),
+                        new FluentRibbonCommand(c.FullId + "QueryCommand", initializationScript.Replace("{IVScript}", (c as IInitializable).InitialValueJavaScript), "true")
+                    }));
         }
 
 

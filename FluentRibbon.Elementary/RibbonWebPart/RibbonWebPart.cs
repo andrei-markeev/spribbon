@@ -53,9 +53,10 @@ namespace FluentRibbon.Elementary.WebParts
                                         Image = new ImageDefinition() { Url16 = "/_layouts/images/wpedit.gif" },
                                         ForId = "TextBox"
                                     },
-                                    new TextBoxDefinition()
-                                    {
-                                        Id = "TextBox"
+                                    new TextBoxDefinition() 
+                                    { 
+                                        Id = "TextBox",
+                                        InitialValueJavaScript = "return 'Hello from SPRibbon!';"
                                     },
                                     new ButtonDefinition()
                                     {

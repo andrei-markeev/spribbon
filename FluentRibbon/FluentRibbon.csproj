@@ -59,6 +59,7 @@
     <Compile Include="ContextualWebPart.cs" />
     <Compile Include="Definitions\ControlDefinition.cs" />
     <Compile Include="Definitions\Controls\FlyoutAnchorDefinition.cs" />
+    <Compile Include="Definitions\Controls\IInitializable.cs" />
     <Compile Include="Definitions\Controls\LabelDefinition.cs" />
     <Compile Include="Definitions\Controls\MRUSplitButtonDefinition.cs" />
     <Compile Include="Definitions\Controls\SplitButtonBaseDefinition.cs" />

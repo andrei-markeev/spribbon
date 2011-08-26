@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.ComponentModel.DataAnnotations;
+using FluentRibbon.Definitions.Controls;
 
 namespace FluentRibbon.Definitions
 {
@@ -25,6 +26,12 @@ namespace FluentRibbon.Definitions
         {
 
             controlElement.Add(new XAttribute("Id", FullId));
+
+            if (this is IInitializable)
+            {
+                controlElement.Add(new XAttribute("Command", FullId + "Command"));
+                controlElement.Add(new XAttribute("QueryCommand", FullId + "QueryCommand"));
+            }
 
             if (FullId.EndsWith("Menu.MainSection." + this.Id))
             {
