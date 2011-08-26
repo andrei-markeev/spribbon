@@ -91,12 +91,24 @@
     <Compile Include="Definitions\GroupTemplateDefinition.cs" />
     <Compile Include="ListForms.cs" />
     <Compile Include="ListTypes.cs" />
+    <Compile Include="SPRibbonIds.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SPRibbonIds.tt</DependentUpon>
+    </Compile>
     <Compile Include="ValidationException.cs" />
     <Compile Include="ValidationHelper.cs" />
     <Compile Include="XmlGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
+    <None Include="SPRibbonIds.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SPRibbonIds.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
