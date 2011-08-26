@@ -44,11 +44,11 @@ public class Feature1EventReceiver : SPFeatureReceiver
 
         var ribbonCustomAction = new RibbonCustomAction();
 
-        ribbonCustomAction.AddControlGroup(group, "Ribbon.ListItem", 25);
+        ribbonCustomAction.AddControlGroup(group, SPRibbonIds.ListItem.Id, 25);
 
         // We need assign TemplateAlias manually to buttons, if they will be deployed separately
         button1.TemplateAlias = "o1";
-        ribbonCustomAction.AddControl(button1, "Ribbon.ListItem.Manage", 1);
+        ribbonCustomAction.AddControl(button1, SPRibbonIds.ListItem.Groups.Manage.Id, 1);
 
         ribbonCustomAction.Provision(ReceiverGuid, web, ListTypes.GenericList);
 

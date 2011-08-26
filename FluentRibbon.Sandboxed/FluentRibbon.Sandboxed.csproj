@@ -75,6 +75,9 @@
     <Compile Include="..\FluentRibbon\Definitions\Controls\IContainer.cs">
       <Link>Definitions\Controls\IContainer.cs</Link>
     </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\IInitializable.cs">
+      <Link>Definitions\Controls\IInitializable.cs</Link>
+    </Compile>
     <Compile Include="..\FluentRibbon\Definitions\Controls\LabelDefinition.cs">
       <Link>Definitions\Controls\LabelDefinition.cs</Link>
     </Compile>
