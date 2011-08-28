@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <CustomAction
+    ScriptSrc="~SiteCollection/SiteAssets/CamlHelper.js"
+    Location="ScriptLink"
+    Sequence="10">
+  </CustomAction>
+  <CustomAction
+    ScriptSrc="~SiteCollection/SiteAssets/EmailsButton.js"
+    Location="ScriptLink"
+    Sequence="10">
+  </CustomAction>
+</Elements>

@@ -95,7 +95,7 @@ namespace FluentRibbon
                 new XElement("CommandUIHandler",
                     new XAttribute("Command", command.Id),
                     new XAttribute("CommandAction", "javascript: " + command.HandlerStatement + ";"),
-                    new XAttribute("EnabledScript", command.EnabledStatement))).ToString();
+                    new XAttribute("EnabledScript", "javascript: " + command.EnabledStatement + ";"))).ToString();
         }
 
         internal string GetContextualGroupXML(ContextualGroupDefinition definition)

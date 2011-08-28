@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="4eb6ebaa-9def-4581-abbf-87e686ff00d1" solutionId="4eb6ebaa-9def-4581-abbf-87e686ff00d1" resetWebServer="false" name="EmailsButton" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <assemblies>
+    <projectOutputAssembly location="FluentRibbon.Sandboxed.dll" deploymentTarget="GlobalAssemblyCache" projectPath="..\FluentRibbon.Sandboxed\FluentRibbon.Sandboxed.csproj" />
+  </assemblies>
+  <features>
+    <featureReference itemId="ede1c21a-dab1-4a05-ac29-88bde161642d" />
+  </features>
+</package>

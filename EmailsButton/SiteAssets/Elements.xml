@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="SiteAssets">
+  <File Path="SiteAssets\EmailsButton.js" Url="SiteAssets/EmailsButton.js" />
+<File Path="SiteAssets\CamlHelper.js" Url="SiteAssets/CamlHelper.js" />
+</Module>
+</Elements>
