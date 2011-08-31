@@ -3,6 +3,6 @@
   <Files>
     <ProjectItemFile Source="Elements.xml" Target="SiteAssets\" Type="ElementManifest" />
     <ProjectItemFile Source="EmailsButton.js" Target="SiteAssets\" Type="ElementFile" />
-    <ProjectItemFile Source="CamlHelper.js" Target="SiteAssets\" Type="ElementFile" />
+    <ProjectItemFile Source="CamlBuilder.js" Target="SiteAssets\" Type="ElementFile" />
   </Files>
 </ProjectItem>

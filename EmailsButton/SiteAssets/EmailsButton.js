@@ -2,15 +2,23 @@
 /// <reference path="file://C:/Program Files/Common Files/Microsoft Shared/Web Server Extensions/14/TEMPLATE/LAYOUTS/SP.core.debug.js" />
 /// <reference path="file://C:/Program Files/Common Files/Microsoft Shared/Web Server Extensions/14/TEMPLATE/LAYOUTS/SP.debug.js" />
 /// <reference path="file://C:/Program Files/Common Files/Microsoft Shared/Web Server Extensions/14/TEMPLATE/LAYOUTS/SP.UI.Dialog.debug.js" />
-/// <reference path="SiteAssets/CamlHelper.js" />
+/// <reference path="SiteAssets/CamlBuilder.js" />
 
 function PopupEmailsDialog() {
     var context = new SP.ClientContext.get_current();
     var web = context.get_web();
     var list = web.get_lists().getById(SP.ListOperation.Selection.getSelectedList());
+    
+    var items = SP.ListOperation.Selection.getSelectedItems();
+    var itemIds = new Array();
+    for (var i = 0; i < items.length; i++) {
+        itemIds.push(items[i].id);
+    }
 
     var query = new SP.CamlQuery();
-    query.set_viewXml("<View><Query>" + getSelectedItemsQuery() + "</Query></View>");
+    var camlBuilder = new CamlBuilder();
+    var caml = camlBuilder.IntegerField("ID").In(itemIds).ToString();
+    query.set_viewXml("<View><Query><Where>" + caml + "</Where></Query></View>");
     var items = list.getItems(query, 'Include(Email)');
     context.load(items);
 

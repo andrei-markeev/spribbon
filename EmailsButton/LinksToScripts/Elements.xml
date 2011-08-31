@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <CustomAction
-    ScriptSrc="~SiteCollection/SiteAssets/CamlHelper.js"
+    ScriptSrc="~SiteCollection/SiteAssets/CamlBuilder.js"
     Location="ScriptLink"
     Sequence="10">
   </CustomAction>

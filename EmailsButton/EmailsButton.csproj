@@ -77,9 +77,11 @@
       <DependentUpon>EmailsButton.feature</DependentUpon>
     </Content>
     <Content Include="LinksToScripts\Elements.xml" />
-    <Content Include="SiteAssets\Elements.xml" />
+    <Content Include="SiteAssets\CamlBuilder.js" />
+    <Content Include="SiteAssets\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="SiteAssets\EmailsButton.js" />
-    <Content Include="SiteAssets\CamlHelper.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentRibbon.Sandboxed\FluentRibbon.Sandboxed.csproj">

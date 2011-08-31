@@ -25,7 +25,8 @@ namespace FluentRibbon.Definitions.Controls
         /// var textBox = new TextBoxDefinition()
         /// {
         ///   Id = "TextBox1",
-        ///   InitialValueJavaScript = "return 'Hello, world!';";
+        ///   InitialValueJavaScript = "return 'Hello, world!';"
+        /// }
         /// </code>
         /// </example>
         public string InitialValueJavaScript { get; set; }

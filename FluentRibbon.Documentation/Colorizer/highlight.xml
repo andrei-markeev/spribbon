@@ -218,6 +218,7 @@
 		   <kw>ContextualGroupColor</kw>
 		   <kw>ImageDefinition</kw>
 		   <kw>ToolTipDefinition</kw>
+		   <kw>SPRibbonIds</kw>
 		</keywordlist>
 		<!-- Common VB-like language keywords (VB.NET, VBScript) -->
 		<keywordlist id="kwvblang-keywords">
