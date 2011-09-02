@@ -17,8 +17,8 @@ function PopupEmailsDialog() {
 
     var query = new SP.CamlQuery();
     var camlBuilder = new CamlBuilder();
-    var caml = camlBuilder.IntegerField("ID").In(itemIds).ToString();
-    query.set_viewXml("<View><Query><Where>" + caml + "</Where></Query></View>");
+    var caml = camlBuilder.Where().IntegerField("ID").In(itemIds).ToString();
+    query.set_viewXml("<View><Query>" + caml + "</Query></View>");
     var items = list.getItems(query, 'Include(Email)');
     context.load(items);
 

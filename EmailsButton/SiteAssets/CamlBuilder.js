@@ -9,71 +9,119 @@ CamlBuilder = function () {
 };
 
 CamlBuilder.prototype = {
+    Where: function () {
+        this.tree.push({ Element: "Start", Name: "Where" });
+        this.unclosedTags++;
+        return new CamlBuilder.Where(this);
+    },
+
+    GroupBy: function (groupFieldName, collapse) {
+        /// <summary>
+        /// Specifies grouping field for retrieved items
+        /// </summary>
+        CamlBuilder.StartGroupBy(this, groupFieldName, collapse);
+        return new CamlBuilder.GroupedQuery(this);
+    },
+
+    OrderBy: function (sortFieldName, override, useIndexForOrderBy) {
+        /// <summary>
+        /// Specifies primary sort field for retrieved items
+        /// </summary>
+        CamlBuilder.StartOrderBy(this, override, useIndexForOrderBy);
+        this.camlBuilder.tree.push({ Element: "FieldRef", Name: sortFieldName });
+        return new CamlBuilder.OrderedQuery(this);
+    },
+
+    OrderByDesc: function (sortFieldName, override, useIndexForOrderBy) {
+        /// <summary>
+        /// Specifies primary sort field for retrieved items
+        /// </summary>
+        CamlBuilder.StartOrderBy(this, override, useIndexForOrderBy);
+        this.camlBuilder.tree.push({ Element: "FieldRef", Name: sortFieldName, Descending: true });
+        return new CamlBuilder.OrderedQuery(this);
+    }
+}
+
+
+// -------------------------------------------------------------------------------------------------------------------
+
+CamlBuilder.Where = function (camlBuilder) {
+    this.camlBuilder = camlBuilder;
+}
+
+CamlBuilder.Where.prototype = {
 
     IntegerField: function (name) {
         /// <summary>
         /// Specifies reference to the Integer field with given internal name
         /// </summary>
-        return new CamlBuilder.FieldRef(this, name, "Integer");
+        return new CamlBuilder.FieldRef(this.camlBuilder, name, "Integer");
     },
 
     NumberField: function (name) {
         /// <summary>
         /// Specifies reference to the Number field with given internal name
         /// </summary>
-        return new CamlBuilder.FieldRef(this, name, "Number");
+        return new CamlBuilder.FieldRef(this.camlBuilder, name, "Number");
     },
 
+    CounterField: function (name) {
+        /// <summary>
+        /// Specifies reference to the Counter field with given internal name (usually it is the "ID" field)
+        /// </summary>
+        return new CamlBuilder.FieldRef(this.camlBuilder, name, "Counter");
+    },
+    
     TextField: function (name) {
         /// <summary>
         /// Specifies reference to the Text field with given internal name
         /// </summary>
-        return new CamlBuilder.FieldRef(this, name, "Text");
+        return new CamlBuilder.FieldRef(this.camlBuilder, name, "Text");
     },
 
     DateField: function (name) {
         /// <summary>
         /// Specifies reference to the DateTime field with given internal name, and specifies, that it's time value will not be included
         /// </summary>
-        return new CamlBuilder.FieldRef(this, name, "DateTime");
+        return new CamlBuilder.FieldRef(this.camlBuilder, name, "Date");
     },
 
     DateTimeField: function (name) {
         /// <summary>
         /// Specifies reference to the datetime field with given internal name
         /// </summary>
-        return new CamlBuilder.FieldRef(this, name, "DateTime");
+        return new CamlBuilder.FieldRef(this.camlBuilder, name, "DateTime");
     },
 
     UserField: function (name) {
         /// <summary>
         /// Specifies reference to the integer field with given internal name
         /// </summary>
-        return new CamlBuilder.FieldRef(this, name, "User");
+        return new CamlBuilder.FieldRef(this.camlBuilder, name, "User");
     },
 
     LookupField: function (name) {
         /// <summary>
         /// Specifies reference to a lookup field, using it's display value for further comparisons
         /// </summary>
-        return new CamlBuilder.FieldRef(this, name, "Lookup");
+        return new CamlBuilder.FieldRef(this.camlBuilder, name, "Lookup");
     },
 
     LookupIdField: function (name) {
         /// <summary>
         /// Specifies reference to a lookup field, using it's ID for further comparisons
         /// </summary>
-        return new CamlBuilder.FieldRef(this, name, "Integer", true);
+        return new CamlBuilder.FieldRef(this.camlBuilder, name, "Integer", true);
     },
 
     DateRangesOverlap: function (eventDateField, EndDateField, RecurrenceIDField, dateTimeValue) {
         /// <summary>
-        /// Used in queries to compare the dates in a recurring event with a specified DateTime value, to determine whether they overlap.
+        /// UNIMPLEMENTED YET!! Used in queries to compare the dates in a recurring event with a specified DateTime value, to determine whether they overlap.
         /// </summary>
 
         // TODO: implementation
 
-        return new CamlBuilder.Token(this, this.tree.length);
+        return new CamlBuilder.Token(this.camlBuilder, this.camlBuilder.tree.length);
     }
 
 };
@@ -81,7 +129,7 @@ CamlBuilder.prototype = {
 
 // -------------------------------------------------------------------------------------------------------------------
 
-CamlBuilder.FieldRef = function (camlBuilder, name, valueType, lookupId, includeTimeValue) {
+CamlBuilder.FieldRef = function (camlBuilder, name, valueType, lookupId) {
 
     this.camlBuilder = camlBuilder;
     this.Membership.camlBuilder = camlBuilder;
@@ -244,7 +292,7 @@ CamlBuilder.Token.prototype = {
         /// </summary>
         this.camlBuilder.tree.splice(this.startIndex, 0, { Element: "Start", Name: "And" });
         this.camlBuilder.unclosedTags++;
-        return this.camlBuilder;
+        return new CamlBuilder.Where(this.camlBuilder);
     },
 
     Or: function () {
@@ -253,53 +301,98 @@ CamlBuilder.Token.prototype = {
         /// </summary>
         this.camlBuilder.tree.splice(this.startIndex, 0, { Element: "Start", Name: "Or" });
         this.camlBuilder.unclosedTags++;
-        return this.camlBuilder;
+        return new CamlBuilder.Where(this.camlBuilder);
+    },
+
+    GroupBy: function (groupFieldName, collapse) {
+        /// <summary>
+        /// Specifies grouping field for retrieved items
+        /// </summary>
+        CamlBuilder.StartGroupBy(this.camlBuilder, groupFieldName, collapse);
+        return new CamlBuilder.GroupedQuery(this.camlBuilder);
+    },
+
+    OrderBy: function (sortFieldName, override, useIndexForOrderBy) {
+        /// <summary>
+        /// Specifies primary sort field for retrieved items
+        /// </summary>
+        CamlBuilder.StartOrderBy(this.camlBuilder, override, useIndexForOrderBy);
+        this.camlBuilder.tree.push({ Element: "FieldRef", Name: sortFieldName });
+        return new CamlBuilder.OrderedQuery(this.camlBuilder);
+    },
+
+    OrderByDesc: function (sortFieldName, override, useIndexForOrderBy) {
+        /// <summary>
+        /// Specifies primary sort field for retrieved items
+        /// </summary>
+        CamlBuilder.StartOrderBy(this.camlBuilder, override, useIndexForOrderBy);
+        this.camlBuilder.tree.push({ Element: "FieldRef", Name: sortFieldName, Descending: true });
+        return new CamlBuilder.OrderedQuery(this.camlBuilder);
     },
 
     ToString: function () {
         /// <summary>
         /// Convert to string with final CAML query XML
         /// </summary>
-        var sb = new Sys.StringBuilder();
-        var writer = new SP.XmlWriter.create(sb);
-        for (var i = 0; i < this.camlBuilder.tree.length; i++) {
-            if (this.camlBuilder.tree[i].Element == "FieldRef") {
-                writer.writeStartElement("FieldRef");
-                writer.writeAttributeString("Name", this.camlBuilder.tree[i].Name);
-                if (this.camlBuilder.tree[i].LookupId)
-                    writer.writeAttributeString("LookupId", "True");
-                writer.writeEndElement();
-            } else if (this.camlBuilder.tree[i].Element == "Start") {
-                writer.writeStartElement(this.camlBuilder.tree[i].Name);
-                if (this.camlBuilder.tree[i].Attributes) {
-                    for (var a = 0; a < this.camlBuilder.tree[i].Attributes.length; a++) {
-                        writer.writeAttributeString(
-                            this.camlBuilder.tree[i].Attributes[a].Name,
-                            this.camlBuilder.tree[i].Attributes[a].Value);
-                    }
-                }
-            } else if (this.camlBuilder.tree[i].Element == "Value") {
-                writer.writeStartElement("Value");
-                writer.writeAttributeString("Type", this.camlBuilder.tree[i].ValueType);
-                var value = this.camlBuilder.tree[i].Value.toString();
-                if (value.slice(0, 1) == "{" && value.slice(-1) == "}")
-                    writer.writeRaw("<" + value.slice(1, value.length - 1) + " />");
-                else
-                    writer.writeString(value);
+        return CamlBuilder.Finalize(this.camlBuilder);
+    }
+}
 
-                writer.writeEndElement();
-            } else if (this.camlBuilder.tree[i].Element == "End") {
-                writer.writeEndElement();
-            }
-        }
 
-        while (this.camlBuilder.unclosedTags > 0) {
-            this.camlBuilder.unclosedTags--;
-            writer.writeEndElement();
-        }
+// -------------------------------------------------------------------------------------------------------------------
 
-        writer.close();
-        return sb.toString();
+CamlBuilder.GroupedQuery = function (camlBuilder) {
+    this.camlBuilder = camlBuilder;
+}
+
+CamlBuilder.GroupedQuery.prototype = {
+    OrderBy: function (sortFieldName, override, useIndexForOrderBy) {
+        /// <summary>
+        /// Specifies primary sort field for retrieved items
+        /// </summary>
+        CamlBuilder.StartOrderBy(this.camlBuilder, override, useIndexForOrderBy);
+        this.camlBuilder.tree.push({ Element: "FieldRef", Name: sortFieldName });
+        return new CamlBuilder.OrderedQuery(this.camlBuilder);
+    },
+
+    OrderByDesc: function (sortFieldName, override, useIndexForOrderBy) {
+        /// <summary>
+        /// Specifies primary sort field for retrieved items
+        /// </summary>
+        CamlBuilder.StartOrderBy(this.camlBuilder, override, useIndexForOrderBy);
+        this.camlBuilder.tree.push({ Element: "FieldRef", Name: sortFieldName, Descending: true });
+        return new CamlBuilder.OrderedQuery(this.camlBuilder);
+    },
+
+    ToString: function () {
+        /// <summary>
+        /// Convert to string with final CAML query XML
+        /// </summary>
+        return CamlBuilder.Finalize(this.camlBuilder);
+    }
+}
+
+
+// -------------------------------------------------------------------------------------------------------------------
+
+CamlBuilder.OrderedQuery = function (camlBuilder) {
+    this.camlBuilder = camlBuilder;
+}
+
+CamlBuilder.OrderedQuery.prototype = {
+    ThenBy: function (sortFieldName) {
+        this.camlBuilder.tree.push({ Element: "FieldRef", Name: sortFieldName });
+        return new CamlBuilder.OrderedQuery(this.camlBuilder);
+    },
+    ThenByDesc: function (sortFieldName) {
+        this.camlBuilder.tree.push({ Element: "FieldRef", Name: sortFieldName, Descending: true });
+        return new CamlBuilder.OrderedQuery(this.camlBuilder);
+    },
+    ToString: function () {
+        /// <summary>
+        /// Convert to string with final CAML query XML
+        /// </summary>
+        return CamlBuilder.Finalize(this.camlBuilder);
     }
 }
 
@@ -318,4 +411,84 @@ CamlBuilder.BinaryOperator = function (camlBuilder, startIndex, operation, value
     camlBuilder.tree.splice(startIndex, 0, { Element: "Start", Name: operation });
     camlBuilder.tree.push({ Element: "Value", ValueType: valueType, Value: value });
     camlBuilder.tree.push({ Element: "End" });
+}
+CamlBuilder.StartGroupBy = function (camlBuilder, groupFieldName, collapse) {
+    if (camlBuilder.unclosedTags > 0)
+        camlBuilder.tree.push({ Element: "End", Count: camlBuilder.unclosedTags });
+    camlBuilder.unclosedTags = 0;
+    if (collapse)
+        camlBuilder.tree.push({ Element: "Start", Name: "GroupBy", Attributes: [{ Name: "Collapse", Value: "TRUE"}] });
+    else
+        camlBuilder.tree.push({ Element: "Start", Name: "GroupBy" });
+    camlBuilder.tree.push({ Element: "FieldRef", Name: groupFieldName });
+    camlBuilder.tree.push({ Element: "End" });
+}
+CamlBuilder.StartOrderBy = function (camlBuilder, override, useIndexForOrderBy) {
+    if (camlBuilder.unclosedTags > 0)
+        camlBuilder.tree.push({ Element: "End", Count: camlBuilder.unclosedTags });
+    camlBuilder.unclosedTags = 1;
+
+    var attributes = new Array();
+    if (override)
+        attributes.push({ Name: "Override", Value: "TRUE" });
+    if (useIndexForOrderBy)
+        attributes.push({ Name: "UseIndexForOrderBy", Value: "TRUE" });
+    if (attributes.length > 0)
+        camlBuilder.tree.push({ Element: "Start", Name: "OrderBy", Attributes: attributes });
+    else
+        camlBuilder.tree.push({ Element: "Start", Name: "OrderBy" });
+
+}
+CamlBuilder.Finalize = function (camlBuilder) {
+    var sb = new Sys.StringBuilder();
+    var writer = new SP.XmlWriter.create(sb);
+    for (var i = 0; i < camlBuilder.tree.length; i++) {
+        if (camlBuilder.tree[i].Element == "FieldRef") {
+            writer.writeStartElement("FieldRef");
+            writer.writeAttributeString("Name", camlBuilder.tree[i].Name);
+            if (camlBuilder.tree[i].LookupId)
+                writer.writeAttributeString("LookupId", "True");
+            if (camlBuilder.tree[i].Descending)
+                writer.writeAttributeString("Ascending", "False");
+            writer.writeEndElement();
+        } else if (camlBuilder.tree[i].Element == "Start") {
+            writer.writeStartElement(camlBuilder.tree[i].Name);
+            if (camlBuilder.tree[i].Attributes) {
+                for (var a = 0; a < camlBuilder.tree[i].Attributes.length; a++) {
+                    writer.writeAttributeString(
+                            camlBuilder.tree[i].Attributes[a].Name,
+                            camlBuilder.tree[i].Attributes[a].Value);
+                }
+            }
+        } else if (camlBuilder.tree[i].Element == "Value") {
+            writer.writeStartElement("Value");
+            writer.writeAttributeString("Type", camlBuilder.tree[i].ValueType);
+            var value = camlBuilder.tree[i].Value.toString();
+            if (value.slice(0, 1) == "{" && value.slice(-1) == "}")
+                writer.writeRaw("<" + value.slice(1, value.length - 1) + " />");
+            else
+                writer.writeString(value);
+
+            writer.writeEndElement();
+        } else if (camlBuilder.tree[i].Element == "End") {
+            var count = camlBuilder.tree[i].Count;
+            if (count) {
+                while (count > 0) {
+                    count--;
+                    writer.writeEndElement();
+                }
+            } else {
+                writer.writeEndElement();
+            }
+        }
+    }
+
+    while (camlBuilder.unclosedTags > 0) {
+        camlBuilder.unclosedTags--;
+        writer.writeEndElement();
+    }
+
+    camlBuilder.tree = new Array();
+    writer.close();
+    return sb.toString();
 }
