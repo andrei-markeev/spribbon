@@ -35,7 +35,12 @@ namespace FluentRibbon
 
         internal void CheckArrayHasElements(RibbonDefinition obj, string fieldName)
         {
-            var value = (IEnumerable<RibbonDefinition>)obj.GetType().GetField(fieldName).GetValue(obj);
+            IEnumerable<RibbonDefinition> value;
+            if (obj.GetType().GetMember(fieldName).First().MemberType == MemberTypes.Property)
+                value = (IEnumerable<RibbonDefinition>)obj.GetType().GetProperty(fieldName).GetValue(obj, null);
+            else
+                value = (IEnumerable<RibbonDefinition>)obj.GetType().GetField(fieldName).GetValue(obj);
+
             if (value == null || value.Count() == 0)
             {
                 throw new ValidationException(

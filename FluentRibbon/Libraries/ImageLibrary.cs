@@ -12,7 +12,9 @@ namespace FluentRibbon.Libraries
     public class ImageLibrary
     {
         /// <summary>
-        /// Returns ImageDefinition for standard image formatmap32x32.png &amp; formatmap16x16.png
+        /// <para>Returns ImageDefinition for standard image formatmap32x32.png &amp; formatmap16x16.png.</para>
+        /// <para>Caution: if you have non-english SharePoint installation, and don't have English language pack,
+        /// this will not work.</para>
         /// </summary>
         /// <param name="x">X-coordinate of image thumbnail on composite image</param>
         /// <param name="y">Y-coordinate of image thumbnail on composite image</param>
@@ -27,5 +29,6 @@ namespace FluentRibbon.Libraries
                     Y = y
                 };
         }
+
     }
 }
