@@ -57,7 +57,7 @@ namespace FluentRibbon
             RibbonCommandRepository.Current.AddCommands(definition);
         }
 
-        internal void AddRibbonTabToPage(TabDefinition definition, Page page)
+        internal void AddRibbonTabToPage(TabDefinition definition, Page page, bool makeInitial)
         {
             AddRibbonExtension(XmlGenerator.Current.GetTabXML(definition), page, "Ribbon.Tabs");
             AddGroupTemplatesRibbonExtensions(definition.GroupTemplates, page);
@@ -67,7 +67,8 @@ namespace FluentRibbon
 
             Ribbon ribbon = SPRibbon.GetCurrent(page);
             ribbon.MakeTabAvailable("Ribbon." + definition.Id);
-            ribbon.InitialTabId = "Ribbon." + definition.Id;
+            if (makeInitial)
+                ribbon.InitialTabId = "Ribbon." + definition.Id;
         }
 
         #endregion

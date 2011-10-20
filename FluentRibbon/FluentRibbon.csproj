@@ -73,6 +73,9 @@
     <Compile Include="Libraries\ImageLibrary.cs" />
     <Compile Include="LinqExtensions.cs" />
     <Compile Include="Definitions\RibbonDefinition.cs" />
+    <Compile Include="RibbonControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="ScriptHelper.cs" />
     <Compile Include="Commands\RibbonCommandRepository.cs" />
     <Compile Include="RibbonController.cs" />
