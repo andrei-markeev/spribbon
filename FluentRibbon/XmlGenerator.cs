@@ -262,7 +262,7 @@ namespace FluentRibbon
                     new XAttribute("Id", menuId),
                     new XElement("MenuSection",
                         new XAttribute("Id", sectionId),
-                        new XAttribute("DisplayMode", "Menu32"),
+                        new XAttribute("DisplayMode", container.ControlsSize == ControlSize.Size32x32 ? "Menu32" : "Menu16"),
                         controlsElement)
                 ));
 

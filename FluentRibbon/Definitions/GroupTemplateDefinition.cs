@@ -20,7 +20,7 @@ namespace FluentRibbon.Definitions
         /// </summary>
         public IEnumerable<string> SectionIds;
 
-        internal Func<GroupTemplateDefinition, string> GetXMLFunc;
+        public Func<GroupTemplateDefinition, string> GetXMLFunc;
         internal string XML
         {
             get

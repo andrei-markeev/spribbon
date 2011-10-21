@@ -27,5 +27,11 @@ namespace FluentRibbon.Definitions.Controls
         /// </summary>
         public IEnumerable<ControlDefinition> Controls { get; set; }
 
+
+
+        /// <summary>
+        /// Controls size. By default, 32x32
+        /// </summary>
+        public ControlSize ControlsSize { get; set; }
     }
 }

@@ -43,5 +43,12 @@ namespace FluentRibbon.Definitions.Controls
         /// Menu controls. At least one member is required.
         /// </summary>
         public IEnumerable<ControlDefinition> Controls { get; set; }
+
+
+        /// <summary>
+        /// Controls size. By default, 32x32
+        /// </summary>
+        public ControlSize ControlsSize { get; set; }
+
     }
 }
