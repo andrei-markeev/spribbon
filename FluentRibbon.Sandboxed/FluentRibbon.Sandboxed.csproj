@@ -69,6 +69,9 @@
     <Compile Include="..\FluentRibbon\Definitions\Controls\ButtonDefinition.cs">
       <Link>Definitions\Controls\ButtonDefinition.cs</Link>
     </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\ControlSize.cs">
+      <Link>Definitions\Controls\ControlSize.cs</Link>
+    </Compile>
     <Compile Include="..\FluentRibbon\Definitions\Controls\FlyoutAnchorDefinition.cs">
       <Link>Definitions\Controls\FlyoutAnchorDefinition.cs</Link>
     </Compile>
@@ -84,8 +87,8 @@
     <Compile Include="..\FluentRibbon\Definitions\Controls\MRUSplitButtonDefinition.cs">
       <Link>Definitions\Controls\MRUSplitButtonDefinition.cs</Link>
     </Compile>
-    <Compile Include="..\FluentRibbon\Definitions\Controls\SplitButtonBaseDefinition.cs">
-      <Link>Definitions\Controls\SplitButtonBaseDefinition.cs</Link>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\SplitButtonDefinition.cs">
+      <Link>Definitions\Controls\SplitButtonDefinition.cs</Link>
     </Compile>
     <Compile Include="..\FluentRibbon\Definitions\Controls\TextBoxDefinition.cs">
       <Link>Definitions\Controls\TextBoxDefinition.cs</Link>
