@@ -174,7 +174,7 @@ namespace FluentRibbon
                 case ListForms.NewForm:
                 case ListForms.EditForm:
                 case ListForms.DisplayForm:
-                    return "CommandUI.Ribbon" + whichForms.ToString();
+                    return "CommandUI.Ribbon." + whichForms.ToString();
                 case ListForms.All:
                     return "CommandUI.Ribbon";
                 default:
