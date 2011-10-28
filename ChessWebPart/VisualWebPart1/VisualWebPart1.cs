@@ -51,7 +51,6 @@ namespace ChessWebPart.VisualWebPart1
                                     {
                                         Id = "New",
                                         Title = "Start new game",
-                                        Description = "Create new user",
                                         CommandJavaScript = "window.location.reload();",
                                         Image = new ImageDefinition() 
                                         { 

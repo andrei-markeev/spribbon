@@ -16,8 +16,7 @@ namespace FluentRibbon.Definitions.Controls
             base.AddAttributes(controlElement);
 
             controlElement.Add(
-                new XAttribute("LabelText", this.Title),
-                new XAttribute("Description", this.Description)
+                new XAttribute("LabelText", this.Title)
                 );
 
             if (this.ToolTip != null && !String.IsNullOrEmpty(this.ToolTip.Title))
@@ -66,6 +65,7 @@ namespace FluentRibbon.Definitions.Controls
         /// <summary>
         /// Control description
         /// </summary>
+        [Obsolete("Description is dummy property, which never gets displayed. Use Tooltip.Description instead.")]
         public string Description = string.Empty;
 
         /// <summary>
