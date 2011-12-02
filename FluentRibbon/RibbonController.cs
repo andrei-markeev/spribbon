@@ -49,6 +49,7 @@ namespace FluentRibbon
 
         internal void AddRibbonContextualTabToPage(ContextualGroupDefinition definition, Page page)
         {
+            page.PreRenderComplete -= new EventHandler(page_PreRenderComplete);
             page.PreRenderComplete += new EventHandler(page_PreRenderComplete);
 
             AddRibbonExtension(XmlGenerator.Current.GetContextualGroupXML(definition), page, "Ribbon.ContextualTabs");

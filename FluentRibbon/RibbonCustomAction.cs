@@ -60,7 +60,7 @@ namespace FluentRibbon
         /// to users with appropriate rights.
         /// </summary>
         /// <param name="featureUniqueGuid">Guid, needed for feature-scoped cleanup in FeatureDeactivating using <see cref="RibbonCustomAction.RemoveAllCustomizations"/> method.</param>
-        /// <param name="web">SPWeb, where a ribbon will be added</param>
+        /// <param name="userCustomActions">Collection of custom actions of web or list (web.UserCustomActions or list.UserCustomActions)</param>
         /// <param name="templateId">Custom list template Id, for which ribbon elements will be registered</param>
         /// <param name="whichForms">List forms, which will display the ribbon</param>
         /// <param name="rights">Rights user needs to access the ribbon</param>
@@ -74,10 +74,15 @@ namespace FluentRibbon
             customAction.Name = "FluentRibbon._" + featureUniqueGuid.ToString().Replace("-", "") + "._" + Guid.NewGuid().ToString().Replace("-", "");
             customAction.Location = GetRibbonLocationByListForms(whichForms);
             customAction.CommandUIExtension = XmlGenerator.Current.GetCommandUIExtensionXML(RibbonXML, RibbonCommandsXML, RibbonTemplatesXML);
-            if (!String.IsNullOrEmpty(templateId))
+            if (!String.IsNullOrEmpty(templateId) && templateId != ((int)ListTypes.All).ToString())
             {
                 customAction.RegistrationType = SPUserCustomActionRegistrationType.List;
                 customAction.RegistrationId = templateId;
+            }
+            else
+            {
+                customAction.RegistrationType = SPUserCustomActionRegistrationType.ContentType;
+                customAction.RegistrationId = "0x";
             }
             if (rights.HasValue)
                 customAction.Rights = rights.Value;

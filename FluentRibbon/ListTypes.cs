@@ -12,6 +12,10 @@ namespace FluentRibbon
     public enum ListTypes
     {
         /// <summary>
+        /// All lists
+        /// </summary>
+        All = 0,
+        /// <summary>
         /// Generic list
         /// </summary>
         GenericList = 100,
