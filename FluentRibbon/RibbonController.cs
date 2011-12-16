@@ -13,6 +13,7 @@ using Microsoft.SharePoint.WebControls;
 using FluentRibbon.Definitions;
 using FluentRibbon.Definitions.Controls;
 using FluentRibbon.Commands;
+using Microsoft.SharePoint.Administration;
 
 namespace FluentRibbon
 {
@@ -64,7 +65,8 @@ namespace FluentRibbon
             AddGroupTemplatesRibbonExtensions(definition.GroupTemplates, page);
 
             RibbonCommandRepository.Current.AddCommands(definition);
-            RegisterCommands(page);
+            page.PreRenderComplete -= new EventHandler(page_PreRenderComplete);
+            page.PreRenderComplete += new EventHandler(page_PreRenderComplete);
 
             Ribbon ribbon = SPRibbon.GetCurrent(page);
             ribbon.MakeTabAvailable("Ribbon." + definition.Id);
@@ -78,10 +80,19 @@ namespace FluentRibbon
 
         private void page_PreRenderComplete(object sender, EventArgs e)
         {
-            Page page = sender as Page;
-
-            if (RibbonCommandRepository.Current.GetCommandsCount() > 0)
-                RegisterCommands(page);
+            try
+            {
+                Page page = sender as Page;
+                if (RibbonCommandRepository.Current.GetCommandsCount() > 0)
+                    RegisterCommands(page);
+            }
+            catch (Exception ex)
+            {
+                SPDiagnosticsService diagSvc = SPDiagnosticsService.Local;
+                diagSvc.WriteTrace(0,   new SPDiagnosticsCategory("Fluent Ribbon", TraceSeverity.Monitorable, EventSeverity.Error),
+                                        TraceSeverity.Monitorable,
+                                        "Error occured: " + ex.Message + "\nStackTrace: " + ex.StackTrace);
+            }
         }
 
         private void AddGroupTemplatesRibbonExtensions(IEnumerable<GroupTemplateDefinition> templates, Page page)

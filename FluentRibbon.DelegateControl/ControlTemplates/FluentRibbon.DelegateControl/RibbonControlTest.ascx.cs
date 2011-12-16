@@ -6,6 +6,7 @@ using FluentRibbon.Definitions;
 using FluentRibbon.Libraries;
 using Microsoft.SharePoint;
 using System.Collections.Generic;
+using FluentRibbon.Definitions.Controls;
 
 namespace FluentRibbon.DelegateControl.ControlTemplates.FluentRibbon.DelegateControl
 {
@@ -23,6 +24,7 @@ namespace FluentRibbon.DelegateControl.ControlTemplates.FluentRibbon.DelegateCon
         {
             var controls = new List<ControlDefinition>();
             controls.Add(ControlLibrary.CreateRandomButton());
+            controls.Add(new ButtonDefinition() { Id = controls[0].Id, TemplateAlias = controls[0].TemplateAlias, Title="Hi" });
             if (SPContext.Current.Web.CurrentUser.IsSiteAdmin)
                 controls.Add(ControlLibrary.CreateRandomButton());
 

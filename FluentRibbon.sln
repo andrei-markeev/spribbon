@@ -1,11 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentRibbon", "FluentRibbon\FluentRibbon.csproj", "{6EF29FB0-EA01-4EE2-8642-D11E53115FF0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{543EB6D5-76CA-41CE-AEAE-1876FEC01D24}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessWebPart", "ChessWebPart\ChessWebPart.csproj", "{2F47293D-9894-4504-AED2-EA7AA8B14EF7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentRibbon.Elementary", "FluentRibbon.Elementary\FluentRibbon.Elementary.csproj", "{46FFC522-DDD4-4D0C-863D-06AF78D0B4EB}"
 EndProject
@@ -26,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailsButton", "EmailsButto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentRibbon.DelegateControl", "FluentRibbon.DelegateControl\FluentRibbon.DelegateControl.csproj", "{8E6BA4B3-42B5-4E11-8EFE-3728F2EA007A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentRibbon", "FluentRibbon\FluentRibbon.csproj", "{6EF29FB0-EA01-4EE2-8642-D11E53115FF0}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = FluentRibbon.vsmdi
@@ -35,16 +33,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6EF29FB0-EA01-4EE2-8642-D11E53115FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6EF29FB0-EA01-4EE2-8642-D11E53115FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6EF29FB0-EA01-4EE2-8642-D11E53115FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6EF29FB0-EA01-4EE2-8642-D11E53115FF0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F47293D-9894-4504-AED2-EA7AA8B14EF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F47293D-9894-4504-AED2-EA7AA8B14EF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F47293D-9894-4504-AED2-EA7AA8B14EF7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{2F47293D-9894-4504-AED2-EA7AA8B14EF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F47293D-9894-4504-AED2-EA7AA8B14EF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F47293D-9894-4504-AED2-EA7AA8B14EF7}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{46FFC522-DDD4-4D0C-863D-06AF78D0B4EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{46FFC522-DDD4-4D0C-863D-06AF78D0B4EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46FFC522-DDD4-4D0C-863D-06AF78D0B4EB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -77,15 +65,18 @@ Global
 		{8E6BA4B3-42B5-4E11-8EFE-3728F2EA007A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E6BA4B3-42B5-4E11-8EFE-3728F2EA007A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E6BA4B3-42B5-4E11-8EFE-3728F2EA007A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6EF29FB0-EA01-4EE2-8642-D11E53115FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EF29FB0-EA01-4EE2-8642-D11E53115FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EF29FB0-EA01-4EE2-8642-D11E53115FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EF29FB0-EA01-4EE2-8642-D11E53115FF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{2F47293D-9894-4504-AED2-EA7AA8B14EF7} = {543EB6D5-76CA-41CE-AEAE-1876FEC01D24}
-		{46FFC522-DDD4-4D0C-863D-06AF78D0B4EB} = {543EB6D5-76CA-41CE-AEAE-1876FEC01D24}
 		{4276031F-1037-46CD-B305-56DE166C407D} = {543EB6D5-76CA-41CE-AEAE-1876FEC01D24}
 		{4A922A0D-FCEF-4F8F-84F0-8F9D9B4B3D48} = {543EB6D5-76CA-41CE-AEAE-1876FEC01D24}
 		{8E6BA4B3-42B5-4E11-8EFE-3728F2EA007A} = {543EB6D5-76CA-41CE-AEAE-1876FEC01D24}
+		{46FFC522-DDD4-4D0C-863D-06AF78D0B4EB} = {543EB6D5-76CA-41CE-AEAE-1876FEC01D24}
 	EndGlobalSection
 EndGlobal

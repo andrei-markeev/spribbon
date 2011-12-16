@@ -79,7 +79,7 @@ namespace FluentRibbon
                 customAction.RegistrationType = SPUserCustomActionRegistrationType.List;
                 customAction.RegistrationId = templateId;
             }
-            else
+            else if (userCustomActions.Scope == SPUserCustomActionScope.Web)
             {
                 customAction.RegistrationType = SPUserCustomActionRegistrationType.ContentType;
                 customAction.RegistrationId = "0x";

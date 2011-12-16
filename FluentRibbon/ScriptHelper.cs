@@ -38,10 +38,10 @@ namespace FluentRibbon
 
                  //]]> 
                 </script>",
-                String.Join(",", commands.Where(c => c.Id.EndsWith("QueryCommand")).Select(c => "'" + c.Id + "'").ToArray()),
-                String.Join(",", commands.Where(c => !c.Id.EndsWith("QueryCommand")).Select(c => "'" + c.Id + "'").ToArray()),
-                String.Join("\n", commands.Select(c => String.Format("if (commandId == '{0}') {{ return {1}; }}", c.Id, Convert.ToString(c.EnabledStatement))).ToArray()),
-                String.Join("\n", commands.Select(c => String.Format("if (commandId == '{0}') {{ {1}; return true; }}", c.Id, Convert.ToString(c.HandlerStatement))).ToArray())
+                String.Join(",", commands.Where(c => !String.IsNullOrEmpty(c.Id) && c.Id.EndsWith("QueryCommand")).Select(c => "'" + c.Id + "'").ToArray()),
+                String.Join(",", commands.Where(c => !String.IsNullOrEmpty(c.Id) && !c.Id.EndsWith("QueryCommand")).Select(c => "'" + c.Id + "'").ToArray()),
+                String.Join("\n", commands.Select(c => String.Format("if (commandId == '{0}') {{ return {1}; }}", c.Id, c.EnabledStatement ?? String.Empty)).ToArray()),
+                String.Join("\n", commands.Select(c => String.Format("if (commandId == '{0}') {{ {1}; return true; }}", c.Id, c.HandlerStatement ?? String.Empty)).ToArray())
                  );
         }
 

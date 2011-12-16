@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web.UI;
 using FluentRibbon.Definitions;
+using Microsoft.SharePoint.Administration;
 
 namespace FluentRibbon
 {
@@ -24,7 +25,7 @@ namespace FluentRibbon
         /// </summary>
         /// <returns>
         /// If you return null here, tab will not be shown.
-        /// Overwise, the ribbon tab is created and activated when the page is displayed.
+        /// Otherwise, the ribbon tab is created and activated when the page is displayed.
         /// </returns>
         public abstract TabDefinition GetTabDefinition();
 
@@ -51,8 +52,18 @@ namespace FluentRibbon
                 return;
 
             var tabDefinition = GetTabDefinition();
-            if (tabDefinition != null && !this.DesignMode)
-                RibbonController.Current.AddRibbonTabToPage(tabDefinition, this.Page, false);
+            try
+            {
+                if (tabDefinition != null && !this.DesignMode)
+                    RibbonController.Current.AddRibbonTabToPage(tabDefinition, this.Page, false);
+            }
+            catch (Exception ex)
+            {
+                SPDiagnosticsService diagSvc = SPDiagnosticsService.Local;
+                diagSvc.WriteTrace(0, new SPDiagnosticsCategory("Fluent Ribbon", TraceSeverity.Monitorable, EventSeverity.Error),
+                                        TraceSeverity.Monitorable,
+                                        "Error occured: " + ex.Message + "\nStackTrace: " + ex.StackTrace);
+            }
         }
 
 
