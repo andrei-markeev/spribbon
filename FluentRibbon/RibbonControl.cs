@@ -5,6 +5,7 @@ using System.Text;
 using System.Web.UI;
 using FluentRibbon.Definitions;
 using Microsoft.SharePoint.Administration;
+using Microsoft.SharePoint.WebControls;
 
 namespace FluentRibbon
 {
@@ -54,6 +55,8 @@ namespace FluentRibbon
             var tabDefinition = GetTabDefinition();
             try
             {
+                if (SPRibbon.GetCurrent(this.Page) == null)
+                    return;
                 if (tabDefinition != null && !this.DesignMode)
                     RibbonController.Current.AddRibbonTabToPage(tabDefinition, this.Page, false);
             }

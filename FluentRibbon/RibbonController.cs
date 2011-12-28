@@ -53,7 +53,7 @@ namespace FluentRibbon
             page.PreRenderComplete -= new EventHandler(page_PreRenderComplete);
             page.PreRenderComplete += new EventHandler(page_PreRenderComplete);
 
-            AddRibbonExtension(XmlGenerator.Current.GetContextualGroupXML(definition), page, "Ribbon.ContextualTabs");
+            AddRibbonExtension(XmlGenerator.Current.GetContextualGroupXML(definition), page, "Ribbon.ContextualTabs", true);
             AddGroupTemplatesRibbonExtensions(definition.Tabs.SelectMany(t => t.GroupTemplates), page);
 
             RibbonCommandRepository.Current.AddCommands(definition);
@@ -61,7 +61,7 @@ namespace FluentRibbon
 
         internal void AddRibbonTabToPage(TabDefinition definition, Page page, bool makeInitial)
         {
-            AddRibbonExtension(XmlGenerator.Current.GetTabXML(definition), page, "Ribbon.Tabs");
+            AddRibbonExtension(XmlGenerator.Current.GetTabXML(definition), page, "Ribbon.Tabs", makeInitial);
             AddGroupTemplatesRibbonExtensions(definition.GroupTemplates, page);
 
             RibbonCommandRepository.Current.AddCommands(definition);
@@ -107,10 +107,10 @@ namespace FluentRibbon
             }
         }
 
-        private void AddRibbonExtension(string xml, Page page, string parentId)
+        private void AddRibbonExtension(string xml, Page page, string parentId, bool makeInitial)
         {
             Ribbon ribbon = SPRibbon.GetCurrent(page);
-            ribbon.Minimized = false;
+            ribbon.Minimized = !makeInitial;
             ribbon.CommandUIVisible = true;
             XmlDocument ribbonExtensions = new XmlDocument();
             ribbonExtensions.LoadXml(xml);
