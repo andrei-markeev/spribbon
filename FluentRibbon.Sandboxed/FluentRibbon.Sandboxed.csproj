@@ -93,6 +93,9 @@
     <Compile Include="..\FluentRibbon\Definitions\Controls\TextBoxDefinition.cs">
       <Link>Definitions\Controls\TextBoxDefinition.cs</Link>
     </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\ToggleButtonDefinition.cs">
+      <Link>Definitions\Controls\ToggleButtonDefinition.cs</Link>
+    </Compile>
     <Compile Include="..\FluentRibbon\Definitions\Controls\VisualControlBaseDefinition.cs">
       <Link>Definitions\Controls\VisualControlBaseDefinition.cs</Link>
     </Compile>

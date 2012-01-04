@@ -78,6 +78,32 @@ namespace FluentRibbon.Elementary.WebParts
                         {
                             new GroupDefinition()
                             {
+                                Id = "ToggleGroup",
+                                Title = "Toggle group",
+                                Template = GroupTemplateLibrary.SimpleTemplate,
+                                Controls = new ControlDefinition[]
+                                {
+                                    new ToggleButtonDefinition()
+                                    {
+                                        Id = "ToggleButton1",
+                                        Title = "Toggle button 1",
+                                        Image = ImageLibrary.GetStandardImage(7,10),
+                                        CommandJavaScript = "window._myFluentButtonToggled = 1; SP.Ribbon.PageManager.get_instance().get_commandDispatcher().executeCommand(Commands.CommandIds.ApplicationStateChanged,null);",
+                                        InitialValueJavaScript = "return (window._myFluentButtonToggled || 1) == 1;"
+                                    },
+                                    new ToggleButtonDefinition()
+                                    {
+                                        Id = "ToggleButton2",
+                                        Title = "Toggle button 2",
+                                        Image = ImageLibrary.GetStandardImage(7,11),
+                                        CommandJavaScript = "window._myFluentButtonToggled = 2; SP.Ribbon.PageManager.get_instance().get_commandDispatcher().executeCommand(Commands.CommandIds.ApplicationStateChanged,null);",
+                                        InitialValueJavaScript = "return (window._myFluentButtonToggled || 1) == 2;"
+                                    }
+                                }
+
+                            },
+                            new GroupDefinition()
+                            {
                                 Id = "Group",
                                 Title = "Buttons group",
                                 Template = GroupTemplateLibrary.SimpleTemplate,

@@ -87,17 +87,24 @@ namespace FluentRibbon.Commands
                 .Select<ButtonBaseDefinition, FluentRibbonCommand>(b => new FluentRibbonCommand(b.FullId + "Command", b.CommandJavaScript, b.CommandEnableJavaScript)).ToArray());
 
             // Initializable controls
-            var initializationScript = "function initialValue() { {IVScript} }; var v = initialValue(); if (v != null) { properties['On'] = true; properties['Value'] = v; }";
+            var initializationScript = "var initialValue = function() { {IVScript} }; var v = initialValue(); if (v != null) { properties['On'] = true; properties['Value'] = v; }";
+            var buttonInitializationScript = "var initialValue = function() { {IVScript} }; var v = initialValue(); if (v != null) { properties['On'] = v; properties['Value'] = v; }";
             commands.AddRange(
                 controls
                 .WithDescendants(c => c is IContainer ? (c as IContainer).Controls : null)
                 .Where(c => c is IInitializable)
-                .SelectMany(c => new FluentRibbonCommand[]
+                .SelectMany(c =>
+                    c is ButtonBaseDefinition ?
+                    new FluentRibbonCommand[]
+                    {
+                        new FluentRibbonCommand(c.FullId + "QueryCommand", buttonInitializationScript.Replace("{IVScript}", (c as IInitializable).InitialValueJavaScript), "true")
+                    }
+                    :
+                    new FluentRibbonCommand[]
                     {
                         new FluentRibbonCommand(c.FullId + "Command", String.Empty, "true"),
                         new FluentRibbonCommand(c.FullId + "QueryCommand", initializationScript.Replace("{IVScript}", (c as IInitializable).InitialValueJavaScript), "true")
                     }).ToArray());
-
 
         }
 

@@ -50,7 +50,7 @@ public class Feature1EventReceiver : SPFeatureReceiver
         button1.TemplateAlias = "o1";
         ribbonCustomAction.AddControl(button1, SPRibbonIds.ListItem.Groups.Manage.Id, 1);
 
-        ribbonCustomAction.Provision(ReceiverGuid, web, ListTypes.GenericList);
+        ribbonCustomAction.Provision(properties.Definition.Id, web, ListTypes.GenericList, ListForms.NewForm);
 
     }
 
@@ -58,7 +58,7 @@ public class Feature1EventReceiver : SPFeatureReceiver
     public override void FeatureDeactivating(SPFeatureReceiverProperties properties)
     {
         SPWeb web = (properties.Feature.Parent as SPSite).RootWeb;
-        RibbonCustomAction.RemoveAllCustomizations(web, ReceiverGuid);
+        RibbonCustomAction.RemoveAllCustomizations(web, properties.Definition.Id);
     }
 
 

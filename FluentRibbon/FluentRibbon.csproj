@@ -66,6 +66,7 @@
     <Compile Include="Definitions\Controls\SplitButtonDefinition.cs" />
     <Compile Include="Definitions\Controls\TextBoxDefinition.cs" />
     <Compile Include="Definitions\Controls\ButtonBaseDefinition.cs" />
+    <Compile Include="Definitions\Controls\ToggleButtonDefinition.cs" />
     <Compile Include="Definitions\Controls\VisualControlBaseDefinition.cs" />
     <Compile Include="Definitions\ToolTipDefinition.cs" />
     <Compile Include="Definitions\ImageDefinition.cs" />

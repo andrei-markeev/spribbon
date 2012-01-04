@@ -15,7 +15,7 @@ namespace FluentRibbon.Definitions.Controls
         {
             base.AddAttributes(controlElement);
 
-            if (!String.IsNullOrEmpty(this.CommandJavaScript))
+            if (!String.IsNullOrEmpty(this.CommandJavaScript) && controlElement.Attribute("Command") == null)
                 controlElement.Add(new XAttribute("Command", this.FullId + "Command"));
 
         }
