@@ -41,8 +41,8 @@ namespace FluentRibbon.Elementary.WebParts
                         {
                             new GroupDefinition()
                             {
-                                Id = "Group",
-                                Title = "Three-row group",
+                                Id = "Group1",
+                                Title = "Textbox group",
                                 Template = GroupTemplateLibrary.ThreeRowTemplate,
                                 Controls = new ControlDefinition[]
                                 {
@@ -56,14 +56,60 @@ namespace FluentRibbon.Elementary.WebParts
                                     new TextBoxDefinition() 
                                     { 
                                         Id = "TextBox",
-                                        InitialValueJavaScript = "return 'Hello from SPRibbon!';"
+                                        InitialValueJavaScript = "return window.fluentTextBoxText || 'Hello from SPRibbon!';"
                                     },
                                     new ButtonDefinition()
                                     {
                                         Id = "Button",
                                         Title = "Save!",
                                         Image = new ImageDefinition() { Url16 = "/_layouts/images/saveitem.gif" },
-                                        CommandJavaScript = "alert('simple test')"
+                                        CommandJavaScript = "var value = document.getElementById('Ribbon.Tab1.Group1.TextBox').value; alert(value); window.fluentTextBoxText = value;"
+                                    }
+                                }
+
+                            },
+
+                            new GroupDefinition()
+                            {
+                                Id = "Group2",
+                                Title = "Dropdown group",
+                                Template = GroupTemplateLibrary.ThreeRowTemplate,
+                                Controls = new ControlDefinition[]
+                                {
+                                    new LabelDefinition()
+                                    {
+                                        Id = "Label",
+                                        Title = "Select your data:",
+                                        Image = new ImageDefinition() { Url16 = "/_layouts/images/wpedit.gif" },
+                                        ForId = "DropDown"
+                                    },
+                                    new DropDownDefinition()
+                                    { 
+                                        Id = "DropDown",
+                                        InitialValueJavaScript = "return window.fluentDropDownSelectedItem || '';",
+                                        ControlsSize = ControlSize.Size16x16,
+                                        Controls = new ControlDefinition[]
+                                        {
+                                            new ButtonDefinition()
+                                            {
+                                                Id = "DropDownItem1",
+                                                Title = "Choice 1",
+                                                CommandJavaScript = "window.fluentDropDownSelectedItem = 'Choice 1'; SP.Ribbon.PageManager.get_instance().get_commandDispatcher().executeCommand(Commands.CommandIds.ApplicationStateChanged,null);"
+                                            },
+                                            new ButtonDefinition()
+                                            {
+                                                Id = "DropDownItem2",
+                                                Title = "Choice 2",
+                                                CommandJavaScript = "window.fluentDropDownSelectedItem = 'Choice 2'; SP.Ribbon.PageManager.get_instance().get_commandDispatcher().executeCommand(Commands.CommandIds.ApplicationStateChanged,null);"
+                                            }
+                                        }
+                                    },
+                                    new ButtonDefinition()
+                                    {
+                                        Id = "Button",
+                                        Title = "Save!",
+                                        Image = new ImageDefinition() { Url16 = "/_layouts/images/saveitem.gif" },
+                                        CommandJavaScript = "alert(document.getElementById('Ribbon.Tab1.Group2.DropDown').parentElement.innerText)"
                                     }
                                 }
 

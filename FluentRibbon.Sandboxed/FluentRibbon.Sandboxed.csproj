@@ -72,6 +72,9 @@
     <Compile Include="..\FluentRibbon\Definitions\Controls\ControlSize.cs">
       <Link>Definitions\Controls\ControlSize.cs</Link>
     </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\Controls\DropDownDefinition.cs">
+      <Link>Definitions\Controls\DropDownDefinition.cs</Link>
+    </Compile>
     <Compile Include="..\FluentRibbon\Definitions\Controls\FlyoutAnchorDefinition.cs">
       <Link>Definitions\Controls\FlyoutAnchorDefinition.cs</Link>
     </Compile>

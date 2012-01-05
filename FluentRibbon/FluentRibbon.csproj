@@ -55,6 +55,7 @@
     <Compile Include="Commands\RibbonCommandConverter.cs" />
     <Compile Include="Definitions\ContextualGroupColor.cs" />
     <Compile Include="Definitions\Controls\ControlSize.cs" />
+    <Compile Include="Definitions\Controls\DropDownDefinition.cs" />
     <Compile Include="Definitions\Controls\IContainer.cs" />
     <Compile Include="Definitions\Controls\ButtonDefinition.cs" />
     <Compile Include="ContextualWebPart.cs" />
