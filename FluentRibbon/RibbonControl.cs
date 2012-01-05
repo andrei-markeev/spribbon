@@ -14,7 +14,7 @@ namespace FluentRibbon
     /// This base class simplifies creation of Delegate Control with custom ribbon tab.
     /// </para>
     /// <para>
-    /// You need to inherit from this class rather when from LayoutsPageBase, to use the functionality.
+    /// You need to inherit your user control from this class, to use the functionality.
     /// Also, you should override the GetTabDefinition method and provide ribbon tab definition, using <see cref="TabDefinition"/> class.
     /// </para>
     /// </summary>

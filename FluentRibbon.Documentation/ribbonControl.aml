@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="acc273f1-829e-46e6-a671-2caad3b4578d" revisionNumber="1">
+  <developerHowToDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!--
+    <summary>
+      <para>Optional summary abstract</para>
+    </summary>
+    -->
+    <introduction>
+      <para>
+      RibbonControl feature can be used to add a ribbon tab to a custom control.
+      Most often, this feature is used to add a ribbon tab to whole site or
+      site collection, by using <externalLink>
+<linkText>Delegate control technique</linkText>
+<linkAlternateText>MSDN article about Delegate controls</linkAlternateText>
+<linkUri>http://msdn.microsoft.com/en-us/library/ms463169.aspx</linkUri>
+<linkTarget>_blank</linkTarget>
+</externalLink>.
+      </para>
+    </introduction>
+    <procedure>
+      <title>Creating a simple demo</title>
+      <steps class="ordered">
+        <step>
+          <content>
+            <para>Create Empty SharePoint project in Visual Studio 2010.</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Add reference to FluentRibbon.dll </para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Add FluentRibbon.dll into GAC deployment list (Package.package, 'Advanced' tab)</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Add [SharePoint -> 2010 -> User Control] project item to the project</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Inherit the newly created control from the <codeEntityReference>T:FluentRibbon.RibbonControl</codeEntityReference> class.</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Override the <codeEntityReference>M:FluentRibbon.RibbonControl.GetTabDefinition</codeEntityReference> method, and provide tab definition for your custom ribbon tab.</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Use your control somewhere. It could be a webpart, page, delegate control.</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Deploy!</para>
+          </content>
+        </step>
+      </steps>
+    </procedure>
+    <codeExample>
+    	<para>Code example:</para>
+    	<code language="cs">
+public partial class TestRibbonControl : RibbonControl
+{
+    public override TabDefinition GetTabDefinition()
+    {
+        return new TabDefinition()
+        {
+            Id = "CommonTasks",
+            Title = "Common tasks",
+            Groups = new GroupDefinition[]
+            {
+                new GroupDefinition()
+                {
+                    Id = "Sample",
+                    Title = "Sample",
+                    Template = GroupTemplateLibrary.SimpleTemplate,
+                    Controls = new ControlDefinition[]
+                    {
+                        ControlLibrary.CreateRandomButton()
+                    }
+                }
+            }
+        };
+    }
+}
+    	</code>
+    	<para>
+    	The tab will appear following way on every page, where the control
+    	is presented.</para>
+	    <mediaLink>
+	    	<image xlink:href="commonTasksTab"/>
+		</mediaLink>
+		<para>
+		So, it will be initially inactive. Also, there can be several controls,
+		thus there could be several ribbon tabs on one page.
+		</para>
+    </codeExample>
+    <relatedTopics>
+    	<codeEntityReference>T:FluentRibbon.RibbonControl</codeEntityReference>
+    	<externalLink>
+			<linkText>Add ribbon tab to all site pages using Fluent Ribbon API</linkText>
+			<linkAlternateText>Blog article</linkAlternateText>
+			<linkUri>http://amarkeev.wordpress.com/2011/10/24/sharepoint-add-ribbon-to-all-site-pages/</linkUri>
+			<linkTarget>_blank</linkTarget>
+		</externalLink>
+    </relatedTopics>
+  </developerHowToDocument>
+</topic>

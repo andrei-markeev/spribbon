@@ -29,7 +29,7 @@
         </step>
         <step>
           <content>
-            <para>Add Application Page item into 'Layouts' folder </para>
+            <para>Add Application Page item into the 'Layouts' folder </para>
           </content>
         </step>
         <step>
@@ -92,6 +92,7 @@ public partial class ApplicationPage1 : RibbonLayoutsPage
 	</mediaLink>
 
     <relatedTopics>
+    	<link xlink:href="c269ecc9-a6e1-4e1f-ad8d-22a34f9d606e">Using standard SharePoint icons in your definitions</link>
     	<codeEntityReference>T:FluentRibbon.RibbonLayoutsPage</codeEntityReference>
     </relatedTopics>
   </developerHowToDocument>

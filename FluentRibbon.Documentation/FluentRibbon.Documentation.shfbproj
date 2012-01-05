@@ -26,11 +26,10 @@
     <VisibleItems>None</VisibleItems>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <NamespaceSummaries>
-      <NamespaceSummaryItem name="FluentRibbon" isDocumented="True" xmlns="">Namespace, where all the main classes are stored, such as ContextualWebPart and RibbonLayoutsPage.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="FluentRibbon.Definitions" isDocumented="True" xmlns="">Core ribbon definitions.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="FluentRibbon.Definitions.Controls" isDocumented="True" xmlns="">Definitions for varios controls and their base classes.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="FluentRibbon.Libraries" isDocumented="True" xmlns="">Libraries with some standard definitions, mostly control groups templates for now.</NamespaceSummaryItem>
-    </NamespaceSummaries>
+      <NamespaceSummaryItem name="FluentRibbon" isDocumented="True">Namespace, where all the main classes are stored, such as ContextualWebPart and RibbonLayoutsPage.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="FluentRibbon.Definitions" isDocumented="True">Core ribbon definitions.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="FluentRibbon.Definitions.Controls" isDocumented="True">Definitions for varios controls and their base classes.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="FluentRibbon.Libraries" isDocumented="True">Libraries with some standard definitions, mostly control groups templates for now.</NamespaceSummaryItem></NamespaceSummaries>
     <ApiFilter>
       <Filter entryType="Namespace" fullName="FluentRibbon" isExposed="True">
         <Filter entryType="Class" fullName="FluentRibbon.ArrayElementsRequiredAttribute" filterName="ArrayElementsRequiredAttribute" isExposed="False" />
@@ -86,6 +85,7 @@
   <ItemGroup>
     <None Include="contextualWebPart.aml" />
     <None Include="chessWebPart.aml" />
+    <None Include="ribbonControl.aml" />
     <None Include="standardImages.aml" />
     <None Include="postBack.aml" />
     <None Include="validation.aml" />
@@ -97,6 +97,10 @@
     <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="images\commonTasksTab.png">
+      <ImageId>commonTasksTab</ImageId>
+      <AlternateText>Common Tasks Tab</AlternateText>
+    </Image>
     <Image Include="images\formatmap32x32.png">
       <ImageId>formatmap32x32</ImageId>
       <AlternateText>formatmap 32x 32</AlternateText>

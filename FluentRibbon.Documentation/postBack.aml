@@ -64,7 +64,7 @@ if (this.Page.Request["__EVENTTARGET"] == RibbonPostbackId)
         your ribbon button is pressed.
         </para>
         <para>
-        Full-qualified Id for this textbox is "Ribbon.CustomTab.CustomGroup.CustomTextBox".
+        Full-qualified Id for this textbox is "Ribbon.MyContext.Tab.PostbackGroup.TextBox".
         </para>
         <para>Here is the solution:</para>
         
@@ -72,28 +72,58 @@ if (this.Page.Request["__EVENTTARGET"] == RibbonPostbackId)
 public class VisualWebPart1 : ContextualWebPart
 {
 	private const string textBoxPostbackId = "MyTextBoxPostbackId";
-	private const string textBoxId = "Ribbon.CustomTab.CustomGroup.CustomTextBox";
+	private const string textBoxId = "Ribbon.MyContext.Tab.PostbackGroup.TextBox";
 
 	public override ContextualGroupDefinition GetContextualGroupDefinition()
 	{
 		return new ContextualGroupDefinition()
 		{
 		
-			// ...
-
-			new ButtonDefinition()
-			{
-				Id = "PostbackButton",
-				Title = "My postback button",
-				CommandJavaScript = 
-					String.Format(
-						"__doPostBack('{0}',{1});"), 
-						textBoxPostbackId,
-						"document.getElementById('" + textBoxId + "').value"
-					)
+			Id = "MyContext",
+            Title = "VisualWebPart1 Tools",
+            Tabs = new TabDefinition[]
+            {
+                new TabDefinition()
+                {
+                    Id = "Tab",
+                    Title = "My tab",
+                    Groups = new GroupDefinition[]
+                    {
+                            
+		                new GroupDefinition()
+		                {
+		                    Id = "PostbackGroup",
+		                    Title = "Postback group",
+		                    Template = GroupTemplateLibrary.ThreeRowTemplate,
+		                    Controls = new ControlDefinition[]
+		                    {
+		                        new LabelDefinition()
+		                        {
+		                            Id = "Label",
+		                            Title = "Enter your data:",
+		                            Image = new ImageDefinition() { Url16 = "/_layouts/images/wpedit.gif" },
+		                            ForId = "TextBox"
+		                        },
+		                        new TextBoxDefinition() 
+		                        { 
+		                            Id = "TextBox",
+		                            InitialValueJavaScript = "return '';"
+		                        },
+		                        new ButtonDefinition()
+		                        {
+		                            Id = "Button",
+		                            Title = "Save!",
+		                            Image = new ImageDefinition() { Url16 = "/_layouts/images/saveitem.gif" },
+		                            CommandJavaScript = 
+										String.Format("__doPostBack('{0}',{1});"), 
+											textBoxPostbackId,
+											"document.getElementById('" + textBoxId + "').value")
+		                        }
+		                    }
+		                }
+					}
+				}
 			}
-		
-			// ...
 		};
 	}
 

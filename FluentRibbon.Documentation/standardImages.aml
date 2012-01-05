@@ -9,7 +9,7 @@
       <title>Standard SharePoint Ribbon icons</title>
       <content>
         <para>
-        Standard Ribbon icons are contained in two complex images:
+        Standard Ribbon icons are contained in two image sheets:
         formatmap32x32.png and formatmap16x16.png. They both contain
         similar images in different resolutions: 32x32 and 16x16 respectivly.
         </para>
@@ -46,6 +46,32 @@ new ButtonDefinition()
     Title = "Undo last move",
     CommandJavaScript = "Gb();",
     Image = ImageLibrary.GetStandardImage(3, 13)
+}
+        </code>
+      </content>
+    </section>
+    <section address="Localization">
+      <title>Using standard images in localized SharePoint environments</title>
+      <content>
+        <para>
+        Files formatmap32x32.png and formatmap16x16.png in localized SharePoint
+        environments need to be referenced respecting the current locale.
+        
+        You can use
+        <codeEntityReference qualifyHint="true" autoUpgrade="true">M:FluentRibbon.Libraries.ImageLibrary.GetStandardImage(System.Int32,System.Int32,System.Int32)</codeEntityReference>
+        overload for this purpose, providing locale ID as the last parameter.
+        </para>
+        <para>
+        For example, if you have <legacyBold>SPWeb</legacyBold> object in the <legacyItalic>web</legacyItalic> variable, you can respect localization
+        by using following code:
+        </para>
+        <code language="cs">
+new ButtonDefinition()
+{
+    Id = "Undo",
+    Title = "Undo last move",
+    CommandJavaScript = "Gb();",
+    Image = ImageLibrary.GetStandardImage(3, 13, web.Locale.ID)
 }
         </code>
       </content>

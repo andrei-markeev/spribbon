@@ -5,6 +5,7 @@
     <Topic id="10d75750-9f92-452b-94c2-a2e4d6a2e854" visible="True" title="ChessWebPart example project" />
     <Topic id="221ad13b-6f59-4133-a877-2494f74c7f62" visible="True" title="ContextualWebPart" tocTitle="How to: ContextualWebPart" />
     <Topic id="6335e0c6-e9c8-4468-a1fd-93a90377e363" visible="True" title="RibbonLayoutsPage" tocTitle="How to: RibbonLayoutsPage" />
+    <Topic id="acc273f1-829e-46e6-a671-2caad3b4578d" visible="True" title="How to: RibbonControl" />
     <Topic id="22375680-1675-4cfe-ab6c-58459fbe29dc" visible="True" title="RibbonCustomAction" tocTitle="How to: RibbonCustomAction" />
     <Topic id="06e4b52f-2379-4dbb-bc6c-28e285c8f400" visible="True" title="Definitions validation" />
   </Topic>

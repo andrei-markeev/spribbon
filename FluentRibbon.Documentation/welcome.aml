@@ -24,6 +24,7 @@
 		<list class="ordered">
 		  <listItem><para><legacyItalic>ContextualWebPart</legacyItalic> - base class for webparts with contextual ribbon tabs</para></listItem>
 		  <listItem><para><legacyItalic>RibbonLayoutsPage</legacyItalic> - base class for Application Pages with ribbon</para></listItem>
+		  <listItem><para><legacyItalic>RibbonControl</legacyItalic> - base class for delegate controls with ribbon</para></listItem>
 		  <listItem><para><legacyItalic>RibbonCustomAction</legacyItalic> - provision ribbon with Fluent Ribbon definition classes (alternative to SharePoint XML provisioning)</para></listItem>
 		</list>
       </content>
@@ -71,6 +72,17 @@ new ButtonDefinition()
 	    <mediaLink>
 	    	<image xlink:href="buttonSample"/>
 		</mediaLink>
+
+		<para>
+			Also, you can partially use FluentRibbon with sandboxed solutions 
+			and SharePoint Online (Office365). By now, only the RibbonCustomAction 
+			feature is supported.
+		</para>
+		
+		<para>
+			For this purpose, you should use FluentRibbon.Sandboxed.dll instead of
+			FluentRibbon.dll. For details, please see <link xlink:href="22375680-1675-4cfe-ab6c-58459fbe29dc">article about RibbonCustomAction</link>.
+		</para>
 		
 	  </content>
 	</section>
@@ -79,6 +91,7 @@ new ButtonDefinition()
       <link xlink:href="10d75750-9f92-452b-94c2-a2e4d6a2e854">Example project: ChessWebPart</link>
       <link xlink:href="221ad13b-6f59-4133-a877-2494f74c7f62">How to: ContextualWebPart</link>
       <link xlink:href="6335e0c6-e9c8-4468-a1fd-93a90377e363">How to: RibbonLayoutsPage</link>
+      <link xlink:href="acc273f1-829e-46e6-a671-2caad3b4578d">How to: RibbonControl</link>
       <link xlink:href="22375680-1675-4cfe-ab6c-58459fbe29dc">How to: RibbonCustomAction</link>
       <link xlink:href="06e4b52f-2379-4dbb-bc6c-28e285c8f400">Validation system</link>
     </relatedTopics>

@@ -79,7 +79,7 @@ public class VisualWebPart1 : ContextualWebPart
 	                                Id = "TestButton",
 	                                Title = "Test alert",
 	                                Image = new ImageDefinition() { Url32 = "/_layouts/images/erroricon.png" },
-	                                CommandJavaScript = "alert('test')",
+	                                CommandJavaScript = "alert('test')"
 	                            }
 	                        }
 	
@@ -99,6 +99,9 @@ public class VisualWebPart1 : ContextualWebPart
     <mediaLink>
     	<image xlink:href="contextualWebPart"/>
 	</mediaLink>
+	<para>
+		Note: ContextualWebPart feature is not available in Sandbox solutions.
+	</para>
     <!-- <buildInstructions>Optional instructions for building a
          code example.</buildInstructions> -->
     <!-- <robustProgramming>Optional discussion of error handling and other

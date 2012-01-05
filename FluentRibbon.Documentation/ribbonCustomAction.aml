@@ -32,12 +32,12 @@
         </step>
         <step>
           <content>
-            <para>Add reference to FluentRibbon.dll </para>
+            <para>Add reference to FluentRibbon.dll (or FluentRibbon.Sandboxed.dll for sandboxed solutions)</para>
           </content>
         </step>
         <step>
           <content>
-            <para>Add FluentRibbon.dll into GAC deployment list (Package.package, 'Advanced' tab)</para>
+            <para>Add FluentRibbon.dll (or FluentRibbon.Sandboxed.dll) into GAC deployment list (Package.package, 'Advanced' tab)</para>
           </content>
         </step>
         <step>
@@ -69,6 +69,7 @@
           <content>
             <para>Use 
             	<codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.AddTab(FluentRibbon.Definitions.TabDefinition)</codeEntityReference>, 
+            	<codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.AddTabToContextualGroup(FluentRibbon.Definitions.TabDefinition,System.String)</codeEntityReference>, 
             	<codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.ReplaceTab(FluentRibbon.Definitions.TabDefinition,System.String)</codeEntityReference>, 
             	<codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.AddControlGroup(FluentRibbon.Definitions.GroupDefinition,System.String,System.Int32)</codeEntityReference>, 
             	<codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.ReplaceControlGroup(FluentRibbon.Definitions.GroupDefinition,System.String,System.Int32)</codeEntityReference>, 
@@ -83,8 +84,11 @@
             <para>After adding all the definition into the instance, you should provision your custom action 
             to specific location, using <codeEntityReference autoUpgrade="true">M:FluentRibbon.RibbonCustomAction.Provision(System.Guid,Microsoft.SharePoint.SPWeb)</codeEntityReference>
             method.
-            This method has many overloads, so please, read intellisense documentation carefully to select 
-            appropriate overload.</para>
+            </para>
+            <para>
+            This method has many overloads, so please, read intellisense documentation carefully to select the 
+            appropriate overload. For example, you can provision your customizations directly to list instance.
+            </para>
           </content>
         </step>
       </steps>
