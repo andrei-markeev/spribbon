@@ -1,0 +1,170 @@
+﻿<#@ template debug="true" hostSpecific="true"  language="C#" #>
+<#@ output extension=".cs" encoding="UTF-8" #>
+<#@ Assembly Name="System.Core.dll" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Xml.Linq" #>
+
+using System;
+using Microsoft.SharePoint.Utilities;
+using FluentRibbon.Definitions;
+using FluentRibbon.Definitions.Controls;
+
+namespace FluentRibbon.Libraries
+{
+	/// <summary>
+    /// This library contains control definitions
+	/// </summary>
+	public partial class ControlLibrary
+	{
+		/// <summary>
+		/// OOTB SharePoint ribbon buttons.
+		/// </summary>
+		public class StandardButtons
+		{
+
+<#
+		Func<XAttribute, string> GetValueFromAttribute = a => a == null ? String.Empty : a.Value;
+
+		var doc = XDocument.Load(@"C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\TEMPLATE\GLOBAL\XML\CMDUI.XML");
+		var resx = XDocument.Load(@"C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\Resources\core.resx");
+		XNamespace spns = XNamespace.Get("http://schemas.microsoft.com/sharepoint/");
+		var ribbon = doc.Element(spns + "CommandUI")
+					.Element(spns + "Ribbon");
+
+		var tabElements = new List<XElement>();
+		tabElements.AddRange(ribbon.Element(spns + "Tabs").Elements());
+		tabElements.AddRange(ribbon.Element(spns + "ContextualTabs").Elements().Elements());
+	
+		foreach (XElement tabElement in tabElements)
+		{
+			if (tabElement.Element(spns + "Groups") == null 
+				|| tabElement.Element(spns + "Groups").Elements(spns + "Group").Count() == 0 
+				|| tabElement.Element(spns + "Groups").Elements(spns + "Group").Elements(spns + "Controls").Count() == 0
+				|| tabElement.Element(spns + "Groups").Elements(spns + "Group").Elements(spns + "Controls").Elements(spns + "Button").Count() == 0)
+				continue;
+
+			var tabValue = tabElement.Attribute("Id").Value;
+			var tabName = tabValue.Substring("Ribbon.".Length).Replace(".", "_");
+			var tabTitle = String.Empty;
+			if (tabElement.Attribute("Title").Value.StartsWith("$Resources:core,"))
+			{
+				tabTitle = tabElement.Attribute("Title").Value.Substring("$Resources:core,".Length).Trim().TrimEnd(';').ToLower();
+				var element = resx
+					.Element("root")
+					.Elements("data")
+					.FirstOrDefault(e => e.Attribute("name").Value.ToLower() == tabTitle);
+
+				if (element != null)
+					tabTitle = element.Element("value").Value;
+
+				tabTitle = "/// <summary>Buttons on the '" + tabTitle + "' tab.</summary>";
+			}
+
+#>
+			<#=tabTitle#>
+			public class <#=tabName#>
+			{
+<#
+				foreach (XElement groupElement in tabElement.Element(spns + "Groups").Elements())
+				{
+					var groupValue = groupElement.Attribute("Id").Value;
+					var groupName = groupValue.Substring(groupValue.LastIndexOf(".") + 1);
+					if (groupValue.StartsWith(tabValue + "."))
+						groupName = groupValue.Substring(tabValue.Length + 1).Replace(".", "_");
+
+					foreach (XElement controlElement in groupElement.Element(spns + "Controls").Elements(spns + "Button"))
+					{
+						var controlValue = GetValueFromAttribute(controlElement.Attribute("Id"));
+						var controlName = controlValue.Substring(controlValue.LastIndexOf(".") + 1);
+						if (controlValue.StartsWith(groupValue + "."))
+							controlName = controlValue.Substring(groupValue.Length + 1).Replace(".", "_");
+
+						var controlText = GetValueFromAttribute(controlElement.Attribute("LabelText"));
+
+					    string controlTitle = controlName;
+						if (controlText.StartsWith("$Resources:core,"))
+						{
+							var resourceName = controlText.Substring("$Resources:core,".Length).Trim().TrimEnd(';').ToLower();
+							var element = resx
+								.Element("root")
+								.Elements("data")
+								.FirstOrDefault(e => e.Attribute("name").Value.ToLower() == resourceName);
+
+							if (element != null)
+								controlTitle = element.Element("value").Value;
+						}
+
+						var controlTooltipTitle = GetValueFromAttribute(controlElement.Attribute("ToolTipTitle"));
+						var controlTooltipDescription = GetValueFromAttribute(controlElement.Attribute("ToolTipDescription"));
+
+						var controlImage16 = GetValueFromAttribute(controlElement.Attribute("Image16by16"));
+						var controlImage32 = GetValueFromAttribute(controlElement.Attribute("Image32by32"));
+
+						var imageX = GetValueFromAttribute(controlElement.Attribute("Image32by32Left"));
+						var imageY = GetValueFromAttribute(controlElement.Attribute("Image32by32Top"));
+						string xyImageText = string.Empty;
+						if (!String.IsNullOrEmpty(imageX))
+							xyImageText = ",\r\n\t\t\t\t\t\t\tX = " + -Convert.ToInt32(imageX)/32 + ",\r\n\t\t\t\t\t\t\tY = " + -Convert.ToInt32(imageY)/32;
+
+#>
+				/// <summary>
+				/// Button, which will appear identical to the standard '<#=controlTitle#>' button, but with custom javascript attached to it.
+				/// </summary>
+				/// <param name="javascript">Javascript code, which will be executed, when the button is clicked.</param>
+				public static ButtonDefinition <#=groupName#>_<#=controlName#>(string javascript)
+				{
+					return <#=groupName#>_<#=controlName#>(javascript, 1033);
+				}
+				/// <summary>
+				/// Button, which will look exactly like the standard '<#=controlTitle#>' button, but with custom javascript attached to it
+				/// </summary>
+				/// <param name="javascript">Javascript code, which will be executed, when the button is clicked.</param>
+				/// <param name="lcid">Locale id for the current site. If not specified, english locale (1033) will be used.</param>
+				public static ButtonDefinition <#=groupName#>_<#=controlName#>(string javascript, int lcid)
+				{
+					string id = GetRandom().Next(100, 999).ToString();
+            
+					var definition = new ButtonDefinition()
+					{
+						Id = "Button" + id,
+						Title = SPUtility.GetLocalizedString("<#=controlText#>", "core", (uint)lcid),
+						Image = new ImageDefinition()
+						{
+							Url16 = "<#=controlImage16#>",
+							Url32 = "<#=controlImage32#>"<#=xyImageText#>
+						},
+						ToolTip = new ToolTipDefinition()
+						{
+							Title = SPUtility.GetLocalizedString("<#=controlTooltipTitle#>", "core", (uint)lcid),
+							Description = SPUtility.GetLocalizedString("<#=controlTooltipDescription#>", "core", (uint)lcid)
+						},
+						CommandJavaScript = javascript
+					};
+
+					if (definition.Image.Url16.ToLowerInvariant().Contains("$resources"))
+						definition.Image.Url16 = SPUtility.GetLocalizedString(definition.Image.Url16, "core", (uint)lcid);
+					if (definition.Image.Url32.ToLowerInvariant().Contains("$resources"))
+						definition.Image.Url32 = SPUtility.GetLocalizedString(definition.Image.Url32, "core", (uint)lcid);
+
+					return definition;
+				}
+<#
+
+					}
+				}
+#>
+			}
+<#
+		}
+#>
+		}
+	}
+}

@@ -74,6 +74,11 @@
     <Compile Include="Commands\FluentRibbonCommand.cs" />
     <Compile Include="Libraries\ControlLibrary.cs" />
     <Compile Include="Libraries\ImageLibrary.cs" />
+    <Compile Include="Libraries\StandardButtons.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StandardButtons.tt</DependentUpon>
+    </Compile>
     <Compile Include="LinqExtensions.cs" />
     <Compile Include="Definitions\RibbonDefinition.cs" />
     <Compile Include="RibbonControl.cs">
@@ -109,6 +114,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
+    <None Include="Libraries\StandardButtons.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>StandardButtons.cs</LastGenOutput>
+    </None>
     <None Include="SPRibbonIds.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SPRibbonIds.cs</LastGenOutput>

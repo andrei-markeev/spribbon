@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentRibbon.Definitions.Controls;
+using Microsoft.SharePoint.Utilities;
+using FluentRibbon.Definitions;
 
 namespace FluentRibbon.Libraries
 {
     /// <summary>
     /// This library contains control definitions
     /// </summary>
-    public class ControlLibrary
+    public partial class ControlLibrary
     {
         private static Random random;
         private static Random GetRandom()
@@ -36,5 +38,6 @@ namespace FluentRibbon.Libraries
                 CommandJavaScript = "SP.UI.Notify.addNotification('hello from button #" + id + "!');"
             };
         }
+
     }
 }

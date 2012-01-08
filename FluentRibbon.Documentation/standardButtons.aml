@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="9dfdd1b1-1215-475c-a71c-5df722ac46f6" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>SharePoint has great amount of standard buttons. And Fluent Ribbon API
+      allows you to copy their appearance (but not functionality). This article
+      describes, how it could be done.</para>
+    </introduction>
+    <section address="StandardIcons">
+      <title>Replacing standard SharePoint ribbon buttons</title>
+      <content>
+        <para>
+        Occasionaly you would like to replace the existing ribbon button with
+        your own custom one, to change it's behavour. In this situation, 
+        RibbonCustomAction in conjuction with StandardButtonsLibrary class will
+        definitely save your day.
+        </para>
+        <para>
+        For instance, consider you want to create a replacement for the standard
+        "View properties" button on a list view page. The corresponding code 
+        will look like this:
+        </para>
+        <code language="cs">
+var myViewPropertiesButton = ControlLibrary.StandardButtons.ListItem.Manage_ViewProperties("alert('My custom View properties button');");
+var customAction = new RibbonCustomAction();
+customAction.ReplaceControl(myViewPropertiesButton, SPRibbonIds.ListItem.Groups.Manage.ControlIds.ViewProperties, 40);
+customAction.Provision(properties.Feature.DefinitionId, );
+        </code>
+        
+<alert class="note">
+  <para>StandardButtonsLibrary functionality doesn't provide any javascript action for 
+  the buttons. By default, all these buttons will be dummy (do nothing).</para>
+</alert>
+
+	  </content>
+	</section>
+    <section address="Localization">
+      <title>Using standard buttons in localized SharePoint environments</title>
+      <content>
+        <para>
+        	If you're working in localized SharePoint environment, you should provide
+        	additional parameter to the method, which returns the standard button
+        	definition.
+        </para>
+        <para>
+        	For example, if you have German portal installed, you should use following
+        	code:
+        </para>
+        <code language="cs">
+var myViewPropertiesButton = ControlLibrary.StandardButtons.ListItem.Manage_ViewProperties("alert('My custom View properties button');", 1031);
+        </code>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>

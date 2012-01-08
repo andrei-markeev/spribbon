@@ -109,7 +109,7 @@ namespace FluentRibbon.Elementary.WebParts
                                         Id = "Button",
                                         Title = "Save!",
                                         Image = new ImageDefinition() { Url16 = "/_layouts/images/saveitem.gif" },
-                                        CommandJavaScript = "alert(document.getElementById('Ribbon.Tab1.Group2.DropDown').parentElement.innerText)"
+                                        CommandJavaScript = "alert(document.getElementById('Ribbon.Tab1.Group2.DropDown').parentElement.innerText);"
                                     }
                                 }
 
@@ -203,7 +203,21 @@ namespace FluentRibbon.Elementary.WebParts
                                     }
                                 }
 
+                            },
+                            new GroupDefinition()
+                            {
+                                Id = "StandardButtonsGroup",
+                                Template = GroupTemplateLibrary.SimpleTemplate,
+                                Title = "Standard buttons",
+                                Controls = new ControlDefinition[]
+                                {
+                                    ControlLibrary.StandardButtons.ListItem.Actions_AttachFile("alert('this button looks like standard Attach button')"),
+                                    ControlLibrary.StandardButtons.ListItem.Manage_ViewProperties("alert('this button looks like standard View properties button')"),
+                                    ControlLibrary.StandardButtons.ListForm_Edit.Commit_Cancel("alert('this button looks like standard Cancel button')"),
+                                    ControlLibrary.StandardButtons.ListForm_Edit.Actions_DeleteItem("alert('this button looks like standard Delete button')")
+                                }
                             }
+
                         }
                     }
                 }

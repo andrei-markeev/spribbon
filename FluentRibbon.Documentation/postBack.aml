@@ -144,5 +144,12 @@ public class VisualWebPart1 : ContextualWebPart
 	    </code>
 	</codeExample>
 
+    <relatedTopics>
+    	<externalLink>
+		<linkText>Article about how to use SharePoint ToggleButtons in conjunction with UpdatePanel and MultiView</linkText>
+		<linkUri>http://amarkeev.wordpress.com/2012/01/06/sharepoint-ribbon-togglebutton/</linkUri>
+		<linkTarget>_blank</linkTarget>
+		</externalLink>
+    </relatedTopics>
   </developerHowToDocument>
 </topic>

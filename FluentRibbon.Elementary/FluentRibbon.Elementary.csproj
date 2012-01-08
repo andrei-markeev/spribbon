@@ -57,6 +57,13 @@
     <Compile Include="Features\Feature1\Feature1.EventReceiver.cs">
       <DependentUpon>Feature1.feature</DependentUpon>
     </Compile>
+    <Compile Include="Layouts\RibbonUtils.Elementary\MultiViewPage.aspx.cs">
+      <DependentUpon>MultiViewPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Layouts\RibbonUtils.Elementary\MultiViewPage.aspx.designer.cs">
+      <DependentUpon>MultiViewPage.aspx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Layouts\RibbonUtils.Elementary\RibbonPage.aspx.cs">
       <DependentUpon>RibbonPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -79,6 +86,9 @@
     <None Include="RibbonWebPart\Elements.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Layouts\RibbonUtils.Elementary\MultiViewPage.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Layouts\RibbonUtils.Elementary\RibbonPage.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>

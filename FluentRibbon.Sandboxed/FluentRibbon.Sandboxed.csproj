@@ -129,6 +129,9 @@
     <Compile Include="..\FluentRibbon\Libraries\ImageLibrary.cs">
       <Link>Libraries\ImageLibrary.cs</Link>
     </Compile>
+    <Compile Include="..\FluentRibbon\Libraries\StandardButtons.cs">
+      <Link>Libraries\StandardButtons.cs</Link>
+    </Compile>
     <Compile Include="..\FluentRibbon\LinqExtensions.cs">
       <Link>LinqExtensions.cs</Link>
     </Compile>

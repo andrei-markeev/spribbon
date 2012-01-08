@@ -49,7 +49,6 @@ public class Feature1EventReceiver : SPFeatureReceiver
         // We need assign TemplateAlias manually to buttons, if they will be deployed separately
         button1.TemplateAlias = "o1";
         ribbonCustomAction.AddControl(button1, SPRibbonIds.ListItem.Groups.Manage.Id, 1);
-
         ribbonCustomAction.Provision(properties.Definition.Id, web, ListTypes.GenericList, ListForms.NewForm);
 
     }

@@ -12,5 +12,6 @@
   <Topic id="e91f0875-f635-4845-9cac-f98328d48c67" visible="True" noFile="true" title="Articles">
     <Topic id="97a2cc26-fb80-4e45-b29e-d80873ed2e24" visible="True" title="How to perform postbacks with Fluent Ribbon" />
     <Topic id="c269ecc9-a6e1-4e1f-ad8d-22a34f9d606e" visible="True" title="Using standard icons in your definitions" />
+    <Topic id="9dfdd1b1-1215-475c-a71c-5df722ac46f6" visible="True" title="How to re-use SharePoint standard buttons in your definitions" />
   </Topic>
 </Topics>
