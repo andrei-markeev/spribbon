@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="9dfdd1b1-1215-475c-a71c-5df722ac46f6" revisionNumber="1">
+<topic id="standardButtons" revisionNumber="1">
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>SharePoint has great amount of standard buttons. And Fluent Ribbon API

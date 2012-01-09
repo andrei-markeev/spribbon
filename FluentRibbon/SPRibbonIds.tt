@@ -17,6 +17,9 @@
 	var resx = XDocument.Load(@"C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\Resources\core.resx");
 #>
 
+namespace FluentRibbon
+{
+
 public class SPRibbonIds
 {
 
@@ -111,4 +114,5 @@ public class SPRibbonIds
 #>
 
 
+}
 }

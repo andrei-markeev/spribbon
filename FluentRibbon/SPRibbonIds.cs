@@ -1,5 +1,8 @@
 ﻿
 
+namespace FluentRibbon
+{
+
 public class SPRibbonIds
 {
 
@@ -1950,4 +1953,5 @@ public class SPRibbonIds
 		}
 
 
+}
 }

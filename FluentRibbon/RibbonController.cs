@@ -18,9 +18,9 @@ using Microsoft.SharePoint.Administration;
 namespace FluentRibbon
 {
     /// <summary>
-    /// Manage the ribbon creation from page (local ribbon)
+    /// Manage local ribbon customizations (i.e. this affects only current page, and customizations are not stored anywhere, unlike custom actions approach)
     /// </summary>
-    internal class RibbonController
+    public class RibbonController
     {
         #region Singleton
 
@@ -59,8 +59,48 @@ namespace FluentRibbon
             RibbonCommandRepository.Current.AddCommands(definition);
         }
 
-        internal void AddRibbonTabToPage(TabDefinition definition, Page page, bool makeInitial)
+        /// <summary>
+        /// Add ribbon tab to the specified page
+        /// </summary>
+        /// <param name="definition">Definition of the ribbon tab</param>
+        /// <param name="page">Page, to which the definition will be added</param>
+        /// <param name="makeInitial">if true, the ribbon tab will be active when page is loaded, otherwise the default tab (Browse) will be active</param>
+        /// <remarks>
+        /// <para>
+        /// This method is intended to provide ability to add local ribbon customizations. The customizations have to be specified each time 
+        /// when the page gets loaded. To add permanent customizations, use <see cref="RibbonCustomAction"/>.
+        /// </para>
+        /// <para>
+        /// This method cannot create contextual tabs, only static.
+        /// </para>
+        /// </remarks>
+        /// <example>
+        /// <para>
+        /// Example of usage:
+        /// </para>
+        /// <code lang="csharp">
+        /// public class MyPage : LayoutsPageBase
+        /// {
+        ///     public void Page_Load(object sender, EventArgs e)
+        ///     {
+        ///         RibbonController.Current.AddRibbonTabToPage(MyRibbonManager.MyTabDefinition, this, true);
+        ///     }
+        /// }
+        /// </code>
+        /// <para>
+        /// This will add initially active ribbon tab to the application page MyPage.
+        /// Tab definition is supposed to be stored in some custom user class MyRibbonManager.
+        /// </para>
+        /// <para>
+        /// Also its possible to use this method for adding tabs to ribbon from webparts. But you must provide different ribbon ids
+        /// for different webparts and even for different instances of the same webpart.
+        /// </para>
+        /// </example>
+        public void AddRibbonTabToPage(TabDefinition definition, Page page, bool makeInitial)
         {
+            if (SPRibbon.GetCurrent(page) == null)
+                throw new Exception("SPRibbon.GetCurrent returned null for the specified page!");
+            
             AddRibbonExtension(XmlGenerator.Current.GetTabXML(definition), page, "Ribbon.Tabs", makeInitial);
             AddGroupTemplatesRibbonExtensions(definition.GroupTemplates, page);
 

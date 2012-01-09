@@ -26,7 +26,7 @@ namespace FluentRibbon
         /// Registers custom ribbon tab for a list at specified SPWeb, replacing one of the existing tabs.
         /// </summary>
         /// <param name="tabDefinition">Definition of the ribbon tab.</param>
-        /// <param name="oldTabId">Valid existing ribbon tab id, for tab which will be replaced. <seealso cref="SPRibbonIds"/></param>
+        /// <param name="oldTabId">Valid existing ribbon tab id, for tab which will be replaced. <seealso cref="T:FluentRibbon.SPRibbonIds"/></param>
         public void ReplaceTab(TabDefinition tabDefinition, string oldTabId)
         {
             RibbonXML =
@@ -41,7 +41,7 @@ namespace FluentRibbon
         /// Adds custom tab to specified contextual tab group
         /// </summary>
         /// <param name="tabDefinition">Definition of the ribbon tab.</param>
-        /// <param name="contextualGroupId">Valid existing ribbon contextual tab group id, inside which the tab will be added. <seealso cref="SPRibbonIds"/></param>
+        /// <param name="contextualGroupId">Valid existing ribbon contextual tab group id, inside which the tab will be added. <seealso cref="T:FluentRibbon.SPRibbonIds"/></param>
         public void AddTabToContextualGroup(TabDefinition tabDefinition, string contextualGroupId)
         {
             RibbonXML =

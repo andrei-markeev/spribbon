@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="5b3886da-4f52-4732-aba8-cc200ea98cb5" revisionNumber="1">
+<topic id="welcome" revisionNumber="1">
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para></para>
@@ -81,19 +81,19 @@ new ButtonDefinition()
 		
 		<para>
 			For this purpose, you should use FluentRibbon.Sandboxed.dll instead of
-			FluentRibbon.dll. For details, please see <link xlink:href="22375680-1675-4cfe-ab6c-58459fbe29dc">article about RibbonCustomAction</link>.
+			FluentRibbon.dll. For details, please see <link xlink:href="ribbonCustomAction">article about RibbonCustomAction</link>.
 		</para>
 		
 	  </content>
 	</section>
 
     <relatedTopics>
-      <link xlink:href="10d75750-9f92-452b-94c2-a2e4d6a2e854">Example project: ChessWebPart</link>
-      <link xlink:href="221ad13b-6f59-4133-a877-2494f74c7f62">How to: ContextualWebPart</link>
-      <link xlink:href="6335e0c6-e9c8-4468-a1fd-93a90377e363">How to: RibbonLayoutsPage</link>
-      <link xlink:href="acc273f1-829e-46e6-a671-2caad3b4578d">How to: RibbonControl</link>
-      <link xlink:href="22375680-1675-4cfe-ab6c-58459fbe29dc">How to: RibbonCustomAction</link>
-      <link xlink:href="06e4b52f-2379-4dbb-bc6c-28e285c8f400">Validation system</link>
+		<externalLink><linkText>Example project: ChessWebPart</linkText><linkUri>.\html\chessWebPart.htm</linkUri><linkTarget>_self</linkTarget></externalLink>
+		<externalLink><linkText>How to: ContextualWebPart</linkText><linkUri>.\html\contextualWebPart.htm</linkUri><linkTarget>_self</linkTarget></externalLink>
+		<externalLink><linkText>How to: RibbonLayoutsPage</linkText><linkUri>.\html\ribbonLayoutsPage.htm</linkUri><linkTarget>_self</linkTarget></externalLink>
+		<externalLink><linkText>How to: RibbonControl</linkText><linkUri>.\html\ribbonControl.htm</linkUri><linkTarget>_self</linkTarget></externalLink>
+		<externalLink><linkText>How to: RibbonCustomAction</linkText><linkUri>.\html\ribbonCustomAction.htm</linkUri><linkTarget>_self</linkTarget></externalLink>
+		<externalLink><linkText>Validation system</linkText><linkUri>.\html\validation.htm</linkUri><linkTarget>_self</linkTarget></externalLink>
     </relatedTopics>
   </developerConceptualDocument>
 </topic>

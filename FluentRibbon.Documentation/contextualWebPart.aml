@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="221ad13b-6f59-4133-a877-2494f74c7f62" revisionNumber="1">
+<topic id="contextualWebPart" revisionNumber="1">
   <developerHowToDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>ContextualWebPart simplifies creation of webparts with contextual ribbon tabs.</para>

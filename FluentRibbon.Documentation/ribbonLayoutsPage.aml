@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="6335e0c6-e9c8-4468-a1fd-93a90377e363" revisionNumber="1">
+<topic id="ribbonLayoutsPage" revisionNumber="1">
   <developerHowToDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para><codeEntityReference>T:FluentRibbon.RibbonLayoutsPage</codeEntityReference> is base class for simplifying creation of Application Pages with ribbon.</para>
@@ -92,7 +92,7 @@ public partial class ApplicationPage1 : RibbonLayoutsPage
 	</mediaLink>
 
     <relatedTopics>
-    	<link xlink:href="c269ecc9-a6e1-4e1f-ad8d-22a34f9d606e">Using standard SharePoint icons in your definitions</link>
+		<externalLink><linkText>Using standard SharePoint icons in your definitions</linkText><linkUri>.\html\standardImages.htm</linkUri><linkTarget>_self</linkTarget></externalLink>
     	<codeEntityReference>T:FluentRibbon.RibbonLayoutsPage</codeEntityReference>
     </relatedTopics>
   </developerHowToDocument>

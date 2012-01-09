@@ -9,7 +9,7 @@ using FluentRibbon.Definitions.Controls;
 
 namespace RibbonUtils.Elementary.Layouts.RibbonUtils.Elementary
 {
-    public partial class MultiViewPage : RibbonLayoutsPage
+    public partial class MultiViewPage : LayoutsPageBase
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,6 +24,8 @@ namespace RibbonUtils.Elementary.Layouts.RibbonUtils.Elementary
                 if (Int32.TryParse(eventArgument, out viewNumber))
                     SwitchView(viewNumber);
             }
+
+            RibbonController.Current.AddRibbonTabToPage(GetTabDefinition(), this, true);
         }
 
         private void SwitchView(int viewNumber)
@@ -42,7 +44,7 @@ namespace RibbonUtils.Elementary.Layouts.RibbonUtils.Elementary
             }
         }
 
-        public override TabDefinition GetTabDefinition()
+        public TabDefinition GetTabDefinition()
         {
             var updatePanelScript = Page.ClientScript.GetPostBackEventReference(MultiViewUpdatePanel, "{0}") + ";";
             var ribbonRefreshScript = "SP.Ribbon.PageManager.get_instance().get_commandDispatcher().executeCommand(Commands.CommandIds.ApplicationStateChanged, null);";

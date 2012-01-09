@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="06e4b52f-2379-4dbb-bc6c-28e285c8f400" revisionNumber="1">
+<topic id="validation" revisionNumber="1">
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>Validation is very important in SharePoint development, because

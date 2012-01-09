@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="10d75750-9f92-452b-94c2-a2e4d6a2e854" revisionNumber="1">
+<topic id="chessWebPart" revisionNumber="1">
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
@@ -57,7 +57,7 @@
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="221ad13b-6f59-4133-a877-2494f74c7f62">How to: ContextualWebPart</link>
+		<externalLink><linkText>How to: ContextualWebPart</linkText><linkUri>.\html\contextualWebPart.htm</linkUri><linkTarget>_self</linkTarget></externalLink>
     </relatedTopics>
   </developerConceptualDocument>
 </topic>
