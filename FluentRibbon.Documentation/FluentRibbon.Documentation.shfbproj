@@ -32,10 +32,80 @@
       <NamespaceSummaryItem name="FluentRibbon.Libraries" isDocumented="True">Libraries with some standard definitions, mostly control groups templates for now.</NamespaceSummaryItem>
     </NamespaceSummaries>
     <ApiFilter>
-      <Filter entryType="Namespace" fullName="FluentRibbon" isExposed="True">
-        <Filter entryType="Class" fullName="FluentRibbon.ArrayElementsRequiredAttribute" filterName="ArrayElementsRequiredAttribute" isExposed="False" />
-      </Filter>
-    </ApiFilter>
+      <Filter entryType="Namespace" fullName="FluentRibbon" isExposed="False">
+  <Filter entryType="Class" fullName="FluentRibbon.ContextualWebPart" filterName="ContextualWebPart" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="FluentRibbon.ListForms" filterName="ListForms" isExposed="True" />
+  <Filter entryType="Enumeration" fullName="FluentRibbon.ListTypes" filterName="ListTypes" isExposed="True" />
+  <Filter entryType="Class" fullName="FluentRibbon.RibbonControl" filterName="RibbonControl" isExposed="True" />
+  <Filter entryType="Class" fullName="FluentRibbon.RibbonController" filterName="RibbonController" isExposed="True" />
+  <Filter entryType="Class" fullName="FluentRibbon.RibbonCustomAction" filterName="RibbonCustomAction" isExposed="True" />
+  <Filter entryType="Class" fullName="FluentRibbon.RibbonLayoutsPage" filterName="RibbonLayoutsPage" isExposed="True" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds" filterName="SPRibbonIds" isExposed="True" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.BDCAdmin" filterName="SPRibbonIds.BDCAdmin" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.Calendar_Calendar" filterName="SPRibbonIds.Calendar_Calendar" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.Calendar_Events" filterName="SPRibbonIds.Calendar_Events" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.CustomCommands" filterName="SPRibbonIds.CustomCommands" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.DocLibListForm_Edit" filterName="SPRibbonIds.DocLibListForm_Edit" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.Document" filterName="SPRibbonIds.Document" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.EditingTools_CPEditTab" filterName="SPRibbonIds.EditingTools_CPEditTab" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.EditingTools_CPInsert" filterName="SPRibbonIds.EditingTools_CPInsert" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.Image_Image" filterName="SPRibbonIds.Image_Image" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.Library" filterName="SPRibbonIds.Library" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.Link_Link" filterName="SPRibbonIds.Link_Link" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.List" filterName="SPRibbonIds.List" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.ListForm_Display" filterName="SPRibbonIds.ListForm_Display" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.ListForm_Edit" filterName="SPRibbonIds.ListForm_Edit" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.ListItem" filterName="SPRibbonIds.ListItem" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.ManageTrust" filterName="SPRibbonIds.ManageTrust" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.Permission" filterName="SPRibbonIds.Permission" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.PostListForm_Edit" filterName="SPRibbonIds.PostListForm_Edit" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.PublishTab" filterName="SPRibbonIds.PublishTab" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.Read" filterName="SPRibbonIds.Read" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.SiteCollections" filterName="SPRibbonIds.SiteCollections" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.Solution" filterName="SPRibbonIds.Solution" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.SvcApp" filterName="SPRibbonIds.SvcApp" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.Table_Design" filterName="SPRibbonIds.Table_Design" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.Table_Layout" filterName="SPRibbonIds.Table_Layout" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.UsageReport" filterName="SPRibbonIds.UsageReport" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.WebApp" filterName="SPRibbonIds.WebApp" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.WebPartInsert_Tab" filterName="SPRibbonIds.WebPartInsert_Tab" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.WebPartOption" filterName="SPRibbonIds.WebPartOption" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.WebPartPage" filterName="SPRibbonIds.WebPartPage" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.SPRibbonIds.WikiPageTab" filterName="SPRibbonIds.WikiPageTab" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.ValidationException" filterName="ValidationException" isExposed="True" />
+</Filter>
+<Filter entryType="Namespace" fullName="FluentRibbon.Libraries" isExposed="False">
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary" filterName="ControlLibrary" isExposed="True" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons" filterName="ControlLibrary.StandardButtons" isExposed="True" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.BDCAdmin" filterName="ControlLibrary.StandardButtons.BDCAdmin" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.Calendar_Calendar" filterName="ControlLibrary.StandardButtons.Calendar_Calendar" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.Calendar_Events" filterName="ControlLibrary.StandardButtons.Calendar_Events" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.DocLibListForm_Edit" filterName="ControlLibrary.StandardButtons.DocLibListForm_Edit" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.Document" filterName="ControlLibrary.StandardButtons.Document" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.EditingTools_CPEditTab" filterName="ControlLibrary.StandardButtons.EditingTools_CPEditTab" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.EditingTools_CPInsert" filterName="ControlLibrary.StandardButtons.EditingTools_CPInsert" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.Library" filterName="ControlLibrary.StandardButtons.Library" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.Link_Link" filterName="ControlLibrary.StandardButtons.Link_Link" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.List" filterName="ControlLibrary.StandardButtons.List" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.ListForm_Display" filterName="ControlLibrary.StandardButtons.ListForm_Display" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.ListForm_Edit" filterName="ControlLibrary.StandardButtons.ListForm_Edit" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.ListItem" filterName="ControlLibrary.StandardButtons.ListItem" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.ManageTrust" filterName="ControlLibrary.StandardButtons.ManageTrust" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.Permission" filterName="ControlLibrary.StandardButtons.Permission" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.PostListForm_Edit" filterName="ControlLibrary.StandardButtons.PostListForm_Edit" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.PublishTab" filterName="ControlLibrary.StandardButtons.PublishTab" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.SiteCollections" filterName="ControlLibrary.StandardButtons.SiteCollections" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.Solution" filterName="ControlLibrary.StandardButtons.Solution" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.SvcApp" filterName="ControlLibrary.StandardButtons.SvcApp" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.Table_Layout" filterName="ControlLibrary.StandardButtons.Table_Layout" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.WebApp" filterName="ControlLibrary.StandardButtons.WebApp" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.WebPartInsert_Tab" filterName="ControlLibrary.StandardButtons.WebPartInsert_Tab" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.WebPartOption" filterName="ControlLibrary.StandardButtons.WebPartOption" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.WebPartPage" filterName="ControlLibrary.StandardButtons.WebPartPage" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ControlLibrary.StandardButtons.WikiPageTab" filterName="ControlLibrary.StandardButtons.WikiPageTab" isExposed="False" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.GroupTemplateLibrary" filterName="GroupTemplateLibrary" isExposed="True" />
+  <Filter entryType="Class" fullName="FluentRibbon.Libraries.ImageLibrary" filterName="ImageLibrary" isExposed="True" />
+</Filter></ApiFilter>
     <HelpTitle>SharePoint Fluent Ribbon API Documentation</HelpTitle>
     <KeepLogFile>False</KeepLogFile>
     <ProjectSummary>SharePoint Fluent Ribbon API allows developers to create Ribbon without unpredictable XML or typo-prone &amp;quot%3bmagic strings&amp;quot%3b.</ProjectSummary>
