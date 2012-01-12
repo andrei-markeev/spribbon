@@ -53,7 +53,7 @@ namespace FluentRibbon
             page.PreRenderComplete -= new EventHandler(page_PreRenderComplete);
             page.PreRenderComplete += new EventHandler(page_PreRenderComplete);
 
-            AddRibbonExtension(XmlGenerator.Current.GetContextualGroupXML(definition), page, "Ribbon.ContextualTabs", true);
+            AddRibbonExtension(XmlGenerator.Current.GetContextualGroupXML(definition), page, "Ribbon.ContextualTabs", false);
             AddGroupTemplatesRibbonExtensions(definition.Tabs.SelectMany(t => t.GroupTemplates), page);
 
             RibbonCommandRepository.Current.AddCommands(definition);
