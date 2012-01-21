@@ -12,6 +12,10 @@ namespace FluentRibbon
     public enum ListTypes
     {
         /// <summary>
+        /// Provision to site/web pages
+        /// </summary>
+        None = -1,
+        /// <summary>
         /// All lists
         /// </summary>
         All = 0,

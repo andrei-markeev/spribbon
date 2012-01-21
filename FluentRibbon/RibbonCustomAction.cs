@@ -74,15 +74,15 @@ namespace FluentRibbon
             customAction.Name = "FluentRibbon._" + featureUniqueGuid.ToString().Replace("-", "") + "._" + Guid.NewGuid().ToString().Replace("-", "");
             customAction.Location = GetRibbonLocationByListForms(whichForms);
             customAction.CommandUIExtension = XmlGenerator.Current.GetCommandUIExtensionXML(RibbonXML, RibbonCommandsXML, RibbonTemplatesXML);
-            if (!String.IsNullOrEmpty(templateId) && templateId != ((int)ListTypes.All).ToString())
-            {
-                customAction.RegistrationType = SPUserCustomActionRegistrationType.List;
-                customAction.RegistrationId = templateId;
-            }
-            else if (userCustomActions.Scope == SPUserCustomActionScope.Web)
+            if (String.IsNullOrEmpty(templateId) || templateId == ((int)ListTypes.All).ToString())
             {
                 customAction.RegistrationType = SPUserCustomActionRegistrationType.ContentType;
                 customAction.RegistrationId = "0x";
+            }
+            else if (templateId != ((int)ListTypes.None).ToString())
+            {
+                customAction.RegistrationType = SPUserCustomActionRegistrationType.List;
+                customAction.RegistrationId = templateId;
             }
             if (rights.HasValue)
                 customAction.Rights = rights.Value;
@@ -105,6 +105,24 @@ namespace FluentRibbon
         }
 
         #endregion
+
+        /// <summary>
+        /// Remove all ribbon customizations from specified site. Usually done in FeatureDeactivating method.
+        /// </summary>
+        /// <param name="site">SPSite object, from which customizations will be removed.</param>
+        /// <param name="featureScopedGuid">Guid, which was previosly passed into ribbon creation methods.</param>
+        public static void RemoveAllCustomizations(SPSite site, Guid featureScopedGuid)
+        {
+            for (int i = site.UserCustomActions.Count - 1; i >= 0; i--)
+            {
+                var customAction = site.UserCustomActions.ElementAt(i);
+
+                if (customAction.Name.StartsWith("FluentRibbon._" + featureScopedGuid.ToString().Replace("-", "")))
+                {
+                    customAction.Delete();
+                }
+            }
+        }
 
         /// <summary>
         /// Remove all ribbon customizations from specified web. Usually done in FeatureDeactivating method.
