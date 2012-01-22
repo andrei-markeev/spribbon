@@ -17,48 +17,48 @@ namespace FluentRibbon.Elementary.Features.Feature1
     /// The GUID attached to this class may be used during packaging and should not be modified.
     /// </remarks>
 
-[Guid("4e0a75de-9dc0-4e2a-b7c3-2d6932bf7707")]
-public class Feature1EventReceiver : SPFeatureReceiver
-{
-    Guid ReceiverGuid { get { return new Guid("4e0a75de-9dc0-4e2a-b7c3-2d6932bf7707"); } }
-
-    public override void FeatureActivated(SPFeatureReceiverProperties properties)
+    [Guid("4e0a75de-9dc0-4e2a-b7c3-2d6932bf7707")]
+    public class Feature1EventReceiver : SPFeatureReceiver
     {
-        SPWeb web = (properties.Feature.Parent as SPSite).RootWeb;
+        Guid ReceiverGuid { get { return new Guid("4e0a75de-9dc0-4e2a-b7c3-2d6932bf7707"); } }
 
-        var button1 = ControlLibrary.CreateRandomButton();
-        var button2 = ControlLibrary.CreateRandomButton();
-        var button3 = ControlLibrary.CreateRandomButton();
-
-        var group = new GroupDefinition()
+        public override void FeatureActivated(SPFeatureReceiverProperties properties)
         {
-            Id = "MyGroup",
-            Title = "Custom controls",
-            Template = Libraries.GroupTemplateLibrary.SimpleTemplate,
-            Controls = new ControlDefinition[]
+            SPWeb web = (properties.Feature.Parent as SPSite).RootWeb;
+
+            var button1 = ControlLibrary.CreateRandomButton();
+            var button2 = ControlLibrary.CreateRandomButton();
+            var button3 = ControlLibrary.CreateRandomButton();
+
+            var group = new GroupDefinition()
             {
-                button2,
-                button3
-            }
-        };
+                Id = "MyGroup",
+                Title = "Custom controls",
+                Template = Libraries.GroupTemplateLibrary.SimpleTemplate,
+                Controls = new ControlDefinition[]
+                {
+                    button2,
+                    button3
+                }
+            };
 
-        var ribbonCustomAction = new RibbonCustomAction();
+            var ribbonCustomAction = new RibbonCustomAction();
 
-        ribbonCustomAction.AddControlGroup(group, SPRibbonIds.ListItem.Id, 25);
+            ribbonCustomAction.AddControlGroup(group, SPRibbonIds.ListItem.Id, 25);
 
-        // We need assign TemplateAlias manually to buttons, if they will be deployed separately
-        button1.TemplateAlias = "o1";
-        ribbonCustomAction.AddControl(button1, SPRibbonIds.ListItem.Groups.Manage.Id, 1);
-        ribbonCustomAction.Provision(properties.Definition.Id, web, ListTypes.GenericList, ListForms.NewForm);
+            // We need assign TemplateAlias manually to buttons, if they will be deployed separately
+            button1.TemplateAlias = "o1";
+            ribbonCustomAction.AddControl(button1, SPRibbonIds.ListItem.Groups.Manage.Id, 1);
+            ribbonCustomAction.Provision(properties.Definition.Id, web, ListTypes.GenericList, ListForms.NewForm);
 
-    }
+        }
 
 
-    public override void FeatureDeactivating(SPFeatureReceiverProperties properties)
-    {
-        SPWeb web = (properties.Feature.Parent as SPSite).RootWeb;
-        RibbonCustomAction.RemoveAllCustomizations(web, properties.Definition.Id);
-    }
+        public override void FeatureDeactivating(SPFeatureReceiverProperties properties)
+        {
+            SPWeb web = (properties.Feature.Parent as SPSite).RootWeb;
+            RibbonCustomAction.RemoveAllCustomizations(web, properties.Definition.Id);
+        }
 
 
         // Uncomment the method below to handle the event raised after a feature has been installed.
