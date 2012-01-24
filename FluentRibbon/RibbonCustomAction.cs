@@ -74,15 +74,18 @@ namespace FluentRibbon
             customAction.Name = "FluentRibbon._" + featureUniqueGuid.ToString().Replace("-", "") + "._" + Guid.NewGuid().ToString().Replace("-", "");
             customAction.Location = GetRibbonLocationByListForms(whichForms);
             customAction.CommandUIExtension = XmlGenerator.Current.GetCommandUIExtensionXML(RibbonXML, RibbonCommandsXML, RibbonTemplatesXML);
-            if (String.IsNullOrEmpty(templateId) || templateId == ((int)ListTypes.All).ToString())
+            if (customAction.Scope != SPUserCustomActionScope.List)
             {
-                customAction.RegistrationType = SPUserCustomActionRegistrationType.ContentType;
-                customAction.RegistrationId = "0x";
-            }
-            else if (templateId != ((int)ListTypes.None).ToString())
-            {
-                customAction.RegistrationType = SPUserCustomActionRegistrationType.List;
-                customAction.RegistrationId = templateId;
+                if (String.IsNullOrEmpty(templateId) || templateId == ((int)ListTypes.All).ToString())
+                {
+                    customAction.RegistrationType = SPUserCustomActionRegistrationType.ContentType;
+                    customAction.RegistrationId = "0x";
+                }
+                else if (templateId != ((int)ListTypes.None).ToString())
+                {
+                    customAction.RegistrationType = SPUserCustomActionRegistrationType.List;
+                    customAction.RegistrationId = templateId;
+                }
             }
             if (rights.HasValue)
                 customAction.Rights = rights.Value;
