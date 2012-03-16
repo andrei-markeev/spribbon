@@ -46,8 +46,6 @@ namespace FluentRibbon
 
         #endregion
 
-        #region Internal
-
         internal void AddRibbonContextualTabToPage(ContextualGroupDefinition definition, Page page)
         {
             page.PreRenderComplete -= new EventHandler(page_PreRenderComplete);
@@ -114,7 +112,6 @@ namespace FluentRibbon
                 ribbon.InitialTabId = "Ribbon." + definition.Id;
         }
 
-        #endregion
 
         #region Private functions
 
@@ -150,8 +147,8 @@ namespace FluentRibbon
         private void AddRibbonExtension(string xml, Page page, string parentId, bool makeInitial)
         {
             Ribbon ribbon = SPRibbon.GetCurrent(page);
-            ribbon.Minimized = !makeInitial;
             ribbon.CommandUIVisible = true;
+            ribbon.Minimized = makeInitial ? false : ribbon.Minimized;
             XmlDocument ribbonExtensions = new XmlDocument();
             ribbonExtensions.LoadXml(xml);
             ribbon.RegisterDataExtension(ribbonExtensions.FirstChild, parentId + "._children");
