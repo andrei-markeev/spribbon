@@ -69,6 +69,7 @@
     <Compile Include="Definitions\Controls\ButtonBaseDefinition.cs" />
     <Compile Include="Definitions\Controls\ToggleButtonDefinition.cs" />
     <Compile Include="Definitions\Controls\VisualControlBaseDefinition.cs" />
+    <Compile Include="Definitions\RibbonScales.cs" />
     <Compile Include="Definitions\ToolTipDefinition.cs" />
     <Compile Include="Definitions\ImageDefinition.cs" />
     <Compile Include="Commands\FluentRibbonCommand.cs" />

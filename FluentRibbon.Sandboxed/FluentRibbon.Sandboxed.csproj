@@ -114,6 +114,9 @@
     <Compile Include="..\FluentRibbon\Definitions\RibbonDefinition.cs">
       <Link>Definitions\RibbonDefinition.cs</Link>
     </Compile>
+    <Compile Include="..\FluentRibbon\Definitions\RibbonScales.cs">
+      <Link>Definitions\RibbonScales.cs</Link>
+    </Compile>
     <Compile Include="..\FluentRibbon\Definitions\TabDefinition.cs">
       <Link>Definitions\TabDefinition.cs</Link>
     </Compile>

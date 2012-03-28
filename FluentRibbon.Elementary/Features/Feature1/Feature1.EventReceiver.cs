@@ -24,11 +24,17 @@ namespace FluentRibbon.Elementary.Features.Feature1
 
         public override void FeatureActivated(SPFeatureReceiverProperties properties)
         {
-            SPWeb web = (properties.Feature.Parent as SPSite).RootWeb;
+            SPWeb web = (properties.Feature.Parent as SPSite).AllWebs["test"];
 
-            var button1 = ControlLibrary.CreateRandomButton();
-            var button2 = ControlLibrary.CreateRandomButton();
-            var button3 = ControlLibrary.CreateRandomButton();
+            var buttonDelete = ControlLibrary.StandardButtons.ListItem.Manage_Delete("");
+            buttonDelete.Title = "Удалить проект";
+
+            var buttonNew = new ButtonDefinition()
+            {
+                Id = "NewProject",
+                Title = "Новый проект",
+
+            };
 
             var group = new GroupDefinition()
             {
@@ -37,14 +43,16 @@ namespace FluentRibbon.Elementary.Features.Feature1
                 Template = Libraries.GroupTemplateLibrary.SimpleTemplate,
                 Controls = new ControlDefinition[]
                 {
-                    button2,
-                    button3
+                    buttonNew,
+                    buttonDelete
                 }
             };
 
             var ribbonCustomAction = new RibbonCustomAction();
 
             ribbonCustomAction.AddControlGroup(group, SPRibbonIds.ListItem.Id, 25);
+            ribbonCustomAction.RemoveRibbonElement(SPRibbonIds.ListItem.Groups.New.Id);
+            ribbonCustomAction.AddControl(SPRibbonIds.ListItem.Groups.New.Id);
 
             // We need assign TemplateAlias manually to buttons, if they will be deployed separately
             button1.TemplateAlias = "o1";

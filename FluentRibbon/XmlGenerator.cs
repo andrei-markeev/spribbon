@@ -168,11 +168,11 @@ namespace FluentRibbon
             foreach (GroupDefinition group in definition.Groups)
             {
                 groupIndex++;
-                
+
                 var groupElement = GetGroupElement(group, groupIndex, "Ribbon." + definition.Id);
 
                 tabElement.Element("Scaling").AddFirst(groupElement.Element("Scaling").Element("MaxSize"));
-                tabElement.Element("Scaling").Add(groupElement.Element("Scaling").Element("Scaling"));
+                tabElement.Element("Scaling").Add(groupElement.Element("Scaling").Elements("Scale").ToArray());
                 tabElement.Element("Groups").Add(groupElement.Element("Group"));
             }
 
@@ -190,19 +190,25 @@ namespace FluentRibbon
 
             string groupId = tabId + "." + definition.Id;
 
+            // By default, use obsolete value
+            if (definition.Template.SizeIds == null && !String.IsNullOrEmpty(definition.Template.SizeId))
+                definition.Template.SizeIds = new RibbonScales[] { (RibbonScales)Enum.Parse(typeof(RibbonScales), definition.Template.SizeId) };
+
             var scalingElement = new XElement("Scaling",
                 new XAttribute("Id", tabId + ".Scaling"),
                 new XElement("MaxSize",
                     new XAttribute("Id", groupId + ".MaxSize"),
                     new XAttribute("GroupId", groupId),
-                    new XAttribute("Size", definition.Template.SizeId)
-                ),
+                    new XAttribute("Size", definition.Template.SizeIds.OrderBy(s => (int)s).First())
+                ));
+            scalingElement.Add(definition.Template.SizeIds.Select(s =>
                 new XElement("Scale",
-                    new XAttribute("Id", groupId + ".Scale"),
+                    new XAttribute("Id", groupId + ".Scale" + s.ToString()),
                     new XAttribute("GroupId", groupId),
-                    new XAttribute("Size", definition.Template.SizeId)
-                )
-                );
+                    new XAttribute("Size", s.ToString()),
+                    new XAttribute("Sequence", (int)s)
+                )));
+
 
             var groupElement = new XElement("Group",
                     new XAttribute("Id", groupId),
@@ -224,7 +230,7 @@ namespace FluentRibbon
             var controlElement = new XElement(control.Tag,
                     new XAttribute("Sequence", controlIndex)
                     );
-            
+
             control.NameSpace = groupId;
             control.AddAttributes(controlElement);
 
