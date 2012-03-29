@@ -24,15 +24,15 @@ namespace FluentRibbon.Elementary.Features.Feature1
 
         public override void FeatureActivated(SPFeatureReceiverProperties properties)
         {
-            SPWeb web = (properties.Feature.Parent as SPSite).AllWebs["test"];
+            SPSite site = properties.Feature.Parent as SPSite;
 
             var buttonDelete = ControlLibrary.StandardButtons.ListItem.Manage_Delete("");
-            buttonDelete.Title = "Удалить проект";
+            buttonDelete.Title = "Remove";
 
             var buttonNew = new ButtonDefinition()
             {
                 Id = "NewProject",
-                Title = "Новый проект",
+                Title = "New",
 
             };
 
@@ -52,20 +52,20 @@ namespace FluentRibbon.Elementary.Features.Feature1
 
             ribbonCustomAction.AddControlGroup(group, SPRibbonIds.ListItem.Id, 25);
             ribbonCustomAction.RemoveRibbonElement(SPRibbonIds.ListItem.Groups.New.Id);
-            ribbonCustomAction.AddControl(SPRibbonIds.ListItem.Groups.New.Id);
 
             // We need assign TemplateAlias manually to buttons, if they will be deployed separately
+            var button1 = ControlLibrary.CreateRandomButton();
             button1.TemplateAlias = "o1";
             ribbonCustomAction.AddControl(button1, SPRibbonIds.ListItem.Groups.Manage.Id, 1);
-            ribbonCustomAction.Provision(properties.Definition.Id, web, ListTypes.GenericList, ListForms.NewForm);
+            ribbonCustomAction.Provision(properties.Definition.Id, site, ListTypes.GenericList);
 
         }
 
 
         public override void FeatureDeactivating(SPFeatureReceiverProperties properties)
         {
-            SPWeb web = (properties.Feature.Parent as SPSite).RootWeb;
-            RibbonCustomAction.RemoveAllCustomizations(web, properties.Definition.Id);
+            SPSite site = properties.Feature.Parent as SPSite;
+            RibbonCustomAction.RemoveAllCustomizations(site, properties.Definition.Id);
         }
 
 

@@ -7,18 +7,18 @@ namespace FluentRibbon.Definitions
 {
     public enum RibbonScales
     {
-        Large = 10,
-        LargeLarge = 20,
-        LargeMedium = 30,
-        LargeSmall = 40,
-        Medium = 50,
-        MediumLarge = 60,
-        MediumMedium = 70,
-        MediumSmall = 80,
-        Small = 90,
-        SmallLarge = 100,
-        SmallMedium = 110,
-        SmallSmall = 120,
-        Popup = 130
+        Large = 20,
+        LargeLarge = 30,
+        LargeMedium = 40,
+        LargeSmall = 50,
+        Medium = 60,
+        MediumLarge = 70,
+        MediumMedium = 80,
+        MediumSmall = 90,
+        Small = 100,
+        SmallLarge = 110,
+        SmallMedium = 120,
+        SmallSmall = 130,
+        Popup = 140
     }
 }

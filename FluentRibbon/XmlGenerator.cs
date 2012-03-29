@@ -199,7 +199,8 @@ namespace FluentRibbon
                 new XElement("MaxSize",
                     new XAttribute("Id", groupId + ".MaxSize"),
                     new XAttribute("GroupId", groupId),
-                    new XAttribute("Size", definition.Template.SizeIds.OrderBy(s => (int)s).First())
+                    new XAttribute("Size", definition.Template.SizeIds.OrderBy(s => (int)s).First()),
+                    new XAttribute("Sequence", 10)
                 ));
             scalingElement.Add(definition.Template.SizeIds.Select(s =>
                 new XElement("Scale",
