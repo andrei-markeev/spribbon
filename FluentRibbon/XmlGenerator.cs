@@ -155,7 +155,7 @@ namespace FluentRibbon
                 new XElement("Tab",
                     new XAttribute("Id", "Ribbon." + definition.Id),
                     new XAttribute("Title", definition.Title),
-                    new XAttribute("Sequence", "501"),
+                    new XAttribute("Sequence", definition.Sequence),
                     new XElement("Scaling",
                         new XAttribute("Id", "Ribbon." + definition.Id + ".Scaling")
                     ),

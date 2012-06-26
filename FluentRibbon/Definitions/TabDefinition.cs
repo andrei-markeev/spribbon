@@ -34,5 +34,10 @@ namespace FluentRibbon.Definitions
         /// Groups of controls. Required at least one group.
         /// </summary>
         public GroupDefinition[] Groups;
+
+        /// <summary>
+        /// Determines order of the tab. 501 by default.
+        /// </summary>
+        public int Sequence = 501;
     }
 }
