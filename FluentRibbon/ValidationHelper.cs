@@ -1,36 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection;
-using FluentRibbon.Definitions;
-using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
+using FluentRibbon.Definitions;
 
 namespace FluentRibbon
 {
     internal class ValidationHelper
     {
         #region Singleton
-
-        private static ValidationHelper instance = null;
+        private static ValidationHelper instance = new ValidationHelper();
 
         internal static ValidationHelper Current
         {
-            get
-            {
-                if (instance == null)
-                    instance = new ValidationHelper();
-
-                return instance;
-            }
+            get { return instance; }
         }
 
         private ValidationHelper()
         {
-
         }
-
         #endregion
 
         internal void CheckArrayHasElements(RibbonDefinition obj, string fieldName)
@@ -111,7 +100,6 @@ namespace FluentRibbon
                         )
                     );
             }
-
         }
     }
 }

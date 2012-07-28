@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Web.UI;
-using System.Runtime.InteropServices;
-
-using Microsoft.SharePoint;
-using Microsoft.Web.CommandUI;
-using Microsoft.SharePoint.WebControls;
-
-using FluentRibbon.Definitions;
-using FluentRibbon.Definitions.Controls;
+using System.Xml;
 using FluentRibbon.Commands;
+using FluentRibbon.Definitions;
 using Microsoft.SharePoint.Administration;
+using Microsoft.SharePoint.WebControls;
+using Microsoft.Web.CommandUI;
 
 namespace FluentRibbon
 {
@@ -22,28 +16,25 @@ namespace FluentRibbon
     /// </summary>
     public class RibbonController
     {
-        #region Singleton
+        /// <summary>
+        /// Key used to store <see cref="RibbonCommandRepository"/> instance in <see cref="Page.Items"/> dictionary.
+        /// </summary>
+        const string CommandsKey = "FluentRibbonCommandRepository";
 
-        private static RibbonController instance = null;
+        #region Singleton
+        private static RibbonController instance = new RibbonController();
 
         /// <summary>
         /// Singleton instance of RibbonController class
         /// </summary>
         public static RibbonController Current
         {
-            get
-            {
-                if (instance == null)
-                    instance = new RibbonController();
-
-                return instance;
-            }
+            get { return instance; }
         }
 
         private RibbonController()
         {
         }
-
         #endregion
 
         internal void AddRibbonContextualTabToPage(ContextualGroupDefinition definition, Page page)
@@ -54,7 +45,9 @@ namespace FluentRibbon
             AddRibbonExtension(XmlGenerator.Current.GetContextualGroupXML(definition), page, "Ribbon.ContextualTabs", false);
             AddGroupTemplatesRibbonExtensions(definition.Tabs.SelectMany(t => t.GroupTemplates), page);
 
-            RibbonCommandRepository.Current.AddCommands(definition);
+            var commands = new RibbonCommandRepository();
+            commands.AddCommands(definition);
+            page.Items[CommandsKey] = commands;
         }
 
         /// <summary>
@@ -102,7 +95,10 @@ namespace FluentRibbon
             AddRibbonExtension(XmlGenerator.Current.GetTabXML(definition), page, "Ribbon.Tabs", makeInitial);
             AddGroupTemplatesRibbonExtensions(definition.GroupTemplates, page);
 
-            RibbonCommandRepository.Current.AddCommands(definition);
+            var commands = new RibbonCommandRepository();
+            commands.AddCommands(definition);
+            page.Items[CommandsKey] = commands;
+
             page.PreRenderComplete -= new EventHandler(page_PreRenderComplete);
             page.PreRenderComplete += new EventHandler(page_PreRenderComplete);
 
@@ -119,9 +115,11 @@ namespace FluentRibbon
         {
             try
             {
-                Page page = sender as Page;
-                if (RibbonCommandRepository.Current.GetCommandsCount() > 0)
-                    RegisterCommands(page);
+                var page = sender as Page;
+                var commands = page.Items[CommandsKey] as RibbonCommandRepository;
+
+                if (commands.GetCommandsCount() > 0)
+                    RegisterCommands(page, commands);
             }
             catch (Exception ex)
             {
@@ -154,28 +152,20 @@ namespace FluentRibbon
             ribbon.RegisterDataExtension(ribbonExtensions.FirstChild, parentId + "._children");
         }
 
-        private void RegisterCommands(Page page)
+        private void RegisterCommands(Page page, RibbonCommandRepository commands)
         {
-            // SPRibbonScriptManager is not avaliable for sandboxed solutions
-            //SPRibbonScriptManager ribbonScriptManager = new SPRibbonScriptManager();
-            //ribbonScriptManager.RegisterGetCommandsFunction(page, "getGlobalCommands", RibbonCommandConverter.Convert(RibbonCommandRepository.Current.GetCommands()));
-            //ribbonScriptManager.RegisterCommandEnabledFunction(page, "commandEnabled", RibbonCommandConverter.Convert(RibbonCommandRepository.Current.GetCommands()));
-            //ribbonScriptManager.RegisterHandleCommandFunction(page, "handleCommand", RibbonCommandConverter.Convert(RibbonCommandRepository.Current.GetCommands()));
-
             page.ClientScript.RegisterClientScriptBlock(
                 page.GetType(),
                 "FluentRibbonCommands",
-                ScriptHelper.GetCommandsScript(RibbonCommandRepository.Current.GetCommands()));
+                ScriptHelper.GetCommandsScript(commands.GetCommands()));
 
             page.ClientScript.RegisterClientScriptBlock(
                 page.GetType(),
                 "InitPageComponent",
                 ScriptHelper.GetPageComponentScript("FluentRibbon"));
 
-            RibbonCommandRepository.Current.ClearCommands();
+            commands.ClearCommands();
         }
-
         #endregion
-
     }
 }

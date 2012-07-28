@@ -13,24 +13,16 @@ namespace FluentRibbon
     internal class XmlGenerator
     {
         #region Singleton
-
-        private static XmlGenerator instance = null;
+        private static XmlGenerator instance = new XmlGenerator();
 
         public static XmlGenerator Current
         {
-            get
-            {
-                if (instance == null)
-                    instance = new XmlGenerator();
-
-                return instance;
-            }
+            get { return instance; }
         }
 
         private XmlGenerator()
         {
         }
-
         #endregion
 
 

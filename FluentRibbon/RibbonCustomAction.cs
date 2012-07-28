@@ -17,7 +17,6 @@ namespace FluentRibbon
     // So much code in this class, and xml comments as well, so made it partial (and readable, I hope). See "RibbonCustomAction" project folder.
     public partial class RibbonCustomAction
     {
-
         /// <summary>
         /// Prepared for deployment ribbon definitions
         /// </summary>
@@ -177,18 +176,16 @@ namespace FluentRibbon
 
         private string GetCommandsXML(RibbonDefinition definition)
         {
-            RibbonCommandRepository.Current.ClearCommands();
-            RibbonCommandRepository.Current.AddCommands(definition);
+            var commands = new RibbonCommandRepository();
+            commands.AddCommands(definition);
             string commandsXML = String.Empty;
 
-            foreach (var command in RibbonCommandRepository.Current.GetCommands())
+            foreach (var command in commands.GetCommands())
             {
                 commandsXML += XmlGenerator.Current.GetCommandUIHandlerXML(command);
             }
 
-            RibbonCommandRepository.Current.ClearCommands();
             return "<root>" + commandsXML + "</root>";
-
         }
 
 
