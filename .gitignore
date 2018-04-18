@@ -1,0 +1,7 @@
+obj
+pkg
+pkgobj
+bin
+*.suo
+*.user
+TestResults
